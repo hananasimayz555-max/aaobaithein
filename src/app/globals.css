@@ -1,0 +1,268 @@
+@import "tailwindcss";
+
+/* Neon chai brand tokens. Flat colour only: no gradients, glows or shadows. */
+@theme {
+  --color-ink: #14110f;
+  --color-ink-card: #1f1b18;
+  --color-ink-line: #3a332d;
+  --color-pink: #ff4d6d;
+  --color-amber: #ffb703;
+  --color-mint: #00c2a8;
+  --color-cream: #fff8ec;
+  --color-cream-line: #eadfcb;
+  --color-muted-dark: #b8ae9e;
+  --color-muted-light: #6b5846;
+  --color-chai: #c8742b;
+  --color-amber-tint: #fff0c7;
+  --color-mint-tint: #d5f5ef;
+  --color-pink-tint: #ffe1e7;
+
+  --font-display: var(--font-heading), "Arial Black", system-ui, sans-serif;
+  --font-sans: var(--font-body), Helvetica, Arial, sans-serif;
+
+  --radius-xl2: 1.25rem;
+  --radius-arch: 999px 999px 1.25rem 1.25rem;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--color-ink);
+  color: var(--color-cream);
+  font-family: var(--font-sans);
+  font-size: 15px;
+}
+
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  padding: 0.7rem 1.25rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  line-height: 1.2;
+  border: 2px solid transparent;
+  transition:
+    transform 0.08s ease,
+    background-color 0.15s ease;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.btn:active {
+  transform: translateY(1px);
+}
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.btn-amber {
+  background: var(--color-amber);
+  color: var(--color-ink);
+}
+.btn-amber:hover {
+  background: #ffc633;
+}
+.btn-outline {
+  border-color: currentColor;
+  background: transparent;
+}
+.btn-outline:hover {
+  background: color-mix(in srgb, currentColor 10%, transparent);
+}
+.btn-ghost {
+  background: transparent;
+  padding-inline: 0.75rem;
+}
+.btn-ghost:hover {
+  background: color-mix(in srgb, currentColor 8%, transparent);
+}
+.btn-mint {
+  background: var(--color-mint);
+  color: var(--color-ink);
+}
+.btn-pink {
+  background: var(--color-pink);
+  color: var(--color-ink);
+}
+.btn-dark {
+  background: var(--color-ink);
+  color: var(--color-cream);
+}
+.btn-sm {
+  padding: 0.4rem 0.85rem;
+  font-size: 0.85rem;
+}
+.btn-lg {
+  padding: 0.95rem 1.6rem;
+  font-size: 1.05rem;
+}
+
+/* ---------- Forms ---------- */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.field-label {
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+.field-hint {
+  font-size: 0.8rem;
+  opacity: 0.75;
+}
+.input {
+  width: 100%;
+  border-radius: 0.75rem;
+  border: 2px solid var(--color-cream-line);
+  background: #fff;
+  color: var(--color-ink);
+  padding: 0.6rem 0.8rem;
+  font-size: 16px; /* stops iOS zooming into inputs */
+  outline: none;
+}
+.input:focus {
+  border-color: var(--color-ink);
+}
+.theme-dark .input {
+  background: var(--color-ink-card);
+  border-color: var(--color-ink-line);
+  color: var(--color-cream);
+}
+.theme-dark .input:focus {
+  border-color: var(--color-amber);
+}
+textarea.input {
+  min-height: 6rem;
+  resize: vertical;
+}
+.form-error {
+  border-radius: 0.75rem;
+  background: var(--color-pink-tint);
+  color: #8f1530;
+  padding: 0.65rem 0.9rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.form-ok {
+  border-radius: 0.75rem;
+  background: var(--color-mint-tint);
+  color: #035e52;
+  padding: 0.65rem 0.9rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.choice {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  border: 2px solid var(--color-ink-line);
+  border-radius: 0.9rem;
+  padding: 0.7rem 0.9rem;
+  cursor: pointer;
+}
+.choice:has(input:checked) {
+  border-color: var(--color-amber);
+  background: color-mix(in srgb, var(--color-amber) 12%, transparent);
+}
+.choice input {
+  accent-color: var(--color-amber);
+}
+
+/* ---------- Status badges ---------- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  border-radius: 999px;
+  padding: 0.15rem 0.6rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  white-space: nowrap;
+  background: #efe6d6;
+  color: var(--color-ink);
+}
+.badge-mint {
+  background: var(--color-mint-tint);
+  color: #035e52;
+}
+.badge-amber {
+  background: var(--color-amber-tint);
+  color: #7a5400;
+}
+.badge-pink {
+  background: var(--color-pink-tint);
+  color: #a3153a;
+}
+.badge-dark {
+  background: var(--color-ink);
+  color: var(--color-cream);
+}
+.badge-solid-mint {
+  background: var(--color-mint);
+  color: var(--color-ink);
+}
+
+/* ---------- Portal surfaces ---------- */
+.panel {
+  background: #fff;
+  border: 1px solid var(--color-cream-line);
+  border-radius: 1rem;
+}
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+.table th {
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-muted-light);
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid var(--color-cream-line);
+  white-space: nowrap;
+}
+.table td {
+  padding: 0.65rem 0.75rem;
+  border-bottom: 1px solid #f3ebdc;
+  vertical-align: middle;
+}
+.table tr:last-child td {
+  border-bottom: 0;
+}
+.table tbody tr:hover {
+  background: #fffcf6;
+}
+
+/* ---------- Brand shapes ---------- */
+.arch {
+  border-radius: var(--radius-arch);
+}
+
+details > summary {
+  list-style: none;
+  cursor: pointer;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+details[open] .faq-plus {
+  transform: rotate(45deg);
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-amber);
+  outline-offset: 2px;
+}
