@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Separate project (Kickoff World game) with its own tooling.
+    "soccer-game/**",
   ]),
 ]);
 
