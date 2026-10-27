@@ -34,6 +34,8 @@ import { load, save, clearAll, DEFAULT_PROFILE, DEFAULT_RECORD } from './storage
 import { connect, serverUrl } from './net.js';
 
 const $app = document.getElementById('app');
+// Hosts without the game server (e.g. a static preview) set <meta name="kickoff-online" content="off">.
+const ONLINE_AVAILABLE = document.querySelector('meta[name="kickoff-online"]')?.content !== 'off';
 
 const state = {
   screen: 'home',
@@ -117,6 +119,24 @@ function header(title, back = 'home') {
   return `<header class="bar"><button class="back" data-action="go" data-to="${back}" aria-label="Back">‹</button><h1>${esc(title)}</h1></header>`;
 }
 
+// In-page confirmation dialog (native confirm() is blocked in some embedded views).
+function ask(message, okLabel = 'OK') {
+  return new Promise((resolve) => {
+    const el = document.createElement('div');
+    el.className = 'overlay ask';
+    el.innerHTML = `<div class="sheet" role="alertdialog" aria-modal="true"><p>${esc(message)}</p>
+      <div class="row"><button data-a="no">Cancel</button><button class="danger-solid" data-a="yes">${esc(okLabel)}</button></div></div>`;
+    el.addEventListener('click', (e) => {
+      const b = e.target.closest('[data-a]');
+      if (!b) return;
+      el.remove();
+      resolve(b.dataset.a === 'yes');
+    });
+    document.body.appendChild(el);
+    el.querySelector('[data-a="no"]').focus();
+  });
+}
+
 function toast(msg) {
   const el = document.createElement('div');
   el.className = 'toast';
@@ -137,7 +157,7 @@ const screens = {
       <nav class="menu">
         <button class="primary" data-action="go" data-to="quick">Quick match</button>
         <button data-action="go" data-to="tournament">${t && !t.done ? `Continue: ${esc(t.name)}` : 'Tournaments'}</button>
-        <button data-action="go" data-to="online" ${state.online ? '' : 'disabled'}>Online 1v1</button>
+        <button data-action="go" data-to="online" ${state.online && ONLINE_AVAILABLE ? '' : 'disabled'}>${ONLINE_AVAILABLE ? 'Online 1v1' : 'Online 1v1 (needs the game server)'}</button>
         <button data-action="go" data-to="teams">My teams</button>
         <div class="row">
           <button data-action="go" data-to="stats">Stats &amp; trophies</button>
@@ -609,8 +629,8 @@ const actions = {
     persist();
     go('tournament');
   },
-  'tour-abandon': () => {
-    if (!confirm('Abandon this tournament? Progress will be lost.')) return;
+  'tour-abandon': async () => {
+    if (!(await ask('Abandon this tournament? Progress will be lost.', 'Abandon'))) return;
     state.tournament = null;
     persist();
     go('tournament');
@@ -652,8 +672,8 @@ const actions = {
     toast('Team saved');
     go('teams');
   },
-  'team-delete': () => {
-    if (!confirm(`Delete ${state.edit.name}?`)) return;
+  'team-delete': async () => {
+    if (!(await ask(`Delete ${state.edit.name}?`, 'Delete'))) return;
     state.customTeams = state.customTeams.filter((t) => t.id !== state.edit.id);
     if (state.profile.teamId === state.edit.id) state.profile.teamId = 'BR';
     persist();
@@ -666,8 +686,8 @@ const actions = {
       persist();
       go('settings');
     }),
-  reset: () => {
-    if (!confirm('Delete all teams, tournaments and stats on this device?')) return;
+  reset: async () => {
+    if (!(await ask('Delete all teams, tournaments and stats on this device?', 'Delete all'))) return;
     clearAll();
     location.reload();
   },
@@ -1038,8 +1058,8 @@ function startOnlineMatch(msg) {
   m.showBanner(`vs ${opp} · you are ${teams[mySide].short}`, 2200);
   playEvent({ type: 'whistle' });
 
-  document.querySelector('.pause').addEventListener('click', () => {
-    if (m.ended || confirm('Leave the match? It counts as a loss.')) {
+  document.querySelector('.pause').addEventListener('click', async () => {
+    if (m.ended || (await ask('Leave the match? It counts as a loss.', 'Leave'))) {
       if (!m.ended) {
         state.record.online.l++;
         persist();
@@ -1121,7 +1141,11 @@ window.addEventListener('beforeinstallprompt', (e) => {
 });
 
 if ('serviceWorker' in navigator && location.protocol !== 'file:') {
-  navigator.serviceWorker.register('./sw.js').catch(() => {});
+  try {
+    navigator.serviceWorker.register('./sw.js').catch(() => {});
+  } catch {
+    // Not allowed here (e.g. sandboxed preview): the game still runs, just without offline install.
+  }
 }
 
 render();
