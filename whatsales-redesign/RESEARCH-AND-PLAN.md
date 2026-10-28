@@ -4,6 +4,37 @@
 
 ---
 
+## 0. Correction from the live site (supersedes sections 1–2 where they conflict)
+
+A screenshot of the live whatsales.com shows the company has **repositioned well beyond profit analytics**. (certain)
+
+- **Headline:** "The AI-powered platform for profitable ecommerce growth."
+- **Nine core features:**
+  1. Profitability
+  2. Performance
+  3. Inventory
+  4. Engage (AI helpdesk, "automate up to 80% of your inbox")
+  5. Flow (create once, publish everywhere)
+  6. Workspace (done-for-you team plus AI task management)
+  7. Repricer (Amazon Buy Box)
+  8. Recovery
+  9. MCP (connect Claude, ChatGPT or Grok)
+- **Marketplaces shown:** Amazon, B&Q, eBay, Walmart, Temu, Shopify, TikTok Shop, Tesco Marketplace, OnBuy, Debenhams, Etsy. Partners: Linnworks, Mirakl.
+- **Brand colours (sampled from the screenshot):**
+  - cyan `#01A6E0`
+  - navy `#0B1A2B` / `#081226`
+  - red `#E21D4B`
+  - purple `#7A3AEF`
+  - Each feature also has its own accent colour.
+- **Typeface:** looks like Lato (likely).
+- **Their own page's issue:** in the full-page capture, the Performance, Flow and Recovery sections render blank (likely scroll-triggered content that never loads). The redesign replaces 9 stacked sections with one interactive feature explorer.
+- **Still to confirm:**
+  - labels for the impact numbers (100+, 40%, 6%, £300m+, 2M+, 50+)
+  - the testimonial author's name
+  - "30+ integrations" (button) vs "50+" (impact block)
+  - official logo SVG
+  - exact per-feature colour hexes
+
 ## 1. What WhatSales actually is
 
 **WhatSales is a profit analytics platform for multichannel ecommerce sellers. It is not a WhatsApp or sales-chat tool**, whatever the name suggests. (certain)
