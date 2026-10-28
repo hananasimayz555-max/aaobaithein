@@ -105,7 +105,40 @@ What makes Orbix and its peers (Linear, Attio, Ramp, Mercury) feel modern comes 
 
 ---
 
-## 4. Homepage plan (section by section)
+## 5. Redesign plan v4: our own direction (supersedes section 4)
+
+**Brief:** keep WhatSales' colours, logo and product facts. Everything else is new: story, structure, copy, type and layout.
+
+### The core idea
+WhatSales' current site lists 9 features in a row, so the visitor has to do the thinking. Our site sells **one idea: replace the patchwork.** A growing seller runs on Seller Central, eBay Seller Hub, a repricer, a helpdesk, a stock spreadsheet and a month-end P&L nobody trusts. WhatSales is the one system that replaces that patchwork.
+
+### New structure: 9 products grouped into 3 jobs
+| Job | What the seller wants | Products |
+|---|---|---|
+| **Know** | "Tell me what I actually make" | Profitability, Performance, Ask AI (MCP) |
+| **Grow** | "Help me sell more, smarter" | Repricer, Flow (listings), Inventory |
+| **Run** | "Take the daily grind off me" | Engage (helpdesk), Workspace, Recovery |
+
+People remember three things, not nine.
+
+### Page flow
+1. **Hero:** "Sell everywhere. Run it from one place." An AI command bar types real seller questions and answers them over a live dashboard. This shows the AI in the first five seconds instead of claiming it.
+2. **Marketplace strip:** proof of breadth.
+3. **The patchwork:** 12 scattered tools collapse into one WhatSales window as you scroll. This is the main moment of the page.
+4. **Know / Grow / Run:** three chapters, each with one large interactive card and two smaller ones.
+5. **Connect once:** integrations hub with live data lines.
+6. **Built for your role:** switch between brand owners, ops & finance, and agencies.
+7. **Proof:** only stats WhatSales states publicly (1,000+ brands & agencies, 30+ integrations, up to 80% of the inbox automated). Unlabelled impact numbers stay off the page until confirmed.
+8. **FAQ:** our own questions, aimed at objections.
+9. **Close:** "Close the other fifteen tabs."
+
+### Type and colour
+- **Display:** Bricolage Grotesque, a characterful grotesk that pairs with the logo's rounded geometry.
+- **Body:** Geist.
+- **Data:** Geist Mono.
+- **Colour:** brand cyan `#01A6E0` and navy `#0B1A2B` lead. Purple `#7A3AEF` and red `#E21D4B` mark the Grow and Run chapters. Green appears only on profit numbers.
+
+## 4. Homepage plan (v1, superseded) (section by section)
 
 | # | Section | Job | Animation (and what it proves) |
 |---|---|---|---|
