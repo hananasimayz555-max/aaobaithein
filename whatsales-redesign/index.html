@@ -136,10 +136,9 @@ h3{font-size:20px;font-weight:700;letter-spacing:-.02em;line-height:1.25}
 .hero::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:72px 72px;mask-image:radial-gradient(ellipse 60% 50% at 50% 18%,#000 10%,transparent 70%);-webkit-mask-image:radial-gradient(ellipse 60% 50% at 50% 18%,#000 10%,transparent 70%);z-index:-1}
 .hero-copy{text-align:center;display:flex;flex-direction:column;align-items:center;gap:24px}
 .trust{display:inline-flex;align-items:center;gap:12px;padding:6px 16px 6px 6px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);font-size:13.5px;color:rgba(255,255,255,.85)}
-.trust .stack{display:flex}
-.trust .stack span{width:36px;height:36px;border-radius:50%;background:#fff;display:grid;place-items:center;margin-left:-8px;border:2px solid var(--night);overflow:hidden}
-.trust .stack span:first-child{margin-left:0}
-.trust .stack img{width:100%;height:100%;object-fit:contain;transform:scale(1.45)}
+.trust .stack{display:flex;gap:4px}
+.trust .stack span{width:58px;height:30px;border-radius:999px;background:#fff;display:grid;place-items:center;padding:4px 8px}
+.trust .stack img{width:100%;height:100%;object-fit:contain}
 .trust b{color:#fff}
 .hero h1 em{font-style:normal;color:var(--cyan)}
 .hero .lede{color:var(--night-muted);max-width:660px}
@@ -226,6 +225,82 @@ h3{font-size:20px;font-weight:700;letter-spacing:-.02em;line-height:1.25}
 .clients .cl:hover{opacity:1;transform:translateY(-2px)}
 .clients .cl img{max-height:54px;width:auto;object-fit:contain}
 
+/* brands: flipping logo wall */
+.brands{padding-block:96px}
+.bgrid{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.flip{perspective:900px;height:132px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.flip-in{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .9s var(--ease)}
+.flip.turn .flip-in{transform:rotateX(180deg)}
+.face{position:absolute;inset:0;display:grid;place-items:center;padding:26px 30px;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:#fff}
+.face.back{transform:rotateX(180deg)}
+.face img{max-height:56px;max-width:150px;width:auto;object-fit:contain;filter:grayscale(1);opacity:.75;transition:filter .3s,opacity .3s}
+.flip:hover .face img{filter:none;opacity:1}
+.ph{display:flex;align-items:center;gap:8px;font-weight:800;font-size:18px;letter-spacing:-.03em;color:#B4BEC9}
+.ph i{width:26px;height:26px;border-radius:8px;border:2px dashed #C9D2DC}
+.brands-note{text-align:center;font-size:13px;color:var(--faint);margin-top:16px;font-family:var(--mono)}
+
+/* statement + laurel stats */
+.statement{padding-block:120px 40px}
+.st-text{font-size:clamp(28px,3.6vw,50px);font-weight:700;letter-spacing:-.035em;line-height:1.22;text-align:center;max-width:1120px;margin:0 auto}
+.st-text .sw{opacity:.16;transition:opacity .25s}
+.st-text .sw.lit{opacity:1}
+.stk{display:inline-block;font-size:.34em;font-weight:700;letter-spacing:-.01em;line-height:1;padding:.62em 1.05em;border-radius:999px;color:#fff;transform:rotate(var(--r,-6deg)) translateY(-.5em);vertical-align:middle;box-shadow:0 10px 24px -10px rgba(11,26,43,.5);white-space:nowrap;transition:transform .5s var(--ease)}
+.stk:hover{transform:rotate(0deg) translateY(-.5em) scale(1.06)}
+.laurels{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);margin-top:88px}
+.laurel{display:flex;flex-direction:column;align-items:center;gap:14px;padding:40px 16px 8px;border-right:1px solid var(--line);text-align:center}
+.laurel:last-child{border-right:0}
+.lw{display:flex;align-items:center;gap:6px;color:var(--faint)}
+.lw svg.leaf{width:24px;height:52px}
+.lw svg.leaf.r{transform:scaleX(-1)}
+.lw .pi{width:42px;height:42px}
+.odo{display:flex;font-size:clamp(38px,4vw,54px);font-weight:800;letter-spacing:-.04em;line-height:1;height:1em;overflow:hidden}
+.odo .dg{display:inline-block;height:1em;overflow:hidden}
+.odo .dg>span{display:flex;flex-direction:column;transition:transform 1.8s var(--ease)}
+.odo .dg>span>i{font-style:normal;height:1em;line-height:1}
+.laurel p{font-size:15px;color:var(--muted);font-weight:500}
+
+/* key features */
+.kfeat{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.kf{--c:var(--cyan);position:relative;border-radius:22px;border:1px solid var(--line);background:#fff;padding:28px;display:flex;flex-direction:column;gap:14px;overflow:hidden;transition:transform .5s var(--ease),box-shadow .5s var(--ease),border-color .4s}
+.kf::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--c);transform:scaleX(0);transform-origin:left;transition:transform .6s var(--ease)}
+.kf:hover{transform:translateY(-4px);box-shadow:0 30px 60px -36px rgba(11,26,43,.35);border-color:color-mix(in srgb,var(--c) 40%,var(--line))}
+.kf:hover::after,.kf.hot::after{transform:scaleX(1)}
+.kf.hot{border-color:color-mix(in srgb,var(--c) 40%,var(--line))}
+.kf h3{font-size:19px}
+.kf p{color:var(--muted);font-size:15px}
+.kf .kn{position:absolute;right:22px;top:20px;font-family:var(--mono);font-size:12px;color:var(--faint)}
+.kf.wide{grid-column:span 2;background:linear-gradient(150deg,#071222,#0B2440 60%,#0A3756);color:#fff;border:0;flex-direction:row;align-items:center;gap:28px}
+.kf.wide p{color:var(--night-muted)}
+.kf.wide .kchips{display:flex;flex-wrap:wrap;gap:8px;max-width:340px}
+.kf.wide .kchips span{display:flex;align-items:center;gap:7px;font-size:13px;font-weight:700;padding:7px 12px 7px 7px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid var(--night-line)}
+.kf.wide .kchips .wm{font-size:12px}
+
+/* roles: horizontal scroll showcase */
+.hs{position:relative;height:320vh;background:var(--bg)}
+.hs-sticky{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;flex-direction:column;justify-content:center;gap:34px;padding-top:60px}
+.hs-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px}
+.hs-head .count{font-family:var(--mono);font-size:13px;color:var(--faint)}
+.hs-bar{height:3px;border-radius:3px;background:var(--line);overflow:hidden;width:180px;margin-top:10px}
+.hs-bar i{display:block;height:100%;width:0;background:var(--cyan)}
+.hs-track{display:flex;gap:22px;padding-left:max(24px,calc((100vw - 1192px)/2));will-change:transform}
+.rc{--c:var(--cyan);flex:none;width:min(820px,78vw);height:min(470px,60vh);border-radius:30px;background:linear-gradient(150deg,var(--night-2),var(--night));color:#fff;padding:40px;display:grid;grid-template-columns:1.1fr .9fr;gap:32px;position:relative;overflow:hidden}
+.rc::before{content:"";position:absolute;right:-15%;top:-30%;width:70%;height:100%;background:radial-gradient(closest-side,color-mix(in srgb,var(--c) 55%,transparent),transparent);opacity:.7}
+.rc>*{position:relative;min-width:0}
+.rc .who{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:color-mix(in srgb,var(--c) 60%,#fff)}
+.rc .q{font-size:clamp(22px,2.3vw,30px);font-weight:700;letter-spacing:-.025em;line-height:1.25;margin-top:14px}
+.rc ul{list-style:none;display:flex;flex-direction:column;gap:11px;margin-top:22px}
+.rc li{display:flex;gap:10px;font-size:15px;color:#D5E0EB}
+.rc li::before{content:"✓";color:color-mix(in srgb,var(--c) 70%,#fff);font-weight:800}
+.rc li b{color:#fff}
+.rc .side{display:flex;flex-direction:column;gap:10px;justify-content:center}
+.rc .mini{background:rgba(255,255,255,.06);border:1px solid var(--night-line);border-radius:14px;padding:14px;display:flex;align-items:center;gap:12px;font-size:13.5px}
+.rc .mini b{display:block;font-size:20px;letter-spacing:-.02em}
+.rc .mini small{color:var(--night-muted)}
+.rc.end{background:var(--cyan);display:flex;flex-direction:column;justify-content:space-between;width:min(420px,70vw)}
+.rc.end::before{display:none}
+.rc.end h3{font-size:clamp(28px,3vw,40px);font-weight:800;line-height:1.1}
+.rc.end .btn{background:#fff;color:var(--ink);align-self:flex-start}
+
 /* reveal */
 .anim .rv{opacity:0;transform:translateY(28px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
 .anim .rv.in{opacity:1;transform:none}
@@ -262,9 +337,9 @@ h3{font-size:20px;font-weight:700;letter-spacing:-.02em;line-height:1.25}
 .otile .stat strong.g{color:#34D399}
 
 /* ---------- platform: stacking cards ---------- */
-.platform{background:var(--mist);padding-bottom:72px}
+.platform{background:var(--mist);padding-bottom:60px}
 .stack{position:relative}
-.scard{--c:var(--cyan);position:sticky;top:148px;margin-bottom:28px;background:#fff;border:1px solid var(--line);border-radius:28px;padding:40px;display:grid;grid-template-columns:.85fr 1.15fr;gap:44px;align-items:center;min-height:min(580px,calc(100vh - 170px));box-shadow:0 30px 70px -40px rgba(11,26,43,.35);transform-origin:50% 0;will-change:transform;overflow:hidden}
+.scard{--c:var(--cyan);position:sticky;top:148px;margin:0 12px 24px;background:#fff;border:1px solid var(--line);border-radius:32px;padding:48px max(32px,calc((100vw - 1240px)/2 + 24px));display:grid;grid-template-columns:.85fr 1.15fr;gap:44px;align-items:center;min-height:min(580px,calc(100vh - 170px));box-shadow:0 30px 70px -40px rgba(11,26,43,.35);transform-origin:50% 0;will-change:transform;overflow:hidden}
 .scard::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 60% at 100% 0%,color-mix(in srgb,var(--c) 9%,transparent),transparent 70%);pointer-events:none}
 .scard::after{content:"";position:absolute;inset:0;background:#0B1A2B;opacity:var(--dim,0);pointer-events:none;border-radius:inherit;transition:opacity .1s}
 .scard>*{position:relative}
@@ -457,17 +532,21 @@ h3{font-size:20px;font-weight:700;letter-spacing:-.02em;line-height:1.25}
 .rb b.big{font-size:clamp(36px,3.6vw,52px);font-weight:800;letter-spacing:-.05em;line-height:1}
 .rb span{font-size:14px;color:var(--muted);font-weight:500}
 .rb .tagl{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--faint)}
-.rb.feat{grid-column:span 2;grid-row:span 2;background:linear-gradient(150deg,#071222,#0B2440 60%,#0A3756);color:#fff;border:0;justify-content:space-between;padding:32px}
+.rb.feat{grid-column:1/-1;background:linear-gradient(150deg,#071222,#0B2440 60%,#0A3756);color:#fff;border:0;justify-content:space-between;padding:32px}
 .rb.feat::before{content:"";position:absolute;right:-20%;top:-30%;width:80%;height:100%;background:radial-gradient(closest-side,rgba(1,166,224,.35),transparent)}
 .rb.feat>*{position:relative}
 .rb.feat .tagl{color:var(--cyan-2)}
-.rb.feat .trio{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.rb.feat .trio{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:760px}
+.rb.feat{display:grid!important;grid-template-columns:1fr 1.1fr;align-items:center;gap:28px 48px}
+.rb.feat .tagl,.rb.feat h3{grid-column:1}
+.rb.feat .trio{grid-column:2;grid-row:1 / span 3}
 .rb.feat .trio b{display:block;font-size:clamp(34px,3.6vw,52px);font-weight:800;letter-spacing:-.05em;line-height:1}
 .rb.feat .trio span{display:block;color:var(--night-muted);font-size:13.5px;margin-top:8px}
 .rb.feat .incl{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .rb.feat .incl small{font-size:12.5px;color:var(--night-muted);font-weight:600;margin-right:4px}
 .rb.feat .incl span{width:92px;height:52px;border-radius:10px;background:#fff;display:grid;place-items:center;overflow:hidden}
-.rb.feat .incl img{height:52px;width:auto;transform:scale(1.35)}
+.rb.feat .incl span{padding:6px 10px}
+.rb.feat .incl img{width:100%;height:100%;object-fit:contain}
 .rb.feat h3{font-size:clamp(22px,2.2vw,28px);font-weight:800;max-width:420px;line-height:1.25}
 .spark{height:44px;margin-top:auto}
 .spark svg{width:100%;height:100%;overflow:visible}
@@ -549,6 +628,15 @@ h3{font-size:20px;font-weight:700;letter-spacing:-.02em;line-height:1.25}
   .stack-nav{display:none}
 }
 @media (max-width:1024px){
+  .bgrid{grid-template-columns:repeat(3,1fr)}
+  .laurels{grid-template-columns:1fr 1fr}
+  .laurel:nth-child(2){border-right:0}
+  .kfeat{grid-template-columns:1fr 1fr}
+  .kf.wide{flex-direction:column;align-items:flex-start}
+  .rb.feat{grid-template-columns:1fr!important}
+  .rb.feat .trio{grid-column:1;grid-row:auto}
+  .rc{grid-template-columns:1fr;height:auto}
+  .rc .side{display:none}
   .faq-grid,.roles,.cta-wrap{grid-template-columns:1fr;gap:40px}
   .hubwrap{grid-template-columns:1fr;justify-items:center;gap:28px}
   .hubcol,.hubcol.r{align-items:stretch;width:100%;max-width:420px}
@@ -587,7 +675,7 @@ h3{font-size:20px;font-weight:700;letter-spacing:-.02em;line-height:1.25}
   .otile .stat{display:none}
   .otile .pi{width:28px;height:28px;border-radius:8px}
   .otile b{font-size:13px}
-  .scard{position:relative;top:0;padding:22px;border-radius:22px}
+  .scard{position:relative;top:0;border-radius:22px}
   .kp4{grid-template-columns:1fr 1fr}
   .inbox2,.rp,.flow3{grid-template-columns:1fr}
   .inbox2 .list{border-right:0;border-bottom:1px solid var(--line)}
@@ -600,6 +688,25 @@ h3{font-size:20px;font-weight:700;letter-spacing:-.02em;line-height:1.25}
   .rbento{grid-template-columns:1fr}
   .rb.feat{grid-column:auto;grid-row:auto;padding:24px}
   .tcard{width:300px}
+  .bgrid{grid-template-columns:repeat(2,1fr)}
+  .flip{height:100px}
+  .flip:nth-child(n+7){display:none}
+  .face{padding:16px}
+  .face img{max-width:100%}
+  .trust{flex-direction:column;border-radius:18px;padding:10px 14px;gap:8px;text-align:center}
+  .hs-head{flex-direction:column;align-items:flex-start}
+  .hs-head h2{font-size:32px}
+  .lw svg.leaf{height:36px}
+  .stk{font-size:.42em}
+  .laurels{grid-template-columns:1fr 1fr;margin-top:56px}
+  .laurel{padding:28px 8px 8px}
+  .kfeat{grid-template-columns:1fr}
+  .kf.wide{grid-column:auto}
+  .hs{height:auto}
+  .hs-sticky{position:relative;height:auto;padding-block:80px}
+  .hs-track{transform:none!important;overflow-x:auto;scroll-snap-type:x mandatory;padding-right:16px;padding-bottom:8px}
+  .rc{scroll-snap-align:start;width:86vw;padding:24px}
+  .scard{margin:0 8px 16px;padding:22px}
   .hero-ctas .btn{flex:1 1 100%}
   .collage{height:420px}
   .cc-main{left:0;width:78%}
@@ -669,9 +776,9 @@ h3{font-size:20px;font-weight:700;letter-spacing:-.02em;line-height:1.25}
       <li data-menu><button aria-expanded="false">Solutions <svg class="chev"><use href="#chev"/></svg></button>
         <div class="mega"><div class="mega-in small">
           <div class="mlist"><h6>By team</h6>
-            <a class="mitem" href="#roles" data-role="0"><div><b>Brand owners</b><span>One view of the whole business</span></div></a>
-            <a class="mitem" href="#roles" data-role="1"><div><b>Ops &amp; finance</b><span>Numbers you can trust</span></div></a>
-            <a class="mitem" href="#roles" data-role="2"><div><b>Agencies &amp; partners</b><span>Every client in one workspace</span></div></a>
+            <a class="mitem" href="#roles" ><div><b>Brand owners</b><span>One view of the whole business</span></div></a>
+            <a class="mitem" href="#roles" ><div><b>Ops &amp; finance</b><span>Numbers you can trust</span></div></a>
+            <a class="mitem" href="#roles" ><div><b>Agencies &amp; partners</b><span>Every client in one workspace</span></div></a>
           </div>
           <div class="mlist"><h6>By marketplace</h6>
             <a class="mitem" href="#integrations"><div><b>Amazon sellers</b><span>Profit, repricing &amp; FBA claims</span></div></a>
@@ -798,7 +905,7 @@ h3{font-size:20px;font-weight:700;letter-spacing:-.02em;line-height:1.25}
 </section>
 
 <!-- MARQUEE + CLIENTS -->
-<section class="band" aria-label="Channels and customers">
+<section class="band" aria-label="Channels">
   <p>Connects to the marketplaces you already sell on</p>
   <div class="marquee">
     <div class="marquee-track" id="mq">
@@ -816,11 +923,28 @@ h3{font-size:20px;font-weight:700;letter-spacing:-.02em;line-height:1.25}
       <span class="lg"><svg class="mk wide" style="color:#B07AA6"><use href="#lg-woocommerce"/></svg>WooCommerce</span>
     </div>
   </div>
-  <div class="wrap clients">
-    <small>Growing brands that run on WhatSales</small>
-    <span class="cl"><img src="assets/client-trimmingshop.svg" alt="Trimmingshop"></span>
-    <span class="cl"><img src="assets/client-dlm.svg" alt="DLM Direct"></span>
-    <span class="cl"><img src="assets/client-hardys.svg" alt="Hardys"></span>
+</section>
+
+<!-- BRANDS -->
+<section class="brands" id="brands">
+  <div class="wrap">
+    <div class="head center" style="margin-bottom:40px">
+      <span class="eyebrow rv"><i></i>Our customers</span>
+      <h2 class="rv d1 sh">Brands we've helped grow.</h2>
+    </div>
+    <div class="bgrid rv" id="bgrid">
+      <div class="flip"><div class="flip-in"><div class="face front"><img src="assets/client-trimmingshop.svg" alt="Trimmingshop"></div><div class="face back"></div></div></div>
+      <div class="flip"><div class="flip-in"><div class="face front"><img src="assets/client-dlm.svg" alt="DLM Direct"></div><div class="face back"></div></div></div>
+      <div class="flip"><div class="flip-in"><div class="face front"><img src="assets/client-hardys.svg" alt="Hardys"></div><div class="face back"></div></div></div>
+      <div class="flip"><div class="flip-in"><div class="face front"><span class="ph"><i></i>Brand 04</span></div><div class="face back"></div></div></div>
+      <div class="flip"><div class="flip-in"><div class="face front"><span class="ph"><i></i>Brand 05</span></div><div class="face back"></div></div></div>
+      <div class="flip"><div class="flip-in"><div class="face front"><span class="ph"><i></i>Brand 06</span></div><div class="face back"></div></div></div>
+      <div class="flip"><div class="flip-in"><div class="face front"><span class="ph"><i></i>Brand 07</span></div><div class="face back"></div></div></div>
+      <div class="flip"><div class="flip-in"><div class="face front"><span class="ph"><i></i>Brand 08</span></div><div class="face back"></div></div></div>
+      <div class="flip"><div class="flip-in"><div class="face front"><span class="ph"><i></i>Brand 09</span></div><div class="face back"></div></div></div>
+      <div class="flip"><div class="flip-in"><div class="face front"><span class="ph"><i></i>Brand 10</span></div><div class="face back"></div></div></div>
+    </div>
+    <p class="brands-note">Placeholder slots · swap in customer logos</p>
   </div>
 </section>
 
@@ -867,14 +991,28 @@ h3{font-size:20px;font-weight:700;letter-spacing:-.02em;line-height:1.25}
   </div>
 </section>
 
+<!-- STATEMENT -->
+<section class="statement" id="about">
+  <div class="wrap">
+    <p class="st-text" id="stText">WhatSales is the ecommerce operating platform for sellers who have outgrown spreadsheets. <span class="stk" style="--r:-7deg;background:var(--cyan)">AI-powered</span> We connect every marketplace, order, fee and customer in one place <span class="stk" style="--r:5deg;background:var(--purple)">50+ integrations</span> then put AI and a done-for-you team to work, so you stop reconciling <span class="stk" style="--r:-4deg;background:var(--red)">Built in London</span> and start growing.</p>
+    <div class="laurels">
+      <div class="laurel rv"><div class="lw"><svg class="leaf" viewBox="0 0 20 44" fill="currentColor" aria-hidden="true"><path d="M17 43C8 38 3 29 4 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><ellipse cx="6" cy="36" rx="2.4" ry="4.6" transform="rotate(-50 6 36)"/><ellipse cx="3.6" cy="28" rx="2.2" ry="4.4" transform="rotate(-25 3.6 28)"/><ellipse cx="3.4" cy="19.5" rx="2" ry="4.2" transform="rotate(-5 3.4 19.5)"/><ellipse cx="5" cy="11.5" rx="1.9" ry="4" transform="rotate(18 5 11.5)"/><ellipse cx="8.4" cy="5" rx="1.7" ry="3.6" transform="rotate(40 8.4 5)"/><ellipse cx="11" cy="39" rx="2.2" ry="4.2" transform="rotate(-85 11 39)"/></svg><span class="pi" style="--c:var(--p1)"><svg><use href="#i-profit"/></svg></span><svg class="leaf r" viewBox="0 0 20 44" fill="currentColor" aria-hidden="true"><path d="M17 43C8 38 3 29 4 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><ellipse cx="6" cy="36" rx="2.4" ry="4.6" transform="rotate(-50 6 36)"/><ellipse cx="3.6" cy="28" rx="2.2" ry="4.4" transform="rotate(-25 3.6 28)"/><ellipse cx="3.4" cy="19.5" rx="2" ry="4.2" transform="rotate(-5 3.4 19.5)"/><ellipse cx="5" cy="11.5" rx="1.9" ry="4" transform="rotate(18 5 11.5)"/><ellipse cx="8.4" cy="5" rx="1.7" ry="3.6" transform="rotate(40 8.4 5)"/><ellipse cx="11" cy="39" rx="2.2" ry="4.2" transform="rotate(-85 11 39)"/></svg></div><div class="odo num" data-v="1,000+">1,000+</div><p>Ecommerce brands and agencies</p></div>
+      <div class="laurel rv"><div class="lw"><svg class="leaf" viewBox="0 0 20 44" fill="currentColor" aria-hidden="true"><path d="M17 43C8 38 3 29 4 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><ellipse cx="6" cy="36" rx="2.4" ry="4.6" transform="rotate(-50 6 36)"/><ellipse cx="3.6" cy="28" rx="2.2" ry="4.4" transform="rotate(-25 3.6 28)"/><ellipse cx="3.4" cy="19.5" rx="2" ry="4.2" transform="rotate(-5 3.4 19.5)"/><ellipse cx="5" cy="11.5" rx="1.9" ry="4" transform="rotate(18 5 11.5)"/><ellipse cx="8.4" cy="5" rx="1.7" ry="3.6" transform="rotate(40 8.4 5)"/><ellipse cx="11" cy="39" rx="2.2" ry="4.2" transform="rotate(-85 11 39)"/></svg><span class="pi" style="--c:var(--p5)"><svg><use href="#i-flow"/></svg></span><svg class="leaf r" viewBox="0 0 20 44" fill="currentColor" aria-hidden="true"><path d="M17 43C8 38 3 29 4 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><ellipse cx="6" cy="36" rx="2.4" ry="4.6" transform="rotate(-50 6 36)"/><ellipse cx="3.6" cy="28" rx="2.2" ry="4.4" transform="rotate(-25 3.6 28)"/><ellipse cx="3.4" cy="19.5" rx="2" ry="4.2" transform="rotate(-5 3.4 19.5)"/><ellipse cx="5" cy="11.5" rx="1.9" ry="4" transform="rotate(18 5 11.5)"/><ellipse cx="8.4" cy="5" rx="1.7" ry="3.6" transform="rotate(40 8.4 5)"/><ellipse cx="11" cy="39" rx="2.2" ry="4.2" transform="rotate(-85 11 39)"/></svg></div><div class="odo num" data-v="50+">50+</div><p>Integrations</p></div>
+      <div class="laurel rv"><div class="lw"><svg class="leaf" viewBox="0 0 20 44" fill="currentColor" aria-hidden="true"><path d="M17 43C8 38 3 29 4 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><ellipse cx="6" cy="36" rx="2.4" ry="4.6" transform="rotate(-50 6 36)"/><ellipse cx="3.6" cy="28" rx="2.2" ry="4.4" transform="rotate(-25 3.6 28)"/><ellipse cx="3.4" cy="19.5" rx="2" ry="4.2" transform="rotate(-5 3.4 19.5)"/><ellipse cx="5" cy="11.5" rx="1.9" ry="4" transform="rotate(18 5 11.5)"/><ellipse cx="8.4" cy="5" rx="1.7" ry="3.6" transform="rotate(40 8.4 5)"/><ellipse cx="11" cy="39" rx="2.2" ry="4.2" transform="rotate(-85 11 39)"/></svg><span class="pi" style="--c:var(--p7)"><svg><use href="#i-price"/></svg></span><svg class="leaf r" viewBox="0 0 20 44" fill="currentColor" aria-hidden="true"><path d="M17 43C8 38 3 29 4 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><ellipse cx="6" cy="36" rx="2.4" ry="4.6" transform="rotate(-50 6 36)"/><ellipse cx="3.6" cy="28" rx="2.2" ry="4.4" transform="rotate(-25 3.6 28)"/><ellipse cx="3.4" cy="19.5" rx="2" ry="4.2" transform="rotate(-5 3.4 19.5)"/><ellipse cx="5" cy="11.5" rx="1.9" ry="4" transform="rotate(18 5 11.5)"/><ellipse cx="8.4" cy="5" rx="1.7" ry="3.6" transform="rotate(40 8.4 5)"/><ellipse cx="11" cy="39" rx="2.2" ry="4.2" transform="rotate(-85 11 39)"/></svg></div><div class="odo num" data-v="£300m+">£300m+</div><p>GMV analysed</p></div>
+      <div class="laurel rv"><div class="lw"><svg class="leaf" viewBox="0 0 20 44" fill="currentColor" aria-hidden="true"><path d="M17 43C8 38 3 29 4 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><ellipse cx="6" cy="36" rx="2.4" ry="4.6" transform="rotate(-50 6 36)"/><ellipse cx="3.6" cy="28" rx="2.2" ry="4.4" transform="rotate(-25 3.6 28)"/><ellipse cx="3.4" cy="19.5" rx="2" ry="4.2" transform="rotate(-5 3.4 19.5)"/><ellipse cx="5" cy="11.5" rx="1.9" ry="4" transform="rotate(18 5 11.5)"/><ellipse cx="8.4" cy="5" rx="1.7" ry="3.6" transform="rotate(40 8.4 5)"/><ellipse cx="11" cy="39" rx="2.2" ry="4.2" transform="rotate(-85 11 39)"/></svg><span class="pi" style="--c:var(--p3)"><svg><use href="#i-inv"/></svg></span><svg class="leaf r" viewBox="0 0 20 44" fill="currentColor" aria-hidden="true"><path d="M17 43C8 38 3 29 4 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><ellipse cx="6" cy="36" rx="2.4" ry="4.6" transform="rotate(-50 6 36)"/><ellipse cx="3.6" cy="28" rx="2.2" ry="4.4" transform="rotate(-25 3.6 28)"/><ellipse cx="3.4" cy="19.5" rx="2" ry="4.2" transform="rotate(-5 3.4 19.5)"/><ellipse cx="5" cy="11.5" rx="1.9" ry="4" transform="rotate(18 5 11.5)"/><ellipse cx="8.4" cy="5" rx="1.7" ry="3.6" transform="rotate(40 8.4 5)"/><ellipse cx="11" cy="39" rx="2.2" ry="4.2" transform="rotate(-85 11 39)"/></svg></div><div class="odo num" data-v="2M+">2M+</div><p>Orders analysed</p></div>
+    </div>
+  </div>
+</section>
+
 <!-- PLATFORM: STACKING CARDS -->
 <section class="section platform" id="platform">
   <div class="wrap">
     <div class="head center">
       <span class="eyebrow rv"><i></i>The platform</span>
-      <h2 class="rv d1">Nine products. <span class="hl">One login.</span> Zero spreadsheets.</h2>
+      <h2 class="rv d1 sh">Nine products. <span class="hl">One login.</span> Zero spreadsheets.</h2>
       <p class="lede rv d2">Use one, or all nine. They share the same live data from every channel. Scroll through them one by one.</p>
     </div>
+  </div>
     <nav class="stack-nav" id="stackNav" aria-label="Products">
       <button data-i="0"><span class="pi" style="--c:var(--p1)"><svg><use href="#i-profit"/></svg></span><span>Profitability</span></button>
       <button data-i="1"><span class="pi" style="--c:var(--p2)"><svg><use href="#i-perf"/></svg></span><span>Performance</span></button>
@@ -1113,6 +1251,22 @@ h3{font-size:20px;font-weight:700;letter-spacing:-.02em;line-height:1.25}
         </div>
       </article>
     </div>
+</section>
+
+<!-- KEY FEATURES -->
+<section class="section" id="features" style="padding-top:90px">
+  <div class="wrap">
+    <div class="head center">
+      <span class="eyebrow rv"><i></i>Why sellers switch</span>
+      <h2 class="rv d1 sh">Built for how ecommerce actually works.</h2>
+    </div>
+    <div class="kfeat" id="kfeat">
+      <div class="kf wide rv" style="--c:var(--cyan)"><div style="display:flex;flex-direction:column;gap:12px;flex:1"><span class="pi xl" style="--c:var(--cyan)"><svg><use href="#i-flow"/></svg></span><h3 style="font-size:24px">Made for UK multichannel sellers</h3><p>The UK marketplaces other tools skip sit alongside Amazon, eBay and Shopify, all in one view.</p></div><div class="kchips"><span><span class="wm wm-bq">B&amp;Q</span></span><span><span class="wm wm-tesco" style="color:#fff">TESCO</span></span><span><span class="wm wm-onbuy" style="color:#fff">On<i>Buy</i></span></span><span><span class="wm wm-deb" style="color:#fff">Debenhams</span></span><span><span class="wm wm-temu">TEMU</span></span></div></div>
+      <div class="kf rv d1" style="--c:var(--p9)"><span class="kn">02</span><span class="pi" style="--c:var(--p9)"><svg><use href="#i-spark"/></svg></span><h3>AI in every product</h3><p>Ask questions in plain English, auto-reply to customers, and get a next step with every insight.</p></div>
+      <div class="kf rv" style="--c:var(--p3)"><span class="kn">03</span><span class="pi" style="--c:var(--p3)"><svg><use href="#i-inv"/></svg></span><h3>Data that syncs itself</h3><p>Orders, fees, stock and messages update automatically. No CSV uploads, no copy and paste.</p></div>
+      <div class="kf rv d1" style="--c:var(--p6)"><span class="kn">04</span><span class="pi" style="--c:var(--p6)"><svg><use href="#i-work"/></svg></span><h3>A team, not just software</h3><p>Our done-for-you team takes on listings, content, design and support tasks with you.</p></div>
+      <div class="kf rv d2" style="--c:var(--p1)"><span class="kn">05</span><span class="pi" style="--c:var(--p1)"><svg><use href="#i-profit"/></svg></span><h3>Works with your stack</h3><p>Native Linnworks and Mirakl connections, plus 50+ integrations across marketplaces and storefronts.</p></div>
+    </div>
   </div>
 </section>
 
@@ -1121,7 +1275,7 @@ h3{font-size:20px;font-weight:700;letter-spacing:-.02em;line-height:1.25}
   <div class="wrap">
     <div class="head center">
       <span class="eyebrow rv"><i></i>Integrations</span>
-      <h2 class="rv d1">Connect once. Everything stays in sync.</h2>
+      <h2 class="rv d1 sh">Connect once. Everything stays in sync.</h2>
       <p class="lede rv d2">50+ integrations. Link a marketplace in a few clicks and its orders, fees, stock and messages flow into every WhatSales product.</p>
     </div>
     <div class="hubwrap" id="hubwrap">
@@ -1156,35 +1310,31 @@ h3{font-size:20px;font-weight:700;letter-spacing:-.02em;line-height:1.25}
 </section>
 
 <!-- ROLES -->
-<section class="section" id="roles">
-  <div class="wrap roles">
-    <div style="display:flex;flex-direction:column;gap:16px">
-      <span class="eyebrow rv"><i></i>Solutions</span>
-      <h2 class="rv d1">Built around the way your team works.</h2>
-      <p class="lede rv d2">The same live data, shaped for the people who use it every day.</p>
-      <div class="seg rv d3" role="tablist" id="seg">
-        <button class="on" role="tab" data-r="0">Brand owners</button>
-        <button role="tab" data-r="1">Ops &amp; finance</button>
-        <button role="tab" data-r="2">Agencies</button>
-      </div>
+<section class="hs" id="roles">
+  <div class="hs-sticky">
+    <div class="wrap hs-head">
+      <div style="display:flex;flex-direction:column;gap:14px"><span class="eyebrow"><i></i>Solutions</span><h2 class="sh">Built around the way your team works.</h2></div>
+      <div><span class="count" id="hsCount">01 / 03</span><div class="hs-bar"><i id="hsBar"></i></div></div>
     </div>
-    <div class="role-card rv d1">
-      <div class="rpanel on" data-r="0" style="--rc:rgba(1,166,224,.5)">
-        <p class="q">"I want to know what's working, and stop doing everything myself."</p>
-        <ul><li><span><b>One view of profit</b> across every channel and brand you own.</span></li><li><span><b>Ask your data</b> in plain English instead of digging through reports.</span></li><li><span><b>A done-for-you team</b> for listings, content and support.</span></li></ul>
-        <div class="uses"><span><span class="pi" style="--c:var(--p1)"><svg><use href="#i-profit"/></svg></span>Profitability</span><span><span class="pi" style="--c:var(--p9)"><svg><use href="#i-mcp"/></svg></span>MCP</span><span><span class="pi" style="--c:var(--p6)"><svg><use href="#i-work"/></svg></span>Workspace</span></div>
-      </div>
-      <div class="rpanel" data-r="1" style="--rc:rgba(14,154,167,.5)">
-        <p class="q">"I need numbers I can trust, without rebuilding the P&amp;L every month."</p>
-        <ul><li><span><b>Every fee, refund and cost</b> reconciled automatically.</span></li><li><span><b>Stock forecasts</b> and purchase orders next to sales.</span></li><li><span><b>Reimbursements claimed</b> without anyone chasing them.</span></li></ul>
-        <div class="uses"><span><span class="pi" style="--c:var(--p1)"><svg><use href="#i-profit"/></svg></span>Profitability</span><span><span class="pi" style="--c:var(--p3)"><svg><use href="#i-inv"/></svg></span>Inventory</span><span><span class="pi" style="--c:var(--p8)"><svg><use href="#i-recov"/></svg></span>Recovery</span></div>
-      </div>
-      <div class="rpanel" data-r="2" style="--rc:rgba(122,58,239,.5)">
-        <p class="q">"I run ten client brands. I need one workspace, and proof of the value I add."</p>
-        <ul><li><span><b>Every client brand</b> and channel in one workspace.</span></li><li><span><b>Client-only access</b>, so each brand sees just its own data.</span></li><li><span><b>Client-ready reporting</b> on profit and performance.</span></li></ul>
-        <div class="uses"><span><span class="pi" style="--c:var(--p1)"><svg><use href="#i-profit"/></svg></span>Profitability</span><span><span class="pi" style="--c:var(--p2)"><svg><use href="#i-perf"/></svg></span>Performance</span><span><span class="pi" style="--c:var(--p6)"><svg><use href="#i-work"/></svg></span>Workspace</span></div>
-      </div>
+    <div class="hs-track" id="hsTrack">
+      <article class="rc" style="--c:var(--cyan)" data-role="0">
+        <div><span class="who">Brand owners</span><p class="q">"I want to know what's working, and stop doing everything myself."</p>
+          <ul><li><span><b>One view of profit</b> across every channel and brand you own.</span></li><li><span><b>Ask your data</b> in plain English instead of digging through reports.</span></li><li><span><b>A done-for-you team</b> for listings, content and support.</span></li></ul></div>
+        <div class="side"><div class="mini"><span class="pi" style="--c:var(--p1)"><svg><use href="#i-profit"/></svg></span><div><b>£31,404</b><small>Net profit, 30 days</small></div></div><div class="mini"><span class="pi" style="--c:var(--p9)"><svg><use href="#i-mcp"/></svg></span><div><b>“What did I make?”</b><small>Answered in seconds</small></div></div><div class="mini"><span class="pi" style="--c:var(--p6)"><svg><use href="#i-work"/></svg></span><div><b>14 tasks</b><small>Done by your team</small></div></div></div>
+      </article>
+      <article class="rc" style="--c:var(--p3)" data-role="1">
+        <div><span class="who">Ops &amp; finance</span><p class="q">"I need numbers I can trust, without rebuilding the P&amp;L every month."</p>
+          <ul><li><span><b>Every fee, refund and cost</b> reconciled automatically.</span></li><li><span><b>Stock forecasts</b> and purchase orders next to sales.</span></li><li><span><b>Reimbursements claimed</b> without anyone chasing them.</span></li></ul></div>
+        <div class="side"><div class="mini"><span class="pi" style="--c:var(--p1)"><svg><use href="#i-profit"/></svg></span><div><b>£80.47</b><small>Deductions on a £100 order</small></div></div><div class="mini"><span class="pi" style="--c:var(--p3)"><svg><use href="#i-inv"/></svg></span><div><b>17 days</b><small>Cover left on MUG-SET-4</small></div></div><div class="mini"><span class="pi" style="--c:var(--p8)"><svg><use href="#i-recov"/></svg></span><div><b>£3,904.70</b><small>Recovered to date</small></div></div></div>
+      </article>
+      <article class="rc" style="--c:var(--purple)" data-role="2">
+        <div><span class="who">Agencies &amp; partners</span><p class="q">"I run ten client brands. I need one workspace, and proof of the value I add."</p>
+          <ul><li><span><b>Every client brand</b> and channel in one workspace.</span></li><li><span><b>Client-only access</b>, so each brand sees just its own data.</span></li><li><span><b>Client-ready reporting</b> on profit and performance.</span></li></ul></div>
+        <div class="side"><div class="mini"><span class="pi" style="--c:var(--p6)"><svg><use href="#i-work"/></svg></span><div><b>10 brands</b><small>One workspace</small></div></div><div class="mini"><span class="pi" style="--c:var(--p2)"><svg><use href="#i-perf"/></svg></span><div><b>12.6%</b><small>Avg. ACOS, all clients</small></div></div><div class="mini"><span class="pi" style="--c:var(--p1)"><svg><use href="#i-profit"/></svg></span><div><b>Weekly</b><small>Client-ready reports</small></div></div></div>
+      </article>
+      <article class="rc end"><h3>Not sure where you fit? We'll show you.</h3><p style="font-size:16px;opacity:.9">A personal walkthrough on your own channels and numbers.</p><a href="#demo" class="btn">Book a demo <span class="arrow">→</span></a></article>
     </div>
+    <p class="mono illus-n" style="text-align:center;font-size:10.5px;color:var(--faint)">ILLUSTRATIVE FIGURES</p>
   </div>
 </section>
 
@@ -1193,7 +1343,7 @@ h3{font-size:20px;font-weight:700;letter-spacing:-.02em;line-height:1.25}
   <div class="wrap">
     <div class="head center">
       <span class="eyebrow rv"><i></i>Customers</span>
-      <h2 class="rv d1">Real results from <span class="hl">real sellers.</span></h2>
+      <h2 class="rv d1 sh">Real results from <span class="hl">real sellers.</span></h2>
       <p class="lede rv d2">What changes when the whole business runs on one platform.</p>
     </div>
     <div class="rbento" id="rbento">
@@ -1207,10 +1357,6 @@ h3{font-size:20px;font-weight:700;letter-spacing:-.02em;line-height:1.25}
           <div><b class="num" style="color:#A78BFA" data-count="6" data-suffix="%">6%</b><span>reduction in losses</span></div>
         </div>
       </div>
-      <div class="rb rv d1"><span class="tagl">At scale</span><b class="big num">£300m+</b><span>GMV analysed</span><div class="spark"><svg viewBox="0 0 200 44" preserveAspectRatio="none"><path d="M0 40 C30 36 50 34 70 28 S110 22 130 14 S170 8 200 2" fill="none" stroke="#01A6E0" stroke-width="2.5"/></svg></div></div>
-      <div class="rb rv d2"><span class="tagl">At scale</span><b class="big num">2M+</b><span>orders analysed</span><div class="spark"><svg viewBox="0 0 200 44" preserveAspectRatio="none"><g fill="#7A3AEF" opacity=".85"><rect x="0" y="30" width="16" height="14" rx="3"/><rect x="26" y="26" width="16" height="18" rx="3"/><rect x="52" y="22" width="16" height="22" rx="3"/><rect x="78" y="18" width="16" height="26" rx="3"/><rect x="104" y="14" width="16" height="30" rx="3"/><rect x="130" y="9" width="16" height="35" rx="3"/><rect x="156" y="5" width="16" height="39" rx="3"/><rect x="182" y="0" width="16" height="44" rx="3"/></g></svg></div></div>
-      <div class="rb rv d1"><span class="tagl">Connected</span><b class="big num" data-count="50" data-suffix="+">50+</b><span>integrations</span><div style="display:flex;gap:6px;margin-top:auto"><svg class="mk" style="color:#FF9900"><use href="#lg-amazon"/></svg><svg class="mk" style="color:#7AB55C"><use href="#lg-shopify"/></svg><svg class="mk" style="color:#000"><use href="#lg-tiktok"/></svg><svg class="mk" style="color:#F16521"><use href="#lg-etsy"/></svg></div></div>
-      <div class="rb rv d2"><span class="tagl">Engage</span><b class="big num">80%</b><span>of the customer inbox automated, up to</span><svg class="ring2" viewBox="0 0 64 64"><circle cx="32" cy="32" r="26" stroke="#EEF2F6"/><circle cx="32" cy="32" r="26" stroke="#E21D4B" stroke-linecap="round" stroke-dasharray="163" stroke-dashoffset="32.6" transform="rotate(-90 32 32)"/></svg></div>
     </div>
 
     <div class="wall" aria-label="Customer testimonials">
@@ -1233,7 +1379,7 @@ h3{font-size:20px;font-weight:700;letter-spacing:-.02em;line-height:1.25}
   <div class="wrap faq-grid">
     <div style="display:flex;flex-direction:column;gap:16px">
       <span class="eyebrow rv"><i></i>FAQ</span>
-      <h2 class="rv d1">Questions we get asked most.</h2>
+      <h2 class="rv d1 sh">Questions we get asked most.</h2>
       <p class="muted rv d2">Something else? <a href="#demo" style="color:var(--cyan-ink);text-decoration:underline">Talk to our team</a>.</p>
     </div>
     <div class="faq rv d1">
@@ -1384,7 +1530,6 @@ h3{font-size:20px;font-weight:700;letter-spacing:-.02em;line-height:1.25}
     const id = a.getAttribute('href'); if (id.length < 2) return;
     e.preventDefault(); closeAll(); closeDrawer();
     if (a.dataset.open !== undefined) { goCard(+a.dataset.open); return; }
-    if (a.dataset.role !== undefined) showRole(a.dataset.role);
     const el = document.querySelector(id); if (el) scrollToEl(el);
   }));
 
@@ -1511,13 +1656,79 @@ h3{font-size:20px;font-weight:700;letter-spacing:-.02em;line-height:1.25}
     }
   })();
 
-  // roles
-  const segBtns = [...document.querySelectorAll('#seg button')], rps = [...document.querySelectorAll('.rpanel')];
-  function showRole(r) {
-    segBtns.forEach(x => { x.classList.toggle('on', x.dataset.r === r); x.setAttribute('aria-selected', x.dataset.r === r); });
-    rps.forEach(p => p.classList.toggle('on', p.dataset.r === r));
-  }
-  segBtns.forEach(b => b.addEventListener('click', () => showRole(b.dataset.r)));
+  // brands flip wall
+  const flips = [...document.querySelectorAll('#bgrid .flip')];
+  const pool = ['<img src="assets/client-trimmingshop.svg" alt="Trimmingshop">','<img src="assets/client-dlm.svg" alt="DLM Direct">','<img src="assets/client-hardys.svg" alt="Hardys">'];
+  for (let k = 4; k <= 16; k++) pool.push('<span class="ph"><i></i>Brand ' + String(k).padStart(2, '0') + '</span>');
+  let pi2 = 10, lastF = -1;
+  if (!reduce) setInterval(() => {
+    let k; do { k = Math.floor(Math.random() * flips.length); } while (k === lastF); lastF = k;
+    const f = flips[k], turned = f.classList.contains('turn');
+    f.querySelector(turned ? '.front' : '.back').innerHTML = pool[pi2++ % pool.length];
+    f.classList.toggle('turn');
+  }, 1600);
+
+  // statement: highlight words as you scroll
+  const st = document.getElementById('stText');
+  [...st.childNodes].forEach(ch => {
+    if (ch.nodeType !== 3) return;
+    const frag = document.createDocumentFragment();
+    ch.textContent.split(/(\s+)/).forEach(tok => {
+      if (!tok) return;
+      if (/^\s+$/.test(tok)) { frag.appendChild(document.createTextNode(' ')); return; }
+      const w = document.createElement('span'); w.className = 'sw'; w.textContent = tok; frag.appendChild(w);
+    });
+    ch.replaceWith(frag);
+  });
+  const sws = [...st.querySelectorAll('.sw')];
+  const litWords = () => {
+    const r = st.getBoundingClientRect(), vh = innerHeight;
+    const p = reduce ? 1 : clamp((vh * 0.85 - r.top) / (r.height + vh * 0.35));
+    const n = Math.round(p * sws.length);
+    sws.forEach((w, k) => w.classList.toggle('lit', k < n));
+  };
+  addEventListener('scroll', litWords, { passive: true }); litWords();
+
+  // odometer numbers
+  document.querySelectorAll('.odo').forEach(o => {
+    const v = o.dataset.v; o.textContent = '';
+    [...v].forEach(c => {
+      if (/\d/.test(c)) {
+        const d = document.createElement('span'); d.className = 'dg';
+        const col = document.createElement('span');
+        for (let n = 0; n <= 9; n++) { const i = document.createElement('i'); i.textContent = n; col.appendChild(i); }
+        col.dataset.t = c; d.appendChild(col); o.appendChild(d);
+      } else { const t = document.createElement('span'); t.textContent = c; o.appendChild(t); }
+    });
+  });
+  const oio = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.querySelectorAll('.dg>span').forEach((c, k) => { c.style.transitionDelay = (k * 0.08) + 's'; c.style.transform = `translateY(-${c.dataset.t}em)`; });
+    oio.unobserve(e.target);
+  }), { threshold: .5 });
+  document.querySelectorAll('.odo').forEach(o => oio.observe(o));
+
+  // key features: highlight one card at a time
+  const kfs = [...document.querySelectorAll('.kf')]; let kfi = 0;
+  if (!reduce) setInterval(() => { kfs.forEach((k, i) => k.classList.toggle('hot', i === kfi)); kfi = (kfi + 1) % kfs.length; }, 2200);
+
+  // roles: horizontal scroll showcase
+  const hs = document.getElementById('roles'), hsTrack = document.getElementById('hsTrack'), hsBar = document.getElementById('hsBar'), hsCount = document.getElementById('hsCount');
+  const hsScroll = () => {
+    if (getComputedStyle(hs.querySelector('.hs-sticky')).position !== 'sticky') return;
+    const r = hs.getBoundingClientRect(), total = r.height - innerHeight;
+    const p = clamp(-r.top / total);
+    const dist = hsTrack.scrollWidth - innerWidth + 48;
+    hsTrack.style.transform = `translateX(${-p * Math.max(0, dist)}px)`;
+    hsBar.style.width = (p * 100) + '%';
+    hsCount.textContent = '0' + Math.min(3, 1 + Math.floor(p * 3.2)) + ' / 03';
+  };
+  addEventListener('scroll', hsScroll, { passive: true }); addEventListener('resize', hsScroll); hsScroll();
+
+  // section headings: word-by-word reveal
+  document.querySelectorAll('h2.sh').forEach(h => { h.classList.add('split'); wrapWords(h); h.querySelectorAll('.w>span').forEach((x, k) => x.style.transitionDelay = (0.05 * k) + 's'); });
+  const hio = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); hio.unobserve(e.target); } }), { threshold: .4 });
+  document.querySelectorAll('h2.sh').forEach(h => hio.observe(h));
 
   // marquees: duplicate content for seamless loops
   ['mq', 'wall1', 'wall2'].forEach(id => { const t = document.getElementById(id); [...t.children].forEach(c => { const d = c.cloneNode(true); d.setAttribute('aria-hidden', 'true'); t.appendChild(d); }); });
