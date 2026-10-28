@@ -396,6 +396,32 @@ svg.wide{width:38px!important;height:38px!important;margin:-8px -4px}
 .rpanel .uses span{font-size:12.5px;font-weight:600;padding:5px 11px;border-radius:99px;background:rgba(255,255,255,.07);border:1px solid var(--night-line)}
 
 /* proof */
+.proof-card{border-radius:28px;background:linear-gradient(135deg,#071222,#0B2440 60%,#0A3756);color:#fff;padding:52px;display:grid;grid-template-columns:1.05fr 1fr;gap:56px;position:relative;overflow:hidden;isolation:isolate}
+.proof-card::before{content:"";position:absolute;right:-12%;top:-35%;width:70%;height:120%;background:radial-gradient(closest-side,rgba(1,166,224,.32),transparent);z-index:-1}
+.proof-card h3{font-size:14px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--cyan-2)}
+.tcar{position:relative;min-height:300px;margin-top:22px}
+.tq{position:absolute;inset:0;display:flex;flex-direction:column;gap:22px;opacity:0;transform:translateY(12px);transition:opacity .6s var(--ease),transform .7s var(--ease);pointer-events:none}
+.tq.on{opacity:1;transform:none;pointer-events:auto}
+.tq blockquote{font-size:clamp(20px,2vw,25px);font-weight:600;letter-spacing:-.02em;line-height:1.45}
+.tq blockquote::before{content:"\201C";display:block;font-size:64px;line-height:.6;height:26px;color:var(--cyan);font-weight:800}
+.tq .who{display:flex;gap:14px;align-items:center;font-size:15px;font-weight:700;margin-top:0}
+.tq .who img,.tq .who .ini{width:56px;height:56px;border-radius:50%;flex:none;box-shadow:0 0 0 3px rgba(1,166,224,.35)}
+.tq .who .ini{display:grid;place-items:center;background:linear-gradient(135deg,var(--cyan),var(--purple));font-size:18px}
+.tq .who small{display:block;color:var(--night-muted);font-weight:500;font-size:13.5px}
+.tnav{display:flex;align-items:center;gap:14px;margin-top:8px}
+.tdots{display:flex;gap:6px}
+.tdots button{width:8px;height:8px;border-radius:99px;background:rgba(255,255,255,.25);transition:all .4s var(--ease)}
+.tdots button.on{width:26px;background:var(--cyan)}
+.tarrows{margin-left:auto;display:flex;gap:8px}
+.tarrows button{width:40px;height:40px;border-radius:50%;border:1px solid var(--night-line);display:grid;place-items:center;color:#fff;transition:background .2s}
+.tarrows button:hover{background:rgba(255,255,255,.08)}
+.impact-col{display:flex;flex-direction:column;gap:30px;border-left:1px solid var(--night-line);padding-left:48px;min-width:0}
+.igrid{display:grid;grid-template-columns:repeat(3,1fr);margin-top:16px}
+.igrid div{padding:0 18px;border-left:1px solid var(--night-line);min-width:0}
+.igrid div:first-child{padding-left:0;border-left:0}
+.igrid b{display:block;font-size:clamp(24px,2.7vw,40px);white-space:nowrap;font-weight:800;letter-spacing:-.045em;line-height:1}
+.igrid span{display:block;font-size:13.5px;color:var(--night-muted);margin-top:8px;font-weight:500}
+.isep{height:1px;background:var(--night-line)}
 .proof{display:grid;grid-template-columns:1.25fr 1fr;gap:16px}
 .quote{border-radius:24px;background:var(--night-2);color:#fff;padding:44px;display:flex;flex-direction:column;gap:26px;position:relative;overflow:hidden}
 .quote::before{content:"";position:absolute;right:-20%;top:-40%;width:80%;height:120%;background:radial-gradient(closest-side,rgba(1,166,224,.3),transparent)}
@@ -458,6 +484,8 @@ svg.wide{width:38px!important;height:38px!important;margin:-8px -4px}
   .foot>div:first-child{grid-column:span 3}
 }
 @media (max-width:1024px){
+  .proof-card{grid-template-columns:1fr;gap:40px;padding:36px}
+  .impact-col{border-left:0;padding-left:0;border-top:1px solid var(--night-line);padding-top:32px}
   .faq-grid,.roles,.proof{grid-template-columns:1fr;gap:40px}
   .hubwrap{grid-template-columns:1fr;justify-items:center;gap:28px}
   .hubcol,.hubcol.r{align-items:stretch;width:100%;max-width:420px}
@@ -499,6 +527,9 @@ svg.wide{width:38px!important;height:38px!important;margin:-8px -4px}
   .role-card{min-height:470px}
   .rpanel{padding:24px}
   .quote{padding:28px}
+  .proof-card{padding:26px 20px;border-radius:22px}
+  .tcar{min-height:360px}
+  .igrid div{padding:0 10px}
   .stat{flex-direction:column;align-items:flex-start}
   .stat span{text-align:left}
   .hero-ctas .btn{flex:1 1 100%}
@@ -625,12 +656,12 @@ svg.wide{width:38px!important;height:38px!important;margin:-8px -4px}
     <div class="hero-copy">
       <span class="trust fade-up"><span class="stack"><span><svg style="fill:#FF9900"><use href="#lg-amazon"/></svg></span><span><svg class="wide" style="fill:#E53238;width:20px!important;height:20px!important;margin:0"><use href="#lg-ebay"/></svg></span><span><svg style="fill:#7AB55C"><use href="#lg-shopify"/></svg></span></span>Trusted by <b>1,000+ ecommerce brands and agencies</b></span>
       <h1 class="split" id="heroTitle">Sell everywhere. Run it all from <em>one platform.</em></h1>
-      <p class="lede fade-up" style="transition-delay:.45s">WhatSales connects Amazon, eBay, Shopify, TikTok Shop and 30+ more channels, then puts AI to work on your profit, pricing, stock, listings and customer inbox.</p>
+      <p class="lede fade-up" style="transition-delay:.45s">WhatSales connects Amazon, eBay, Shopify, TikTok Shop and more through 50+ integrations, then puts AI to work on your profit, pricing, stock, listings and customer inbox.</p>
       <div class="hero-ctas fade-up" style="transition-delay:.6s">
         <a href="#demo" class="btn btn-cyan">Book a demo <span class="arrow">→</span></a>
         <a href="#demo" class="btn btn-glass">Start free trial</a>
       </div>
-      <div class="hero-note fade-up" style="transition-delay:.75s"><span>[X]-day free trial</span><span>No long-term contract</span><span>Set up in minutes</span></div>
+      <div class="hero-note fade-up" style="transition-delay:.75s"><span>7-day free trial</span><span>No long-term contract</span><span>Set up in minutes</span></div>
     </div>
 
     <div class="stage" id="stage">
@@ -884,7 +915,7 @@ svg.wide{width:38px!important;height:38px!important;margin:-8px -4px}
     <div class="head center">
       <span class="eyebrow rv"><i></i>Integrations</span>
       <h2 class="rv d1">Connect once. Everything stays in sync.</h2>
-      <p class="lede rv d2">30+ direct and native integrations. Link a marketplace in a few clicks and its orders, fees, stock and messages flow into every WhatSales product.</p>
+      <p class="lede rv d2">50+ integrations. Link a marketplace in a few clicks and its orders, fees, stock and messages flow into every WhatSales product.</p>
     </div>
     <div class="hubwrap" id="hubwrap">
       <svg class="beams" id="beams" aria-hidden="true"><defs><linearGradient id="beamGrad" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="1000" y2="0"><stop offset="0" stop-color="#7FD6F6" stop-opacity="0"/><stop offset=".5" stop-color="#7FD6F6"/><stop offset="1" stop-color="#01A6E0"/></linearGradient></defs></svg>
@@ -912,7 +943,7 @@ svg.wide{width:38px!important;height:38px!important;margin:-8px -4px}
       <small>Works with</small>
       <span class="lg"><span class="wm wm-linn">linn<i>works</i></span></span>
       <span class="lg"><span class="wm wm-mirakl">mirakl<i>.</i></span></span>
-      <a href="#" class="btn btn-cyan" style="height:46px">All 30+ integrations <span class="arrow">→</span></a>
+      <a href="#" class="btn btn-cyan" style="height:46px">All 50+ integrations <span class="arrow">→</span></a>
     </div>
   </div>
 </section>
@@ -953,16 +984,43 @@ svg.wide{width:38px!important;height:38px!important;margin:-8px -4px}
 <!-- PROOF -->
 <section class="section" id="proof" style="padding-top:0">
   <div class="wrap">
-    <div class="proof">
-      <figure class="quote rv">
-        <span class="stars">★★★★★</span>
-        <blockquote>"It's been a pleasure working with Rashad and the team at WhatSales. Across our multiple ventures, we rely on the platform for a consistent, centralised view of performance across every market and channel."</blockquote>
-        <figcaption class="who"><span class="av"></span><div>[Customer name]<small>[Role, Company]</small></div><span class="tbc" style="margin-left:auto">Add name from live site</span></figcaption>
-      </figure>
-      <div class="stats">
-        <div class="stat rv d1"><b class="num">1,000+</b><span>ecommerce brands and agencies trust WhatSales</span></div>
-        <div class="stat rv d2"><b class="num">30+</b><span>direct and native marketplace integrations</span></div>
-        <div class="stat rv d3"><b class="num">80%</b><span>of customer messages automated, up to</span></div>
+    <div class="head center">
+      <span class="eyebrow rv"><i></i>Customers</span>
+      <h2 class="rv d1">Sellers who stopped guessing.</h2>
+    </div>
+    <div class="proof-card rv">
+      <div style="min-width:0">
+        <h3>Customer success stories</h3>
+        <div class="tcar" id="tcar" aria-live="polite">
+          <figure class="tq on"><blockquote>WhatSales' integration with Linnworks is a game-changer for e-commerce sellers, offering real-time insights and streamlined operations to boost profitability.</blockquote><figcaption class="who"><img class="brand-av" src="assets/avatar-ben.webp" alt="Ben Asquith"><div>Ben Asquith<small>UK Pet Supplies</small></div></figcaption></figure>
+          <figure class="tq"><blockquote>Their software offers excellent visibility and in-depth insights, helping us make informed decisions that boost profitability. Highly recommended.</blockquote><figcaption class="who"><img class="brand-av" src="assets/avatar-huzefa.webp" alt="Huzefa"><div>Huzefa<small>Web Emporium</small></div></figcaption></figure>
+          <figure class="tq"><blockquote>We had a positive experience with WhatSales and their development team, who showed great professionalism during onboarding and delivered a quality product with strong visibility and insights.</blockquote><figcaption class="who"><span class="ini">DP</span><div>Dipesh Patel<small>Fidum Group</small></div></figcaption></figure>
+          <figure class="tq"><blockquote>It's been a pleasure working with Rashad and the team at WhatSales. Across our multiple ventures, we rely on the platform for a consistent, centralised view of performance across every market and channel.</blockquote><figcaption class="who"><img class="brand-av" src="assets/avatar-martin.webp" alt="Martin Dallaway"><div>Martin Dallaway<small>DLM Direct</small></div></figcaption></figure>
+          <figure class="tq"><blockquote>WhatSales' integration with Linnworks has been a fantastic game-changer for e-commerce sellers, offering real-time insights and streamlined operations that help maximise profitability.</blockquote><figcaption class="who"><img class="brand-av" src="assets/avatar-neil.webp" alt="Neil Boxall"><div>Neil Boxall<small>Elite Sports Gear, UK</small></div></figcaption></figure>
+        </div>
+        <div class="tnav"><div class="tdots" id="tdots"><button aria-label="Show testimonial 1" class="on"></button><button aria-label="Show testimonial 2"></button><button aria-label="Show testimonial 3"></button><button aria-label="Show testimonial 4"></button><button aria-label="Show testimonial 5"></button></div><div class="tarrows"><button id="tprev" aria-label="Previous testimonial">←</button><button id="tnext" aria-label="Next testimonial">→</button></div></div>
+      </div>
+      <div class="impact-col">
+        <div><h3>The impact</h3>
+          <div class="igrid">
+            <div><b class="num" style="color:var(--cyan)" data-count="100" data-suffix="+">100+</b><span>hours saved per month</span></div>
+            <div><b class="num" style="color:#34D399" data-count="40" data-suffix="%">40%</b><span>increase in efficiency</span></div>
+            <div><b class="num" style="color:#A78BFA" data-count="6" data-suffix="%">6%</b><span>reduction in losses</span></div>
+          </div>
+        </div>
+        <div class="isep"></div>
+        <div><h3>WhatSales at scale</h3>
+          <div class="igrid">
+            <div><b class="num">£300m+</b><span>GMV analysed</span></div>
+            <div><b class="num">2M+</b><span>orders analysed</span></div>
+            <div><b class="num" data-count="50" data-suffix="+">50+</b><span>integrations</span></div>
+          </div>
+        </div>
+        <div class="isep"></div>
+        <div class="igrid" style="grid-template-columns:1fr 1fr;margin-top:0">
+          <div><b class="num" style="font-size:30px">1,000+</b><span>ecommerce brands and agencies</span></div>
+          <div><b class="num" style="font-size:30px">Up to 80%</b><span>of the customer inbox automated</span></div>
+        </div>
       </div>
     </div>
   </div>
@@ -977,9 +1035,9 @@ svg.wide{width:38px!important;height:38px!important;margin:-8px -4px}
       <p class="muted rv d2">Something else? <a href="#demo" style="color:var(--cyan-ink);text-decoration:underline">Talk to our team</a>.</p>
     </div>
     <div class="faq rv d1">
-      <details open><summary>Which marketplaces does WhatSales connect to?<span class="pm">+</span></summary><p>30+, including Amazon, eBay, Shopify, Walmart, Temu, TikTok Shop, B&amp;Q, Tesco Marketplace, OnBuy, Debenhams and Etsy. WhatSales also works with Linnworks and Mirakl.</p></details>
+      <details open><summary>Which marketplaces does WhatSales connect to?<span class="pm">+</span></summary><p>50+ integrations, including Amazon, eBay, Shopify, Walmart, Temu, TikTok Shop, B&amp;Q, Tesco Marketplace, OnBuy, Debenhams and Etsy. WhatSales also works with Linnworks and Mirakl.</p></details>
       <details><summary>Do I have to use all nine products?<span class="pm">+</span></summary><p>No. Start with the product you need most, and add more as you grow. They all share the same connected data. [Confirm packaging with pricing team.]</p></details>
-      <details><summary>Is there a free trial?<span class="pm">+</span></summary><p>Yes. Start a [X]-day free trial, or book a demo to see WhatSales on your own data first.</p></details>
+      <details><summary>Is there a free trial?<span class="pm">+</span></summary><p>Yes. Start a 7-day free trial, or book a demo to see WhatSales on your own data first.</p></details>
       <details><summary>Can I manage multiple brands or client accounts?<span class="pm">+</span></summary><p>Yes. See every brand and account in one view, then open any single one in a click. Agencies can give each client access to their own data only.</p></details>
       <details><summary>Which AI assistants work with WhatSales?<span class="pm">+</span></summary><p>Claude, ChatGPT and Grok connect through WhatSales MCP, so you can ask about sales, profit, ads and stock in plain English.</p></details>
     </div>
@@ -1115,10 +1173,10 @@ svg.wide{width:38px!important;height:38px!important;margin:-8px -4px}
   };
   addEventListener('scroll', onScroll, { passive: true }); addEventListener('resize', onScroll); onScroll();
 
-  function countUp(el, to, { prefix = '', dur = 1600 } = {}) {
-    if (reduce) { el.textContent = prefix + fmt(to); return; }
+  function countUp(el, to, { prefix = '', suffix = '', dur = 1600 } = {}) {
+    if (reduce) { el.textContent = prefix + fmt(to) + suffix; return; }
     const t0 = performance.now();
-    const step = t => { const p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 4); el.textContent = prefix + fmt(Math.round(to * e)); if (p < 1) requestAnimationFrame(step); };
+    const step = t => { const p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 4); el.textContent = prefix + fmt(Math.round(to * e)) + suffix; if (p < 1) requestAnimationFrame(step); };
     requestAnimationFrame(step);
   }
   document.querySelectorAll('.draw').forEach(p => {
@@ -1209,6 +1267,18 @@ svg.wide{width:38px!important;height:38px!important;margin:-8px -4px}
       await sleep(3600);
     }
   })();
+
+  // testimonials
+  const tqs = [...document.querySelectorAll('.tq')], tdots = [...document.querySelectorAll('#tdots button')];
+  let ti = 0, tTimer;
+  const showT = i => { ti = (i + tqs.length) % tqs.length; tqs.forEach((q, k) => q.classList.toggle('on', k === ti)); tdots.forEach((d, k) => d.classList.toggle('on', k === ti)); };
+  const autoT = () => { clearInterval(tTimer); if (!reduce) tTimer = setInterval(() => showT(ti + 1), 6500); };
+  tdots.forEach((d, k) => d.addEventListener('click', () => { showT(k); autoT(); }));
+  document.getElementById('tprev').addEventListener('click', () => { showT(ti - 1); autoT(); });
+  document.getElementById('tnext').addEventListener('click', () => { showT(ti + 1); autoT(); });
+  autoT();
+  const pc = document.querySelector('.proof-card');
+  new IntersectionObserver((es, o) => { if (es[0].isIntersecting) { pc.querySelectorAll('[data-count]').forEach(n => countUp(n, +n.dataset.count, { suffix: n.dataset.suffix })); o.disconnect(); } }, { threshold: .3 }).observe(pc);
 
   // roles
   const segBtns = [...document.querySelectorAll('#seg button')], rps = [...document.querySelectorAll('.rpanel')];
