@@ -105,7 +105,19 @@ What makes Orbix and its peers (Linear, Attio, Ramp, Mercury) feel modern comes 
 
 ---
 
-## 5. Redesign plan v4: our own direction (supersedes section 4)
+## 6. v5 decisions (supersedes the Know/Grow/Run grouping in section 5)
+
+- **9 equal products, no 3-group chapters.** Per the WhatSales team. All 9 are shown in an auto-advancing product section and in the Platform dropdown menu.
+- **Proper B2B SaaS navigation:** sticky top bar with dropdown menus (Platform with all 9 products, Solutions, Resources), plus Integrations, Customers, Pricing, Log in and Book a demo. The mobile version opens a full-screen menu.
+- **Typography:** Plus Jakarta Sans throughout, JetBrains Mono for numbers.
+- **Official logo** used in the nav, dashboard, patchwork card, integrations hub and footer.
+- **Still needed from the team:**
+  - free trial length (the `[X]-day` placeholder)
+  - testimonial author name and role
+  - labels for the impact numbers
+  - whether products can be bought individually (FAQ answer)
+
+## 5. Redesign plan v4: our own direction
 
 **Brief:** keep WhatSales' colours, logo and product facts. Everything else is new: story, structure, copy, type and layout.
 
