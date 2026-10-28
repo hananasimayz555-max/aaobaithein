@@ -4,13 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>WhatSales — Homepage Concept</title>
-<meta name="description" content="WhatSales homepage redesign: sell everywhere, run it from one place.">
+<meta name="description" content="WhatSales homepage redesign: sell everywhere, run it from one platform.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-/* Concept v5 — B2B SaaS. Navy hero → light product platform (9 equal products) → navy integrations → light proof → navy close.
-   Brand: cyan #01A6E0, navy #0B1A2B, purple #7A3AEF, red #E21D4B. */
+/* Concept v6 — B2B SaaS. Brand: cyan #01A6E0, navy #0B1A2B, purple #7A3AEF, red #E21D4B. */
 :root{
   color-scheme:light;
   --cyan:#01A6E0; --cyan-2:#7FD6F6; --cyan-ink:#0080AE; --cyan-soft:#E4F6FD; --cyan-glow:rgba(1,166,224,.45);
@@ -18,8 +17,8 @@
   --bg:#FFFFFF; --mist:#F5F8FB; --soft:#EEF2F6; --line:#E3E9EF; --line-2:#CFD8E2;
   --ink:#0B1A2B; --ink-2:#26374B; --muted:#5B6A7C; --faint:#94A0AE;
   --night:#06101D; --night-2:#0B1A2B; --night-3:#13273D; --night-line:rgba(255,255,255,.09); --night-muted:#8C9DB1;
-  --profit:#12B76A; --profit-soft:#E2F6EC; --loss:#E5484D; --loss-soft:#FDECEC;
-  --p1:#01A6E0; --p2:#F26A21; --p3:#0E9AA7; --p4:#E21D4B; --p5:#2F6FED; --p6:#7A3AEF; --p7:#5B4BE8; --p8:#C2410C; --p9:#0B1A2B;
+  --profit:#12B76A; --profit-soft:#E2F6EC; --amber:#F59E0B; --amber-soft:#FEF3C7; --loss:#E5484D; --loss-soft:#FDECEC;
+  --p1:#01A6E0; --p2:#F26A21; --p3:#0E9AA7; --p4:#E21D4B; --p5:#2F6FED; --p6:#7A3AEF; --p7:#5B4BE8; --p8:#C2410C; --p9:#0B7BC4;
   --sans:"Plus Jakarta Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
   --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
   --ease:cubic-bezier(.16,1,.3,1);
@@ -35,7 +34,6 @@ img{max-width:100%;display:block}
 .wrap{max-width:1240px;margin:0 auto;padding-left:24px;padding-right:24px}
 .num{font-variant-numeric:tabular-nums}
 .mono{font-family:var(--mono)}
-
 h1,h2,h3{font-weight:800;letter-spacing:-.035em;line-height:1.05;text-wrap:balance}
 h1{font-size:clamp(42px,6.2vw,80px)}
 h2{font-size:clamp(32px,4.2vw,52px)}
@@ -44,10 +42,16 @@ h3{font-size:20px;font-weight:700;letter-spacing:-.02em;line-height:1.25}
 .muted{color:var(--muted)}
 .eyebrow{width:fit-content;display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--cyan-ink);padding:6px 12px;border-radius:999px;background:var(--cyan-soft)}
 .eyebrow i{width:6px;height:6px;border-radius:50%;background:var(--cyan)}
-.section{padding-block:120px}
-.head{display:flex;flex-direction:column;gap:18px;margin-bottom:56px;max-width:780px}
+.section{padding-block:104px}
+.head{display:flex;flex-direction:column;gap:16px;margin-bottom:48px;max-width:780px}
 .head.center{margin-left:auto;margin-right:auto;text-align:center;align-items:center}
 .hl{color:var(--cyan)}
+
+/* product icon tiles (custom marks) */
+.pi{--c:var(--cyan);flex:none;width:40px;height:40px;border-radius:11px;display:grid;place-items:center;color:#fff;background:linear-gradient(145deg,color-mix(in srgb,var(--c) 78%,#fff),var(--c) 55%,color-mix(in srgb,var(--c) 80%,#000));box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 6px 14px -6px color-mix(in srgb,var(--c) 70%,transparent)}
+.pi svg{width:55%;height:55%}
+.pi.sm{width:30px;height:30px;border-radius:9px}
+.pi.xl{width:52px;height:52px;border-radius:14px}
 
 /* buttons */
 .btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:10px;height:50px;padding:0 22px;border-radius:12px;font-weight:700;font-size:15px;transition:transform .3s var(--ease),box-shadow .3s var(--ease),background .3s;white-space:nowrap;isolation:isolate}
@@ -62,11 +66,21 @@ h3{font-size:20px;font-weight:700;letter-spacing:-.02em;line-height:1.25}
 .btn-line{border:1px solid var(--line-2);background:#fff;color:var(--ink)}
 .btn-line:hover{border-color:var(--ink)}
 
+/* cursor + scroll progress */
+.cur-dot,.cur-ring{position:fixed;left:0;top:0;pointer-events:none;z-index:9999;border-radius:50%;opacity:0;transition:opacity .3s}
+.cur-dot{width:7px;height:7px;background:var(--cyan);margin:-3.5px 0 0 -3.5px}
+.cur-ring{width:38px;height:38px;margin:-19px 0 0 -19px;border:1.5px solid rgba(1,166,224,.55);transition:opacity .3s,width .35s var(--ease),height .35s var(--ease),margin .35s var(--ease),background .35s,border-color .35s}
+.cur-on .cur-dot,.cur-on .cur-ring{opacity:1}
+.cur-hover .cur-ring{width:62px;height:62px;margin:-31px 0 0 -31px;background:rgba(1,166,224,.1);border-color:rgba(1,166,224,.25)}
+.cur-down .cur-ring{width:28px;height:28px;margin:-14px 0 0 -14px}
+@media (pointer:fine){html.cur-ready,html.cur-ready a,html.cur-ready button{cursor:none}}
+.progress{position:fixed;left:0;top:0;height:3px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--cyan),var(--purple));z-index:90}
+
 /* announcement */
 .announce{background:var(--cyan);color:#fff;font-size:13.5px;font-weight:600;text-align:center;padding:9px 16px;position:relative;z-index:70}
 .announce a{text-decoration:underline;text-underline-offset:3px;margin-left:6px}
 
-/* ---------- top nav with mega menu ---------- */
+/* nav */
 .nav{position:sticky;top:0;z-index:60;transition:background .3s,border-color .3s,box-shadow .3s;border-bottom:1px solid transparent}
 .nav.dark-mode{background:rgba(6,16,29,.72);backdrop-filter:saturate(1.6) blur(16px);-webkit-backdrop-filter:saturate(1.6) blur(16px);border-color:rgba(255,255,255,.08);color:#fff}
 .nav.light-mode{background:rgba(255,255,255,.88);backdrop-filter:saturate(1.6) blur(16px);-webkit-backdrop-filter:saturate(1.6) blur(16px);border-color:var(--line);color:var(--ink);box-shadow:0 8px 24px -18px rgba(11,26,43,.3)}
@@ -86,17 +100,14 @@ h3{font-size:20px;font-weight:700;letter-spacing:-.02em;line-height:1.25}
 .nav-cta .login{font-weight:600;font-size:15px;padding:9px 12px;opacity:.88}
 .nav-cta .btn{height:44px;padding:0 18px;font-size:14.5px;border-radius:10px}
 .burger{display:none;width:44px;height:44px;border-radius:10px;border:1px solid currentColor;opacity:.6;place-items:center}
-
 .mega{position:absolute;left:0;right:0;top:100%;padding-top:6px;opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .25s,transform .35s var(--ease),visibility .25s}
 .menu li.open .mega{opacity:1;visibility:visible;transform:none}
 .mega-in{max-width:1192px;margin:0 auto;background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:20px;box-shadow:0 40px 80px -30px rgba(11,26,43,.35);padding:22px;display:grid;grid-template-columns:1fr 300px;gap:22px}
 .mega-in.small{max-width:640px;grid-template-columns:1fr 1fr}
 .mega h6{font-size:12px;font-weight:700;color:var(--faint);letter-spacing:.06em;text-transform:uppercase;margin:4px 10px 10px}
 .mprods{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
-.mitem{display:flex;gap:12px;padding:12px;border-radius:12px;transition:background .2s}
+.mitem{display:flex;gap:12px;padding:12px;border-radius:12px;transition:background .2s;align-items:flex-start}
 .mitem:hover{background:var(--mist)}
-.mitem .ico{flex:none;width:38px;height:38px;border-radius:10px;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 12%,#fff);color:var(--c)}
-.mitem .ico svg{width:19px;height:19px}
 .mitem b{display:block;font-size:14.5px;font-weight:700}
 .mitem span{display:block;font-size:13px;color:var(--muted);line-height:1.4}
 .mfeat{border-radius:16px;background:linear-gradient(160deg,var(--night-2),var(--night));color:#fff;padding:22px;display:flex;flex-direction:column;gap:12px;position:relative;overflow:hidden}
@@ -107,8 +118,6 @@ h3{font-size:20px;font-weight:700;letter-spacing:-.02em;line-height:1.25}
 .mfeat p{font-size:13.5px;color:var(--night-muted)}
 .mfeat a{margin-top:auto;font-weight:700;font-size:14px;color:var(--cyan-2)}
 .mlist{display:flex;flex-direction:column;gap:2px}
-
-/* mobile drawer */
 .drawer{position:fixed;inset:0;z-index:80;background:#fff;color:var(--ink);transform:translateX(100%);transition:transform .45s var(--ease);overflow-y:auto;padding:16px 16px 40px}
 .drawer.open{transform:none}
 .drawer-top{display:flex;justify-content:space-between;align-items:center;height:56px;margin-bottom:8px}
@@ -117,39 +126,35 @@ h3{font-size:20px;font-weight:700;letter-spacing:-.02em;line-height:1.25}
 .drawer summary{list-style:none;display:flex;justify-content:space-between;padding:16px 4px;font-weight:700;font-size:17px;cursor:pointer}
 .drawer summary::-webkit-details-marker{display:none}
 .drawer .dl{display:block;padding:16px 4px;font-weight:700;font-size:17px;border-bottom:1px solid var(--line)}
-.drawer .mitem{padding:10px 4px}
+.drawer .mitem{padding:9px 4px;align-items:center}
 .drawer .btn{width:100%;margin-top:12px}
 
 /* hero */
-.hero{position:relative;background:var(--night);color:#fff;padding-block:96px 0;overflow:hidden;isolation:isolate;margin-top:-72px;padding-top:168px}
+.hero{position:relative;background:var(--night);color:#fff;overflow:hidden;isolation:isolate;margin-top:-72px;padding-top:160px}
 .hero::before{content:"";position:absolute;inset:-20% -10% auto;height:950px;background:radial-gradient(42% 50% at 50% 0%,rgba(1,166,224,.5),transparent 70%),radial-gradient(26% 38% at 14% 26%,rgba(122,58,239,.22),transparent 70%),radial-gradient(26% 38% at 86% 22%,rgba(1,166,224,.18),transparent 70%);filter:blur(20px);z-index:-2;animation:aurora 14s ease-in-out infinite alternate}
 @keyframes aurora{to{transform:translate3d(0,40px,0) scale(1.08)}}
 .hero::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:72px 72px;mask-image:radial-gradient(ellipse 60% 50% at 50% 18%,#000 10%,transparent 70%);-webkit-mask-image:radial-gradient(ellipse 60% 50% at 50% 18%,#000 10%,transparent 70%);z-index:-1}
-.hero-copy{text-align:center;display:flex;flex-direction:column;align-items:center;gap:26px}
-.trust{display:inline-flex;align-items:center;gap:10px;padding:6px 14px 6px 6px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);font-size:13.5px;color:rgba(255,255,255,.85)}
+.hero-copy{text-align:center;display:flex;flex-direction:column;align-items:center;gap:24px}
+.trust{display:inline-flex;align-items:center;gap:12px;padding:6px 16px 6px 6px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);font-size:13.5px;color:rgba(255,255,255,.85)}
 .trust .stack{display:flex}
-.trust .stack span{width:24px;height:24px;border-radius:50%;background:#fff;display:grid;place-items:center;margin-left:-6px;border:2px solid var(--night)}
+.trust .stack span{width:36px;height:36px;border-radius:50%;background:#fff;display:grid;place-items:center;margin-left:-8px;border:2px solid var(--night);overflow:hidden}
 .trust .stack span:first-child{margin-left:0}
-.trust .stack svg{width:13px;height:13px}
+.trust .stack img{width:100%;height:100%;object-fit:contain;transform:scale(1.45)}
 .trust b{color:#fff}
 .hero h1 em{font-style:normal;color:var(--cyan)}
 .hero .lede{color:var(--night-muted);max-width:660px}
 .hero-ctas{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
-.hero-note{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;font-size:13.5px;color:rgba(255,255,255,.6)}
-.hero-note span::before{content:"✓";color:var(--cyan);font-weight:800;margin-right:6px}
-
+.ticks{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;font-size:13.5px;color:rgba(255,255,255,.65)}
+.ticks span::before{content:"✓";color:var(--cyan);font-weight:800;margin-right:6px}
 .split .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.1em;margin-bottom:-.1em}
 .split .w>span{display:inline-block;transform:translateY(105%);opacity:0;transition:transform 1s var(--ease),opacity 1s var(--ease)}
 .split.in .w>span{transform:none;opacity:1}
 .fade-up{opacity:0;transform:translateY(16px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
 .loaded .fade-up{opacity:1;transform:none}
-
-/* hero stage */
-.stage{position:relative;margin-top:68px;perspective:1800px}
+.stage{position:relative;margin-top:60px;perspective:1800px}
 .stage::before{content:"";position:absolute;left:10%;right:10%;top:12%;height:60%;background:radial-gradient(closest-side,var(--cyan-glow),transparent);filter:blur(60px);z-index:-1}
 .ask{position:relative;z-index:4;max-width:720px;margin:0 auto -34px;background:#fff;color:var(--ink);border-radius:18px;box-shadow:0 30px 60px -20px rgba(0,0,0,.6);padding:8px;text-align:left}
 .ask-bar{display:flex;align-items:center;gap:12px;padding:10px 12px}
-.ask-bar .spark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--purple));display:grid;place-items:center;flex:none}
 .ask-q{flex:1;font-size:17px;font-weight:600;min-height:26px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ask-q .caret{display:inline-block;width:2px;height:20px;background:var(--cyan);vertical-align:-4px;margin-left:2px;animation:blink 1s steps(2) infinite}
 @keyframes blink{50%{opacity:0}}
@@ -161,11 +166,11 @@ h3{font-size:20px;font-weight:700;letter-spacing:-.02em;line-height:1.25}
 .ans .big{font-size:26px;font-weight:800;letter-spacing:-.03em;white-space:nowrap}
 .ans .txt{font-size:13.5px;color:var(--muted);line-height:1.4}
 .ans .tag{margin-left:auto;font-size:11.5px;font-weight:700;color:var(--cyan-ink);background:var(--cyan-soft);padding:3px 10px;border-radius:99px;white-space:nowrap}
-.dash{position:relative;z-index:1;margin:0 auto;max-width:1120px;background:#fff;color:var(--ink);border-radius:20px;box-shadow:0 0 0 8px rgba(255,255,255,.05),0 60px 120px -40px rgba(0,0,0,.8);overflow:hidden;transform-origin:50% 0;transform:rotateX(var(--tilt,22deg)) scale(var(--sc,.9));will-change:transform;display:grid;grid-template-columns:210px 1fr;padding-top:0}
+.dash{position:relative;z-index:1;margin:0 auto;max-width:1120px;background:#fff;color:var(--ink);border-radius:20px;box-shadow:0 0 0 8px rgba(255,255,255,.05),0 60px 120px -40px rgba(0,0,0,.8);overflow:hidden;transform-origin:50% 0;transform:rotateX(var(--tilt,22deg)) scale(var(--sc,.9));will-change:transform;display:grid;grid-template-columns:210px 1fr}
 .dnav{background:var(--night-2);color:#fff;padding:52px 12px 18px;display:flex;flex-direction:column;gap:2px;font-size:13px}
 .dnav img{height:18px;width:auto;margin:0 8px 18px}
-.dnav a{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;color:rgba(255,255,255,.65)}
-.dnav a i{width:8px;height:8px;border-radius:3px}
+.dnav a{display:flex;align-items:center;gap:10px;padding:6px 8px;border-radius:8px;color:rgba(255,255,255,.7)}
+.dnav a .pi{width:22px;height:22px;border-radius:6px;box-shadow:none}
 .dnav a.on{background:rgba(255,255,255,.09);color:#fff}
 .dbody{min-width:0;padding-top:40px}
 .dgrid{display:grid;grid-template-columns:1.45fr 1fr}
@@ -185,35 +190,41 @@ h3{font-size:20px;font-weight:700;letter-spacing:-.02em;line-height:1.25}
 .chart .endpt{fill:var(--cyan);stroke:#fff;stroke-width:3}
 .dside{padding:24px;min-width:0}
 .dside h4{font-size:13px;font-weight:700;color:var(--muted);margin-bottom:10px;display:flex;justify-content:space-between}
-.ch-row{display:grid;grid-template-columns:24px 62px 1fr 46px;align-items:center;gap:10px;font-size:13px;padding:9px 0;border-bottom:1px dashed var(--line)}
+.ch-row{display:grid;grid-template-columns:26px 62px 1fr 46px;align-items:center;gap:10px;font-size:13px;padding:9px 0;border-bottom:1px dashed var(--line)}
 .ch-row:last-of-type{border-bottom:0}
-.ch-row svg{width:18px;height:18px}
 .bar{height:8px;border-radius:99px;background:var(--soft);overflow:hidden}
 .bar i{display:block;height:100%;width:0;border-radius:99px;background:var(--ink);transition:width 1.4s var(--ease)}
 .ch-row .m{text-align:right;font-family:var(--mono);font-size:12px}
 .m.low{color:var(--loss)}
 .illus{position:absolute;right:16px;bottom:10px;font-family:var(--mono);font-size:10px;color:var(--faint);letter-spacing:.06em}
-.hero-fade{height:140px;background:linear-gradient(transparent,var(--night))}
+.hero-fade{height:110px;background:linear-gradient(transparent,var(--night))}
 
-/* marquee */
-.band{background:var(--night);color:#fff;padding-block:16px 88px}
-.band p{text-align:center;font-size:14px;color:var(--night-muted);margin-bottom:24px;font-weight:600}
+/* marketplace logos */
+.mk{width:22px;height:22px;flex:none}
+.mk.wide{width:38px;height:38px;margin:-8px -4px}
+.wm{font-weight:800;letter-spacing:-.03em;font-size:17px;line-height:1}
+.wm-temu{color:#FB7701}
+.wm-bq{background:#F58220;color:#fff;border-radius:5px;padding:2px 6px;font-size:14px}
+.wm-onbuy i{font-style:normal;color:#3FB5FF}
+.wm-linn i{font-style:normal;color:#3BA8E0}
+.wm-tesco{letter-spacing:.02em;font-size:15px;border-bottom:3px solid #EE1C2E;padding-bottom:1px}
+.wm-deb{font-family:Georgia,serif;font-weight:400;letter-spacing:0}
+.wm-mirakl i{font-style:normal;color:#FF5A5F}
+
+/* marquee band */
+.band{background:var(--night);color:#fff;padding-block:8px 80px}
+.band p{text-align:center;font-size:14px;color:var(--night-muted);margin-bottom:22px;font-weight:600}
 .marquee{overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
 .marquee-track{display:flex;gap:14px;width:max-content;animation:marquee 46s linear infinite}
 .marquee:hover .marquee-track{animation-play-state:paused}
 @keyframes marquee{to{transform:translateX(-50%)}}
 .lg{display:flex;align-items:center;gap:10px;height:56px;padding:0 22px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid var(--night-line);font-size:15px;font-weight:700;color:rgba(255,255,255,.9);white-space:nowrap;transition:background .3s,border-color .3s}
 .lg:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.2)}
-.lg svg{width:22px;height:22px}
-svg.wide{width:38px!important;height:38px!important;margin:-8px -4px}
-.wm{font-weight:800;letter-spacing:-.03em;font-size:17px}
-.wm-temu{color:#FB7701}
-.wm-bq{background:#F58220;color:#fff;border-radius:5px;padding:1px 6px;font-size:14px}
-.wm-onbuy{color:#fff}.wm-onbuy i{font-style:normal;color:#3FB5FF}
-.wm-linn{color:#fff}.wm-linn i{font-style:normal;color:#3BA8E0}
-.wm-tesco{color:#fff;letter-spacing:.02em;font-size:15px;border-bottom:3px solid #EE1C2E;padding-bottom:1px}
-.wm-deb{font-family:Georgia,serif;font-weight:400;letter-spacing:0;color:#fff}
-.wm-mirakl{color:#fff}.wm-mirakl i{font-style:normal;color:#FF5A5F}
+.clients{display:flex;justify-content:center;align-items:center;gap:14px;flex-wrap:wrap;margin-top:44px}
+.clients small{width:100%;text-align:center;font-size:13px;color:var(--night-muted);font-weight:600;margin-bottom:4px}
+.clients .cl{height:70px;width:150px;border-radius:14px;background:#fff;display:grid;place-items:center;padding:8px 14px;opacity:.92;transition:opacity .3s,transform .3s var(--ease)}
+.clients .cl:hover{opacity:1;transform:translateY(-2px)}
+.clients .cl img{max-height:54px;width:auto;object-fit:contain}
 
 /* reveal */
 .anim .rv{opacity:0;transform:translateY(28px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
@@ -221,136 +232,178 @@ svg.wide{width:38px!important;height:38px!important;margin:-8px -4px}
 .anim .rv.d1{transition-delay:.08s}.anim .rv.d2{transition-delay:.16s}.anim .rv.d3{transition-delay:.24s}
 
 /* patchwork */
-.patch{position:relative;height:250vh;background:var(--bg)}
+.patch{position:relative;height:260vh;background:var(--bg)}
 .patch-sticky{position:sticky;top:0;height:100vh;display:grid;place-items:center;overflow:hidden}
-.patch-copy{position:absolute;left:0;right:0;top:15vh;text-align:center;display:flex;flex-direction:column;align-items:center;gap:16px;padding:0 24px;z-index:3}
+.patch-copy{position:absolute;left:0;right:0;top:11vh;text-align:center;display:flex;flex-direction:column;align-items:center;gap:14px;padding:0 24px;z-index:3;transition:transform .2s}
 .patch-copy h2{max-width:860px}
 .patch-copy p{max-width:620px}
-.tool{position:absolute;left:50%;top:64%;display:flex;align-items:center;gap:10px;padding:12px 16px;border-radius:12px;background:#fff;border:1px solid var(--line);box-shadow:0 16px 30px -18px rgba(11,26,43,.35);font-size:14px;font-weight:600;white-space:nowrap;will-change:transform,opacity}
+.tool{position:absolute;left:50%;top:62%;display:flex;align-items:center;gap:10px;padding:12px 16px;border-radius:12px;background:#fff;border:1px solid var(--line);box-shadow:0 16px 30px -18px rgba(11,26,43,.35);font-size:14px;font-weight:600;white-space:nowrap;will-change:transform,opacity}
 .tool .ic{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;background:var(--soft);font-size:14px}
-.tool .ic svg{width:16px;height:16px}
+.tool .ic .mk{width:16px;height:16px}
 .tool small{display:block;font-size:11px;color:var(--faint);font-weight:500}
 .tool .x{margin-left:6px;color:var(--faint);font-size:12px}
-.one{position:absolute;left:50%;top:66%;width:min(580px,88vw);transform:translate(-50%,-50%) scale(var(--os,.6));opacity:var(--oo,0);background:var(--night-2);color:#fff;border-radius:22px;padding:22px;box-shadow:0 40px 80px -30px rgba(1,166,224,.55),0 0 0 1px rgba(255,255,255,.08);z-index:2}
-.one-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
-.one-top img{height:20px;width:auto}
-.one-top span{font-size:12px;color:var(--night-muted);font-weight:600}
-.one-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.one-grid div{padding:12px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid var(--night-line);font-size:13.5px;font-weight:600;display:flex;align-items:center;gap:8px}
-.one-grid div i{width:8px;height:8px;border-radius:3px;flex:none}
+.one{position:absolute;left:50%;top:60%;width:min(1000px,92vw);transform:translate(-50%,-50%) scale(var(--os,.6));opacity:var(--oo,0);background:linear-gradient(180deg,#0E2136,var(--night-2));color:#fff;border-radius:26px;padding:20px;box-shadow:0 50px 100px -40px rgba(1,166,224,.6),0 0 0 1px rgba(255,255,255,.08);z-index:2}
+.one-top{display:flex;align-items:center;gap:16px;margin-bottom:16px;padding:2px 4px}
+.one-top img{height:22px;width:auto}
+.one-search{flex:1;max-width:420px;margin:0 auto;display:flex;align-items:center;gap:10px;height:38px;padding:0 14px;border-radius:10px;background:rgba(255,255,255,.06);border:1px solid var(--night-line);font-size:13px;color:var(--night-muted)}
+.one-search kbd{margin-left:auto;font-family:var(--mono);font-size:10.5px;border:1px solid var(--night-line);border-radius:5px;padding:1px 5px}
+.one-chs{display:flex;align-items:center;gap:4px}
+.one-chs span{width:26px;height:26px;border-radius:7px;background:#fff;display:grid;place-items:center}
+.one-chs .mk{width:15px;height:15px}
+.one-chs .mk.wide{width:24px;height:24px;margin:0}
+.one-chs em{font-style:normal;font-size:11.5px;color:var(--night-muted);margin-left:6px;white-space:nowrap}
+.one-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.otile{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;padding:14px;border-radius:14px;background:rgba(255,255,255,.045);border:1px solid var(--night-line);transition:background .3s,border-color .3s,transform .3s var(--ease)}
+.otile:hover{background:rgba(255,255,255,.08);border-color:color-mix(in srgb,var(--c) 60%,transparent);transform:translateY(-2px)}
+.otile b{display:block;font-size:14.5px}
+.otile p{font-size:12.5px;color:var(--night-muted);line-height:1.4;margin-top:2px}
+.otile .stat{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;font-size:11.5px;color:var(--night-muted);padding-top:10px;border-top:1px dashed var(--night-line);margin-top:2px}
+.otile .stat strong{font-family:var(--mono);font-size:12px;color:#fff;font-weight:500}
+.otile .stat strong.g{color:#34D399}
 
-/* ---------- platform explorer ---------- */
-.platform{background:var(--mist)}
-.explorer{display:grid;grid-template-columns:320px 1fr;gap:28px;align-items:start}
-.ptabs{display:flex;flex-direction:column;gap:4px;position:sticky;top:96px}
-.ptab{--c:var(--cyan);position:relative;overflow:hidden;display:grid;grid-template-columns:40px 1fr;align-items:center;gap:12px;padding:11px 12px;border-radius:14px;text-align:left;transition:background .3s,box-shadow .3s}
-.ptab:hover{background:rgba(255,255,255,.7)}
-.ptab .ico{width:40px;height:40px;border-radius:11px;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 12%,#fff);color:var(--c)}
-.ptab .ico svg{width:20px;height:20px}
-.ptab b{display:block;font-size:15.5px;font-weight:700}
-.ptab small{display:block;font-size:12.5px;color:var(--muted);line-height:1.35}
-.ptab .prog{position:absolute;left:12px;right:12px;bottom:5px;height:2px;border-radius:2px;overflow:hidden}
-.ptab .prog i{display:block;height:100%;width:0;background:var(--c)}
-.ptab.on{background:#fff;box-shadow:0 14px 30px -18px rgba(11,26,43,.35)}
-.ptab.on .prog{background:var(--line)}
-.ppanels{position:relative;min-height:640px}
-.ppanel{--c:var(--cyan);position:absolute;inset:0;background:#fff;border:1px solid var(--line);border-radius:24px;padding:36px;display:grid;grid-template-rows:auto 1fr;gap:26px;opacity:0;transform:translateY(14px) scale(.985);pointer-events:none;transition:opacity .55s var(--ease),transform .7s var(--ease);overflow:hidden;box-shadow:0 40px 80px -50px rgba(11,26,43,.35)}
-.ppanel.on{opacity:1;transform:none;pointer-events:auto}
-.phead{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end}
-.plabel{display:inline-flex;align-items:center;gap:10px;font-weight:700;font-size:14px;color:var(--c);margin-bottom:12px}
-.plabel .ico{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 12%,#fff)}
-.plabel .ico svg{width:16px;height:16px}
-.ppanel h3{font-size:clamp(26px,2.6vw,36px);font-weight:800;letter-spacing:-.035em;line-height:1.1;max-width:560px}
-.ppanel p{color:var(--muted);margin-top:12px;max-width:560px}
-.ppanel .more{display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 16px;border-radius:10px;border:1px solid var(--line-2);font-weight:700;font-size:14px;white-space:nowrap;transition:border-color .2s,color .2s}
-.ppanel .more:hover{border-color:var(--c);color:var(--c)}
-.viz{position:relative;border-radius:16px;background:var(--mist);padding:20px;overflow:hidden;min-height:0;display:flex;flex-direction:column;justify-content:center}
-.vrow{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:11px 14px;font-size:13.5px;font-weight:500}
-.vrow svg{width:18px;height:18px;flex:none}
-.vrow .end{margin-left:auto;display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px}
-.vstack{display:flex;flex-direction:column;gap:9px}
-.pill{display:inline-block;font-size:11px;padding:2px 9px;border-radius:99px;font-weight:700;font-family:var(--sans)}
-.pill.p{background:var(--profit-soft);color:#0B8A50}
-.pill.l{background:var(--loss);color:#fff}
-.pill.c{background:var(--cyan-soft);color:var(--cyan-ink)}
-.pill.u{background:var(--purple-soft);color:var(--purple)}
-.pill.o{background:#FFF0E6;color:#C4510F}
+/* ---------- platform: stacking cards ---------- */
+.platform{background:var(--mist);padding-bottom:72px}
+.stack{position:relative}
+.scard{--c:var(--cyan);position:sticky;top:148px;margin-bottom:28px;background:#fff;border:1px solid var(--line);border-radius:28px;padding:40px;display:grid;grid-template-columns:.85fr 1.15fr;gap:44px;align-items:center;min-height:min(580px,calc(100vh - 170px));box-shadow:0 30px 70px -40px rgba(11,26,43,.35);transform-origin:50% 0;will-change:transform;overflow:hidden}
+.scard::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 60% at 100% 0%,color-mix(in srgb,var(--c) 9%,transparent),transparent 70%);pointer-events:none}
+.scard::after{content:"";position:absolute;inset:0;background:#0B1A2B;opacity:var(--dim,0);pointer-events:none;border-radius:inherit;transition:opacity .1s}
+.scard>*{position:relative}
+.sc-copy{display:flex;flex-direction:column;gap:16px}
+.sc-meta{display:flex;align-items:center;gap:12px}
+.sc-meta b{font-size:15px;color:var(--c)}
+.sc-meta .n{margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--faint)}
+.scard h3{font-size:clamp(28px,3vw,40px);font-weight:800;letter-spacing:-.035em;line-height:1.08}
+.scard p{color:var(--muted);font-size:16.5px}
+.sc-points{list-style:none;display:flex;flex-direction:column;gap:9px;margin-top:4px}
+.sc-points li{display:flex;gap:10px;font-size:15px;font-weight:500}
+.sc-points li::before{content:"";flex:none;width:18px;height:18px;margin-top:3px;border-radius:50%;background:color-mix(in srgb,var(--c) 14%,#fff) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4.5 8.5l2.2 2.2L11.5 6' fill='none' stroke='%230B1A2B' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/13px no-repeat}
+.sc-cta{display:flex;gap:10px;margin-top:8px;flex-wrap:wrap}
+.sc-cta .btn{height:44px;font-size:14px;border-radius:10px}
+.sc-cta .btn-c{background:var(--c);color:#fff}
+.sc-cta .btn-c:hover{transform:translateY(-2px)}
+.stack-nav{position:sticky;top:86px;z-index:5;display:flex;justify-content:center;gap:6px;margin:-10px auto 26px;width:fit-content;padding:6px;border-radius:999px;background:rgba(255,255,255,.85);backdrop-filter:blur(10px);border:1px solid var(--line);box-shadow:0 10px 30px -20px rgba(11,26,43,.35)}
+.stack-nav button{display:flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;font-size:12.5px;font-weight:700;color:var(--muted);transition:background .3s,color .3s}
+.stack-nav button .pi{width:22px;height:22px;border-radius:7px;box-shadow:none}
+.stack-nav button:hover{background:var(--soft)}
+.stack-nav button span{display:none}
+.stack-nav button.on{background:var(--ink);color:#fff}
+.stack-nav button.on span{display:inline}
+
+/* app window mock */
+.app{border-radius:18px;background:#fff;border:1px solid var(--line);box-shadow:0 30px 60px -30px rgba(11,26,43,.4);overflow:hidden;font-size:13px;min-width:0}
+.app-bar{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--line);background:var(--mist)}
+.app-bar .dots{display:flex;gap:5px}.app-bar .dots i{width:9px;height:9px;border-radius:50%;background:var(--line-2)}
+.app-bar b{font-size:12.5px}
+.app-bar .st{margin-left:auto;font-size:11px;font-weight:700;color:#0B8A50;background:var(--profit-soft);padding:2px 8px;border-radius:99px;white-space:nowrap}
+.app-body{padding:16px;display:flex;flex-direction:column;gap:10px}
+.kp4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.kp4 div{border:1px solid var(--line);border-radius:10px;padding:10px;border-top:3px solid var(--k,var(--line-2))}
+.kp4 small{display:block;font-size:10.5px;color:var(--muted);line-height:1.3}
+.kp4 b{font-size:17px;font-weight:800;letter-spacing:-.02em}
+.tbl{width:100%;border-collapse:collapse;font-size:12.5px}
+.tbl th{font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--faint);font-weight:700;text-align:left;padding:6px 8px;border-bottom:1px solid var(--line)}
+.tbl td{padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:middle;font-variant-numeric:tabular-nums}
+.tbl tr:last-child td{border-bottom:0}
+.tbl .r{text-align:right}
+.tbl td small{display:block;font-size:11px;color:var(--muted)}
+.pill{display:inline-block;font-size:10.5px;padding:2px 8px;border-radius:99px;font-weight:700;white-space:nowrap}
+.pill.p{background:var(--profit-soft);color:#0B8A50}.pill.l{background:var(--loss-soft);color:#C2272D}.pill.a{background:var(--amber-soft);color:#A16207}.pill.c{background:var(--cyan-soft);color:var(--cyan-ink)}.pill.u{background:var(--purple-soft);color:var(--purple)}
+.mini-btn{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;color:#fff;background:var(--c);padding:4px 9px;border-radius:7px;white-space:nowrap}
 .go .stg>*{animation:inUp .7s var(--ease) both}
-.go .stg>*:nth-child(2){animation-delay:.1s}.go .stg>*:nth-child(3){animation-delay:.2s}.go .stg>*:nth-child(4){animation-delay:.3s}.go .stg>*:nth-child(5){animation-delay:.4s}
-@keyframes inUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-.illn{font-family:var(--mono);font-size:10.5px;color:var(--faint);margin-top:10px}
-
-.wf-row{display:grid;grid-template-columns:110px 1fr 76px;gap:14px;align-items:center;padding:5px 0;font-size:13.5px}
-.wf-track{position:relative;height:22px}
-.wf-bar{position:absolute;top:0;height:100%;border-radius:6px;transform:scaleX(0);transform-origin:left;transition:transform .9s var(--ease)}
+.go .stg>*:nth-child(2){animation-delay:.08s}.go .stg>*:nth-child(3){animation-delay:.16s}.go .stg>*:nth-child(4){animation-delay:.24s}.go .stg>*:nth-child(5){animation-delay:.32s}.go .stg>*:nth-child(6){animation-delay:.4s}
+@keyframes inUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.meter{height:6px;border-radius:6px;background:var(--soft);overflow:hidden;margin-top:6px}
+.meter i{display:block;height:100%;border-radius:6px;background:var(--m,var(--cyan))}
+.go .meter i{animation:grow 1.3s var(--ease) both .2s}
+@keyframes grow{from{width:0}}
+/* waterfall */
+.wf-row{display:grid;grid-template-columns:96px 1fr 70px;gap:12px;align-items:center;padding:3px 0;font-size:12.5px}
+.wf-track{position:relative;height:18px}
+.wf-bar{position:absolute;top:0;height:100%;border-radius:5px;transform:scaleX(0);transform-origin:left;transition:transform .9s var(--ease)}
 .wf-row.total .wf-bar{background:var(--ink)}
 .wf-row.cost .wf-bar{background:repeating-linear-gradient(135deg,var(--loss) 0 6px,#ee6b6f 6px 12px);transform-origin:right}
 .wf-row.final .wf-bar{background:var(--profit)}
-.wf-row .v{text-align:right;font-family:var(--mono);font-size:12.5px}
+.wf-row .v{text-align:right;font-family:var(--mono);font-size:12px}
 .wf-row.cost .v{color:var(--loss)}
-.wf-row.final{border-top:1px solid var(--line);margin-top:6px;padding-top:10px}
+.wf-row.final{border-top:1px solid var(--line);margin-top:4px;padding-top:8px}
 .wf-row.final .v{color:var(--profit);font-weight:500}
 .go .wf-bar{transform:scaleX(1)}
-.wf-top{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:10px}
-.wf-big{font-size:clamp(48px,5vw,68px);font-weight:800;letter-spacing:-.05em;line-height:.9;transition:color .6s}
-.wf-big small{font-size:.4em;color:var(--muted)}
+.wf-big{font-size:40px;font-weight:800;letter-spacing:-.05em;line-height:.9;transition:color .6s}
+.wf-big small{font-size:.45em;color:var(--muted)}
 .wf-big.done{color:var(--profit)}
-.wf-top span{font-family:var(--mono);font-size:11px;color:var(--faint);text-align:right}
-.camp{background:#fff;border:1px solid var(--line);border-radius:12px;padding:11px 12px;font-size:13px;font-weight:500;display:grid;grid-template-columns:1fr auto;gap:7px 12px;align-items:center}
-.camp .meta{font-size:11px;color:var(--muted);font-family:var(--mono);font-weight:400}
-.camp .ac{font-family:var(--mono);font-size:12px;text-align:right}
-.camp .track{grid-column:span 2;height:6px;border-radius:6px;background:var(--soft);position:relative;overflow:hidden}
-.camp .track i{position:absolute;left:0;top:0;bottom:0;border-radius:6px;background:var(--profit)}
-.go .camp .track i{animation:grow 1.2s var(--ease) both}
-@keyframes grow{from{width:0}}
-.camp.over .track i{background:var(--loss)}
-.camp.over .ac{color:var(--loss)}
-.camp .target{position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--ink);left:50%}
-.chat{display:flex;flex-direction:column;gap:10px}
-.bub{max-width:82%;padding:12px 15px;border-radius:16px;font-size:14px;line-height:1.5}
-.bub.me{align-self:flex-end;background:var(--cyan);color:#fff;border-bottom-right-radius:4px}
-.bub.ai{align-self:flex-start;background:#fff;border:1px solid var(--line);border-bottom-left-radius:4px}
+/* engage */
+.inbox2{display:grid;grid-template-columns:.9fr 1.1fr;min-height:300px}
+.inbox2 .list{border-right:1px solid var(--line)}
+.tk{display:flex;gap:10px;padding:11px 12px;border-bottom:1px solid var(--line);align-items:flex-start}
+.tk.on{background:color-mix(in srgb,var(--p4) 6%,#fff);box-shadow:inset 3px 0 0 var(--p4)}
+.tk .mkw{width:26px;height:26px;border-radius:7px;background:var(--mist);display:grid;place-items:center;flex:none}
+.tk .mkw .mk{width:15px;height:15px}.tk .mkw .mk.wide{width:24px;height:24px;margin:0}
+.tk b{font-size:12.5px;display:block}
+.tk small{font-size:11px;color:var(--muted)}
+.tk .pill{margin-left:auto}
+.thread{padding:14px;display:flex;flex-direction:column;gap:10px;background:var(--mist)}
+.msg{padding:10px 12px;border-radius:12px;font-size:12.5px;line-height:1.5;max-width:92%}
+.msg.cust{background:#fff;border:1px solid var(--line)}
+.msg.ai{background:var(--ink);color:#fff;align-self:flex-end}
+.msg.ai small{display:block;color:var(--cyan-2);font-size:10.5px;font-weight:700;margin-bottom:4px}
+.typing{display:inline-flex;gap:4px;padding:10px 12px;border-radius:12px;background:#fff;border:1px solid var(--line);width:fit-content;align-self:flex-end}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--faint);animation:blink 1.2s infinite}.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+/* flow */
+.flow3{display:grid;grid-template-columns:180px minmax(0,1fr);gap:16px;align-items:center;padding:16px}
+.prodc{border:1px solid var(--line);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:6px;font-size:12.5px;background:#fff}
+.prodc .img{height:110px;border-radius:10px;background:linear-gradient(135deg,#e3ecff,#cbdaff);display:grid;place-items:center;font-size:44px}
+.prodc .fields{display:flex;flex-direction:column;gap:4px;margin-top:4px}
+.prodc .fields i{display:block;height:6px;border-radius:4px;background:var(--soft)}
+.pubs{display:flex;flex-direction:column;gap:8px}
+.pub>div{min-width:0}
+.pub{display:grid;grid-template-columns:30px minmax(0,1fr) auto;gap:10px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:9px 11px;background:#fff}
+.pub .mkw{width:30px;height:30px;border-radius:8px;background:var(--mist);display:grid;place-items:center}
+.pub .mkw .mk{width:17px;height:17px}.pub .mkw .mk.wide{width:28px;height:28px;margin:0}
+.pub b{font-size:12.5px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pub small{font-size:10.5px;color:var(--muted)}
+/* workspace calendar */
+.cal{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;padding:14px}
+.cal .dh{font-size:10.5px;font-weight:700;color:var(--faint);text-transform:uppercase;letter-spacing:.05em;padding:0 2px 4px}
+.cal .dh b{display:block;font-size:15px;color:var(--ink);letter-spacing:-.02em}
+.cal .dh.today b{color:#fff;background:var(--p6);width:26px;height:26px;border-radius:50%;display:grid;place-items:center}
+.task{border:1px solid var(--line);border-left:3px solid var(--t,var(--p6));border-radius:8px;padding:7px 8px;font-size:11px;font-weight:600;line-height:1.3;background:#fff}
+.task small{display:block;font-size:9.5px;color:var(--muted);font-weight:500;margin-top:3px}
+.task .pr{display:inline-block;font-size:9px;font-weight:700;padding:1px 5px;border-radius:4px;margin-top:4px}
+.task .pr.h{background:var(--loss-soft);color:#C2272D}.task .pr.m{background:var(--amber-soft);color:#A16207}
+.cal .col{display:flex;flex-direction:column;gap:6px}
+/* repricer */
+.rp{display:grid;grid-template-columns:1.3fr 1fr;gap:0}
+.rp-chart{padding:14px;border-right:1px solid var(--line)}
+.rp-chart svg{width:100%;height:150px;overflow:visible}
+.rp-chart .you{fill:none;stroke:var(--p7);stroke-width:2.5}
+.rp-chart .rival{fill:none;stroke:var(--faint);stroke-width:1.5;stroke-dasharray:4 4}
+.rp-chart .floor{stroke:var(--loss);stroke-width:1;stroke-dasharray:3 4}
+.rp-chart .max{stroke:var(--p7);stroke-width:1;stroke-dasharray:3 4;opacity:.5}
+.rp-chart text{font-family:var(--mono);font-size:9.5px;fill:var(--muted)}
+.rp-legend{display:flex;gap:12px;flex-wrap:wrap;font-size:10.5px;color:var(--muted);margin-top:6px}
+.rp-legend i{display:inline-block;width:12px;height:2px;vertical-align:middle;margin-right:4px}
+.rp-log{display:flex;flex-direction:column}
+.ev{display:grid;grid-template-columns:40px auto 1fr;gap:8px;align-items:center;padding:9px 12px;border-bottom:1px solid var(--line);font-size:11.5px}
+.ev time{font-family:var(--mono);font-size:10.5px;color:var(--faint)}
+.ev.on{background:color-mix(in srgb,var(--p7) 7%,#fff);box-shadow:inset 3px 0 0 var(--p7)}
+.rp-top{display:flex;gap:14px;align-items:center;padding:10px 14px;border-bottom:1px solid var(--line);font-size:11px;color:var(--muted);flex-wrap:wrap}
+.rp-top b{display:block;font-size:14px;color:var(--ink)}
+.rp-top .bb{margin-left:auto;color:#0B8A50}
+/* mcp */
+.ai-step{display:flex;align-items:center;gap:8px;font-size:11.5px;color:var(--muted)}
+.ai-step::before{content:"✓";width:16px;height:16px;border-radius:50%;background:var(--profit-soft);color:#0B8A50;display:grid;place-items:center;font-size:10px;font-weight:800}
+.ai-box{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--mist);display:flex;flex-direction:column;gap:5px}
+.ai-box b{font-size:11.5px;color:var(--ink);display:flex;justify-content:space-between}
+.qbub{align-self:flex-end;background:var(--p9);color:#fff;padding:9px 13px;border-radius:14px 14px 4px 14px;font-size:12.5px;font-weight:600;max-width:85%}
+.stock{border:1px solid var(--line);border-radius:10px;padding:9px 11px}
+.stock b{font-size:12px;display:flex;justify-content:space-between;align-items:center}
+.stock small{font-size:10.5px;color:var(--muted)}
+.next{display:flex;align-items:center;gap:10px;border:1px solid color-mix(in srgb,var(--p9) 30%,#fff);background:color-mix(in srgb,var(--p9) 5%,#fff);border-radius:10px;padding:9px 11px;font-size:12px}
+.next .mini-btn{margin-left:auto;background:var(--p9)}
 .chips{display:flex;gap:6px;flex-wrap:wrap}
-.chip{font-size:12px;padding:5px 11px;border-radius:99px;background:#fff;border:1px solid var(--line);font-weight:700}
-.price{height:140px}
-.price svg{width:100%;height:100%;overflow:visible}
-.price .you{fill:none;stroke:var(--p7);stroke-width:2.5}
-.price .comp{fill:none;stroke:var(--faint);stroke-width:1.5;stroke-dasharray:4 4}
-.price .floor{stroke:var(--loss);stroke-width:1;stroke-dasharray:3 4}
-.price text{font-family:var(--mono);font-size:10px;fill:var(--muted)}
-.reason{background:#fff;border:1px solid var(--line);border-left:3px solid var(--p7);border-radius:12px;padding:12px 14px;font-size:13.5px}
-.reason small{display:block;font-family:var(--mono);font-size:10.5px;color:var(--muted);margin-bottom:4px}
-.bbox{display:flex;gap:10px;margin-top:10px}
-.bbox div{flex:1;background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 12px}
-.bbox small{display:block;font-size:11.5px;color:var(--muted)}
-.bbox b{font-size:22px;font-weight:800;letter-spacing:-.03em}
-.flowv{display:grid;grid-template-columns:170px 1fr;gap:20px;align-items:center}
-.prodc{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:6px;font-size:13px}
-.prodc .img{height:92px;border-radius:10px;background:linear-gradient(135deg,#e3ecff,#cbdaff);display:grid;place-items:center;font-size:36px}
-.fc svg{width:100%;height:130px;overflow:visible}
-.fc .stock{fill:none;stroke:var(--ink);stroke-width:2}
-.fc .proj{fill:none;stroke:var(--p3);stroke-width:2;stroke-dasharray:5 5}
-.fc .reorder{stroke:var(--loss);stroke-width:1;stroke-dasharray:3 4}
-.fc text{font-family:var(--mono);font-size:10px;fill:var(--muted)}
-.inbox{display:grid;grid-template-columns:170px 1fr;gap:18px;align-items:center}
-.ring-wrap{position:relative;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}
-.ring{width:130px;height:130px}
-.ring circle{fill:none;stroke-width:11}
-.ring .bg{stroke:#fff}
-.ring .fg{stroke:var(--p4);stroke-linecap:round;transform:rotate(-90deg);transform-origin:50% 50%;stroke-dasharray:327;stroke-dashoffset:327;transition:stroke-dashoffset 1.6s var(--ease) .3s}
-.go .ring .fg{stroke-dashoffset:65.4}
-.ring-wrap b{position:absolute;top:44px;font-size:30px;font-weight:800;letter-spacing:-.03em}
-.ring-wrap small{font-size:12px;color:var(--muted);font-weight:600}
-.kan{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.kcol{background:rgba(255,255,255,.65);border-radius:12px;padding:10px;display:flex;flex-direction:column;gap:8px;min-width:0}
-.kcol h6{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;display:flex;justify-content:space-between}
-.kc{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px;font-size:12.5px;font-weight:600;line-height:1.35}
-.kc.ai{border-color:color-mix(in srgb,var(--purple) 40%,#fff)}
-.kc small{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:11px;margin-top:6px;font-weight:500}
-.kc small i{width:16px;height:16px;border-radius:50%;background:linear-gradient(135deg,var(--cyan),var(--purple))}
-.recov b{font-size:40px;font-weight:800;letter-spacing:-.04em;color:var(--p8)}
+.chip{font-size:11px;padding:4px 10px;border-radius:99px;background:#fff;border:1px solid var(--line);font-weight:700}
 
-/* ---------- hub ---------- */
+/* hub */
 .dark{background:var(--night);color:#fff;position:relative;overflow:hidden;isolation:isolate}
 .dark::before{content:"";position:absolute;left:50%;top:45%;width:900px;height:600px;transform:translate(-50%,-50%);background:radial-gradient(closest-side,rgba(1,166,224,.22),transparent);z-index:-1}
 .dark .lede{color:var(--night-muted)}
@@ -373,7 +426,7 @@ svg.wide{width:38px!important;height:38px!important;margin:-8px -4px}
 .beams .base{fill:none;stroke:rgba(255,255,255,.08);stroke-width:1}
 .beams .glow{fill:none;stroke:url(#beamGrad);stroke-width:2;stroke-linecap:round;stroke-dasharray:40 400;animation:beam 3.2s linear infinite}
 @keyframes beam{from{stroke-dashoffset:440}to{stroke-dashoffset:0}}
-.partners-row{display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;margin-top:56px}
+.partners-row{display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;margin-top:48px}
 .partners-row small{font-size:13px;font-weight:600;color:var(--night-muted);margin-right:6px}
 .partners-row .lg{height:46px;padding:0 18px}
 
@@ -382,7 +435,7 @@ svg.wide{width:38px!important;height:38px!important;margin:-8px -4px}
 .seg{display:inline-flex;gap:4px;padding:4px;border-radius:12px;background:var(--soft);margin-top:8px;flex-wrap:wrap;width:fit-content}
 .seg button{padding:10px 18px;border-radius:9px;font-size:14.5px;font-weight:700;color:var(--muted);transition:all .3s var(--ease)}
 .seg button.on{background:#fff;color:var(--ink);box-shadow:0 4px 12px -6px rgba(11,26,43,.3)}
-.role-card{position:relative;min-height:400px}
+.role-card{position:relative;min-height:380px}
 .rpanel{position:absolute;inset:0;border-radius:24px;padding:34px;background:linear-gradient(160deg,var(--night-2),var(--night));color:#fff;display:flex;flex-direction:column;gap:20px;opacity:0;transform:translateY(14px) scale(.98);transition:all .6s var(--ease);pointer-events:none;overflow:hidden}
 .rpanel::before{content:"";position:absolute;right:-20%;top:-30%;width:70%;height:90%;background:radial-gradient(closest-side,var(--rc,var(--cyan-glow)),transparent);opacity:.6}
 .rpanel>*{position:relative}
@@ -392,54 +445,52 @@ svg.wide{width:38px!important;height:38px!important;margin:-8px -4px}
 .rpanel li{display:flex;gap:12px;align-items:flex-start;font-size:15px;color:#DCE6F0}
 .rpanel li b{color:#fff}
 .rpanel li::before{content:"";flex:none;width:20px;height:20px;margin-top:2px;border-radius:6px;background:rgba(1,166,224,.18) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4.5 8.5l2.2 2.2L11.5 6' fill='none' stroke='%237FD6F6' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/14px no-repeat}
-.rpanel .uses{margin-top:auto;display:flex;gap:6px;flex-wrap:wrap}
-.rpanel .uses span{font-size:12.5px;font-weight:600;padding:5px 11px;border-radius:99px;background:rgba(255,255,255,.07);border:1px solid var(--night-line)}
+.rpanel .uses{margin-top:auto;display:flex;gap:8px;flex-wrap:wrap}
+.rpanel .uses span{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;padding:5px 11px 5px 5px;border-radius:99px;background:rgba(255,255,255,.07);border:1px solid var(--night-line)}
+.rpanel .uses .pi{width:22px;height:22px;border-radius:6px;box-shadow:none}
 
-/* proof */
-.proof-card{border-radius:28px;background:linear-gradient(135deg,#071222,#0B2440 60%,#0A3756);color:#fff;padding:52px;display:grid;grid-template-columns:1.05fr 1fr;gap:56px;position:relative;overflow:hidden;isolation:isolate}
-.proof-card::before{content:"";position:absolute;right:-12%;top:-35%;width:70%;height:120%;background:radial-gradient(closest-side,rgba(1,166,224,.32),transparent);z-index:-1}
-.proof-card h3{font-size:14px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--cyan-2)}
-.tcar{position:relative;min-height:300px;margin-top:22px}
-.tq{position:absolute;inset:0;display:flex;flex-direction:column;gap:22px;opacity:0;transform:translateY(12px);transition:opacity .6s var(--ease),transform .7s var(--ease);pointer-events:none}
-.tq.on{opacity:1;transform:none;pointer-events:auto}
-.tq blockquote{font-size:clamp(20px,2vw,25px);font-weight:600;letter-spacing:-.02em;line-height:1.45}
-.tq blockquote::before{content:"\201C";display:block;font-size:64px;line-height:.6;height:26px;color:var(--cyan);font-weight:800}
-.tq .who{display:flex;gap:14px;align-items:center;font-size:15px;font-weight:700;margin-top:0}
-.tq .who img,.tq .who .ini{width:56px;height:56px;border-radius:50%;flex:none;box-shadow:0 0 0 3px rgba(1,166,224,.35)}
-.tq .who .ini{display:grid;place-items:center;background:linear-gradient(135deg,var(--cyan),var(--purple));font-size:18px}
-.tq .who small{display:block;color:var(--night-muted);font-weight:500;font-size:13.5px}
-.tnav{display:flex;align-items:center;gap:14px;margin-top:8px}
-.tdots{display:flex;gap:6px}
-.tdots button{width:8px;height:8px;border-radius:99px;background:rgba(255,255,255,.25);transition:all .4s var(--ease)}
-.tdots button.on{width:26px;background:var(--cyan)}
-.tarrows{margin-left:auto;display:flex;gap:8px}
-.tarrows button{width:40px;height:40px;border-radius:50%;border:1px solid var(--night-line);display:grid;place-items:center;color:#fff;transition:background .2s}
-.tarrows button:hover{background:rgba(255,255,255,.08)}
-.impact-col{display:flex;flex-direction:column;gap:30px;border-left:1px solid var(--night-line);padding-left:48px;min-width:0}
-.igrid{display:grid;grid-template-columns:repeat(3,1fr);margin-top:16px}
-.igrid div{padding:0 18px;border-left:1px solid var(--night-line);min-width:0}
-.igrid div:first-child{padding-left:0;border-left:0}
-.igrid b{display:block;font-size:clamp(24px,2.7vw,40px);white-space:nowrap;font-weight:800;letter-spacing:-.045em;line-height:1}
-.igrid span{display:block;font-size:13.5px;color:var(--night-muted);margin-top:8px;font-weight:500}
-.isep{height:1px;background:var(--night-line)}
-.proof{display:grid;grid-template-columns:1.25fr 1fr;gap:16px}
-.quote{border-radius:24px;background:var(--night-2);color:#fff;padding:44px;display:flex;flex-direction:column;gap:26px;position:relative;overflow:hidden}
-.quote::before{content:"";position:absolute;right:-20%;top:-40%;width:80%;height:120%;background:radial-gradient(closest-side,rgba(1,166,224,.3),transparent)}
-.quote>*{position:relative}
-.quote .stars{color:#FBBF24;letter-spacing:3px}
-.quote blockquote{font-size:clamp(20px,2.1vw,26px);font-weight:600;letter-spacing:-.02em;line-height:1.45}
-.who{display:flex;gap:12px;align-items:center;font-size:14.5px;font-weight:700;margin-top:auto}
-.av{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--cyan),var(--purple))}
-.who small{display:block;color:var(--night-muted);font-weight:500}
-.tbc{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;background:#FFF4D6;color:#8A6500;border:1px dashed #E7C25A;padding:2px 8px;border-radius:4px}
-.stats{display:grid;grid-template-rows:repeat(3,1fr);gap:16px}
-.stat{border-radius:20px;border:1px solid var(--line);background:#fff;padding:24px 28px;display:flex;align-items:center;justify-content:space-between;gap:16px}
-.stat b{font-size:clamp(38px,4vw,54px);font-weight:800;letter-spacing:-.05em;line-height:1;color:var(--ink)}
-.stat span{font-size:14.5px;color:var(--muted);max-width:190px;text-align:right;font-weight:500}
+/* ---------- results (redesigned) ---------- */
+.results{background:var(--mist)}
+.rbento{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.rb{border-radius:22px;background:#fff;border:1px solid var(--line);padding:24px;display:flex;flex-direction:column;gap:10px;position:relative;overflow:hidden;min-width:0;transition:transform .5s var(--ease),box-shadow .5s var(--ease)}
+.rb:hover{transform:translateY(-4px);box-shadow:0 30px 60px -36px rgba(11,26,43,.35)}
+.rb b.big{font-size:clamp(36px,3.6vw,52px);font-weight:800;letter-spacing:-.05em;line-height:1}
+.rb span{font-size:14px;color:var(--muted);font-weight:500}
+.rb .tagl{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--faint)}
+.rb.feat{grid-column:span 2;grid-row:span 2;background:linear-gradient(150deg,#071222,#0B2440 60%,#0A3756);color:#fff;border:0;justify-content:space-between;padding:32px}
+.rb.feat::before{content:"";position:absolute;right:-20%;top:-30%;width:80%;height:100%;background:radial-gradient(closest-side,rgba(1,166,224,.35),transparent)}
+.rb.feat>*{position:relative}
+.rb.feat .tagl{color:var(--cyan-2)}
+.rb.feat .trio{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.rb.feat .trio b{display:block;font-size:clamp(34px,3.6vw,52px);font-weight:800;letter-spacing:-.05em;line-height:1}
+.rb.feat .trio span{display:block;color:var(--night-muted);font-size:13.5px;margin-top:8px}
+.rb.feat .incl{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.rb.feat .incl small{font-size:12.5px;color:var(--night-muted);font-weight:600;margin-right:4px}
+.rb.feat .incl span{width:92px;height:52px;border-radius:10px;background:#fff;display:grid;place-items:center;overflow:hidden}
+.rb.feat .incl img{height:52px;width:auto;transform:scale(1.35)}
+.rb.feat h3{font-size:clamp(22px,2.2vw,28px);font-weight:800;max-width:420px;line-height:1.25}
+.spark{height:44px;margin-top:auto}
+.spark svg{width:100%;height:100%;overflow:visible}
+.rb .ring2{width:64px;height:64px;margin-top:auto}
+.rb .ring2 circle{fill:none;stroke-width:8}
+.wall{margin-top:56px;display:flex;flex-direction:column;gap:16px}
+.wall-row{overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.wall-track{display:flex;gap:16px;width:max-content;animation:marquee 60s linear infinite}
+.wall-row.rev .wall-track{animation-direction:reverse}
+.wall-row:hover .wall-track{animation-play-state:paused}
+.tcard{width:420px;flex:none;border-radius:20px;background:#fff;border:1px solid var(--line);padding:24px;display:flex;flex-direction:column;gap:18px;transition:border-color .3s,box-shadow .3s}
+.tcard:hover{border-color:var(--cyan);box-shadow:0 20px 40px -26px rgba(1,166,224,.5)}
+.tcard q{font-size:16px;line-height:1.55;font-weight:500;quotes:"“" "”"}
+.tcard .who{display:flex;gap:12px;align-items:center;margin-top:auto}
+.tcard .who img,.tcard .who .ini{width:44px;height:44px;border-radius:50%;flex:none}
+.tcard .who .ini{display:grid;place-items:center;background:linear-gradient(135deg,var(--cyan),var(--purple));color:#fff;font-weight:800;font-size:15px}
+.tcard .who b{display:block;font-size:14.5px}
+.tcard .who small{display:block;color:var(--muted);font-size:13px}
+.tcard .who .co{margin-left:auto;font-size:11px;font-weight:700;color:var(--cyan-ink);background:var(--cyan-soft);padding:3px 9px;border-radius:99px;white-space:nowrap}
 
 /* faq */
 .faq-grid{display:grid;grid-template-columns:1fr 1.6fr;gap:72px}
-.faq details{border-bottom:1px solid var(--line);padding:22px 0}
+.faq details{border-bottom:1px solid var(--line);padding:20px 0}
 .faq details:first-child{border-top:1px solid var(--line)}
 .faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:24px;font-size:18px;font-weight:700;letter-spacing:-.01em}
 .faq summary::-webkit-details-marker{display:none}
@@ -447,16 +498,34 @@ svg.wide{width:38px!important;height:38px!important;margin:-8px -4px}
 .faq details[open] .pm{transform:rotate(45deg);background:var(--cyan);color:#fff;border-color:var(--cyan)}
 .faq details p{color:var(--muted);margin-top:12px;max-width:620px}
 
-/* close + footer */
+/* ---------- final CTA (redesigned) ---------- */
 .close{background:var(--night);color:#fff;position:relative;overflow:hidden;isolation:isolate}
-.close::before{content:"";position:absolute;left:50%;top:-30%;width:1200px;height:800px;transform:translateX(-50%);background:radial-gradient(closest-side,rgba(1,166,224,.3),transparent);z-index:-1}
-.close-top{text-align:center;display:flex;flex-direction:column;align-items:center;gap:24px;padding-block:130px 100px;border-bottom:1px solid var(--night-line)}
-.close-top h2{font-size:clamp(40px,5.6vw,76px);max-width:960px}
-.close-top h2 em{font-style:normal;color:var(--cyan)}
-.close-top p{color:var(--night-muted);max-width:560px}
-.tabs-strip{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;max-width:820px}
-.tabs-strip span{font-size:12.5px;font-weight:600;padding:6px 10px;border-radius:8px;background:rgba(255,255,255,.04);border:1px solid var(--night-line);color:var(--night-muted);text-decoration:line-through;text-decoration-color:rgba(229,72,77,.7)}
-.foot{display:grid;grid-template-columns:1.5fr repeat(5,1fr);gap:28px;font-size:14px;padding-block:64px 40px}
+.cta-wrap{display:grid;grid-template-columns:1fr 1.05fr;gap:48px;align-items:center;padding-block:110px 90px;border-bottom:1px solid var(--night-line);position:relative}
+.cta-wrap::before{content:"";position:absolute;right:-10%;top:0;width:70%;height:100%;background:radial-gradient(closest-side,rgba(1,166,224,.32),transparent);z-index:-1}
+.cta-copy{display:flex;flex-direction:column;gap:22px}
+.cta-copy h2{font-size:clamp(38px,4.8vw,64px)}
+.cta-copy h2 em{font-style:normal;color:var(--cyan)}
+.cta-copy p{color:var(--night-muted);max-width:480px;font-size:17px}
+.cta-copy .hero-ctas{justify-content:flex-start}
+.cta-copy .ticks{justify-content:flex-start}
+.cta-trust{display:flex;align-items:center;gap:12px;font-size:13.5px;color:var(--night-muted)}
+.cta-trust .av{display:flex}
+.cta-trust .av img{width:34px;height:34px;border-radius:50%;border:2px solid var(--night);margin-left:-8px}
+.cta-trust .av img:first-child{margin-left:0}
+.collage{position:relative;height:460px}
+.cc{position:absolute;background:#fff;color:var(--ink);border-radius:18px;box-shadow:0 40px 80px -30px rgba(0,0,0,.7);padding:16px;will-change:transform}
+.cc .h{display:flex;align-items:center;gap:10px;font-size:12.5px;font-weight:700;margin-bottom:10px}
+.cc .h .pi{width:26px;height:26px;border-radius:8px}
+.cc-main{left:6%;top:8%;width:62%}
+.cc-main .kpis{grid-template-columns:1fr 1fr;margin-bottom:10px}
+.cc-main .chart{height:90px}
+.cc-a{right:0;top:0;width:44%}
+.cc-b{right:4%;bottom:6%;width:46%}
+.cc-c{left:0;bottom:2%;width:46%}
+.cc .row{display:flex;align-items:center;gap:8px;font-size:12px;padding:6px 0;border-top:1px solid var(--line)}
+.cc .row:first-of-type{border-top:0}
+.cc .row .pill{margin-left:auto}
+.foot{display:grid;grid-template-columns:1.5fr repeat(5,1fr);gap:28px;font-size:14px;padding-block:60px 36px}
 .foot h5{font-size:13px;font-weight:800;color:#fff;margin-bottom:14px}
 .foot ul{list-style:none;display:flex;flex-direction:column;gap:9px;color:#B9C6D3}
 .foot a:hover{color:var(--cyan)}
@@ -468,25 +537,19 @@ svg.wide{width:38px!important;height:38px!important;margin:-8px -4px}
 .social{display:flex;gap:8px;margin-top:18px}
 .social a{width:36px;height:36px;border-radius:10px;border:1px solid var(--night-line);display:grid;place-items:center;color:#B9C6D3;font-size:13px;font-weight:700}
 .social a:hover{border-color:var(--cyan);color:var(--cyan)}
-.foot-bottom{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-block:26px 36px;border-top:1px solid var(--night-line);font-size:13px;color:#6F8196}
+.foot-bottom{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-block:24px 34px;border-top:1px solid var(--night-line);font-size:13px;color:#6F8196}
 
 /* responsive */
 @media (max-width:1140px){
   .menu,.nav-cta .login{display:none}
   .burger{display:grid}
-  .explorer{grid-template-columns:1fr}
-  .ptabs{position:relative;top:0;flex-direction:row;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px;scrollbar-width:none}
-  .ptabs::-webkit-scrollbar{display:none}
-  .ptab{flex:none;scroll-snap-align:start;grid-template-columns:32px auto;background:rgba(255,255,255,.6)}
-  .ptab .ico{width:32px;height:32px}
-  .ptab small{display:none}
   .foot{grid-template-columns:repeat(3,1fr)}
   .foot>div:first-child{grid-column:span 3}
+  .scard{grid-template-columns:1fr;gap:28px;min-height:0}
+  .stack-nav{display:none}
 }
 @media (max-width:1024px){
-  .proof-card{grid-template-columns:1fr;gap:40px;padding:36px}
-  .impact-col{border-left:0;padding-left:0;border-top:1px solid var(--night-line);padding-top:32px}
-  .faq-grid,.roles,.proof{grid-template-columns:1fr;gap:40px}
+  .faq-grid,.roles,.cta-wrap{grid-template-columns:1fr;gap:40px}
   .hubwrap{grid-template-columns:1fr;justify-items:center;gap:28px}
   .hubcol,.hubcol.r{align-items:stretch;width:100%;max-width:420px}
   .hubcol.r h5{text-align:left}
@@ -495,10 +558,13 @@ svg.wide{width:38px!important;height:38px!important;margin:-8px -4px}
   .core{order:-1}
   .dash{grid-template-columns:1fr}
   .dnav{display:none}
+  .rbento{grid-template-columns:1fr 1fr}
+  .one-grid{grid-template-columns:repeat(2,1fr)}
+  .otile p{display:none}
 }
 @media (max-width:720px){
   .wrap{padding-left:16px;padding-right:16px}
-  .section{padding-block:90px}
+  .section{padding-block:80px}
   .nav-cta .btn{display:none}
   .hero{padding-top:140px}
   .stage{margin-top:44px}
@@ -511,28 +577,34 @@ svg.wide{width:38px!important;height:38px!important;margin:-8px -4px}
   .dside{padding:18px}
   .kpis{grid-template-columns:1fr 1fr;gap:10px}
   .kpi.dk{grid-column:span 2}
-  .patch{height:220vh}
+  .patch{height:230vh}
   .tool{font-size:12.5px;padding:9px 12px}
   .tool small{display:none}
-  .one-grid{grid-template-columns:repeat(2,1fr)}
-  .ppanels{min-height:760px}
-  .ppanel{padding:22px;gap:20px}
-  .phead{grid-template-columns:1fr}
-  .phead .more{justify-self:start}
-  .viz{padding:14px}
-  .wf-row{grid-template-columns:84px 1fr 62px;gap:8px;font-size:12.5px}
-  .flowv,.inbox{grid-template-columns:1fr}
-  .kan{grid-template-columns:1fr 1fr}
-  .kan .kcol:last-child{display:none}
-  .role-card{min-height:470px}
+  .one{top:64%;padding:14px}
+  .one-search,.one-chs em{display:none}
+  .one-grid{gap:6px}
+  .otile{padding:10px;gap:8px}
+  .otile .stat{display:none}
+  .otile .pi{width:28px;height:28px;border-radius:8px}
+  .otile b{font-size:13px}
+  .scard{position:relative;top:0;padding:22px;border-radius:22px}
+  .kp4{grid-template-columns:1fr 1fr}
+  .inbox2,.rp,.flow3{grid-template-columns:1fr}
+  .inbox2 .list{border-right:0;border-bottom:1px solid var(--line)}
+  .rp-chart{border-right:0;border-bottom:1px solid var(--line)}
+  .cal{grid-template-columns:repeat(3,1fr)}
+  .cal>.col:nth-child(n+4),.cal>.dh:nth-child(n+4){display:none}
+  .tbl .hide-m{display:none}
+  .role-card{min-height:450px}
   .rpanel{padding:24px}
-  .quote{padding:28px}
-  .proof-card{padding:26px 20px;border-radius:22px}
-  .tcar{min-height:360px}
-  .igrid div{padding:0 10px}
-  .stat{flex-direction:column;align-items:flex-start}
-  .stat span{text-align:left}
+  .rbento{grid-template-columns:1fr}
+  .rb.feat{grid-column:auto;grid-row:auto;padding:24px}
+  .tcard{width:300px}
   .hero-ctas .btn{flex:1 1 100%}
+  .collage{height:420px}
+  .cc-main{left:0;width:78%}
+  .cc-a{width:60%}
+  .cc-b,.cc-c{width:62%}
   .foot{grid-template-columns:1fr 1fr}
   .foot>div:first-child{grid-column:span 2}
 }
@@ -544,27 +616,33 @@ svg.wide{width:38px!important;height:38px!important;margin:-8px -4px}
   .patch-sticky{position:relative;height:auto;padding-block:120px}
   .tool{display:none}
   .one{position:relative;left:auto;top:auto;transform:none;opacity:1;margin:260px auto 0}
+  .scard{position:relative;top:0}
+  .cur-dot,.cur-ring{display:none}
 }
 </style>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="lg-amazon" viewBox="0 0 24 24"><path fill="currentColor" d="M.045 18.02q.107-.174.348-.022q5.455 3.165 11.87 3.166q4.278-.001 8.447-1.595l.315-.14c.138-.06.234-.1.293-.13c.226-.088.39-.046.525.13c.12.174.09.336-.12.48c-.256.19-.6.41-1.006.654q-1.867 1.113-4.185 1.726a17.6 17.6 0 0 1-10.951-.577a17.9 17.9 0 0 1-5.43-3.35q-.15-.113-.151-.22c0-.047.021-.09.051-.13zm6.565-6.218q0-1.507.743-2.577c.495-.71 1.17-1.25 2.04-1.615c.796-.335 1.756-.575 2.912-.72c.39-.046 1.033-.103 1.92-.174v-.37c0-.93-.105-1.558-.3-1.875c-.302-.43-.78-.65-1.44-.65h-.182c-.48.046-.896.196-1.246.46c-.35.27-.575.63-.675 1.096c-.06.3-.206.465-.435.51l-2.52-.315c-.248-.06-.372-.18-.372-.39c0-.046.007-.09.022-.15q.372-1.935 1.82-2.88c.976-.616 2.1-.975 3.39-1.05h.54c1.65 0 2.957.434 3.888 1.29c.135.15.27.3.405.48c.12.165.224.314.283.45c.075.134.15.33.195.57c.06.254.105.42.135.51c.03.104.062.3.076.615c.01.313.02.493.02.553v5.28c0 .376.06.72.165 1.036q.157.471.315.674l.51.674q.136.204.136.36q0 .181-.18.314c-1.2 1.05-1.86 1.62-1.963 1.71q-.247.203-.63.045a6 6 0 0 1-.526-.496l-.31-.347a9 9 0 0 1-.317-.42l-.3-.435c-.81.886-1.603 1.44-2.4 1.665c-.494.15-1.093.227-1.83.227c-1.11 0-2.04-.343-2.76-1.034c-.72-.69-1.08-1.665-1.08-2.94l-.05-.076zm3.753-.438q-.001.848.425 1.364c.285.34.675.512 1.155.512c.045 0 .106-.007.195-.02c.09-.016.134-.023.166-.023c.614-.16 1.08-.553 1.424-1.178c.165-.28.285-.58.36-.91c.09-.32.12-.59.135-.8c.015-.195.015-.54.015-1.005v-.54c-.84 0-1.484.06-1.92.18c-1.275.36-1.92 1.17-1.92 2.43l-.035-.02zm9.162 7.027c.03-.06.075-.11.132-.17q.544-.365 1.05-.5a8 8 0 0 1 1.612-.24c.14-.012.28 0 .41.03c.65.06 1.05.168 1.172.33c.063.09.099.228.099.39v.15c0 .51-.149 1.11-.424 1.8q-.418 1.034-1.156 1.68q-.11.09-.197.09c-.03 0-.06 0-.09-.012c-.09-.044-.107-.12-.064-.24c.54-1.26.806-2.143.806-2.64c0-.15-.03-.27-.087-.344c-.145-.166-.55-.257-1.224-.257q-.364 0-.87.046c-.363.045-.7.09-1 .135q-.134 0-.18-.044c-.03-.03-.036-.047-.02-.077c0-.017.006-.03.02-.063v-.06z"/></symbol><symbol id="lg-ebay" viewBox="0 0 24 24"><path fill="currentColor" d="M6.056 12.132v-4.92h1.2v3.026c.59-.703 1.402-.906 2.202-.906c1.34 0 2.828.904 2.828 2.855c0 .233-.015.457-.06.668c.24-.953 1.274-1.305 2.896-1.344c.51-.018 1.095-.018 1.56-.018v-.135c0-.885-.556-1.244-1.53-1.244c-.72 0-1.245.3-1.305.81h-1.275c.136-1.29 1.5-1.62 2.686-1.62c1.064 0 1.995.27 2.415 1.02l-.436-.84h1.41l2.055 4.125l2.055-4.126H24l-3.72 7.305h-1.346l1.07-2.04l-2.33-4.38c.13.255.2.555.2.93v2.46c0 .346.01.69.04 1.005H16.8a7 7 0 0 1-.046-.765c-.603.734-1.32.96-2.32.96c-1.48 0-2.272-.78-2.272-1.695q.002-.224.037-.405c-.3 1.246-1.36 2.086-2.767 2.086c-.87 0-1.694-.315-2.2-.93c0 .24-.015.494-.04.734h-1.18c.02-.39.04-.855.04-1.245v-1.05h-4.83c.065 1.095.818 1.74 1.853 1.74c.718 0 1.355-.3 1.568-.93h1.24c-.24 1.29-1.61 1.725-2.79 1.725C.95 15.009 0 13.822 0 12.232c0-1.754.982-2.91 3.116-2.91c1.688 0 2.93.886 2.94 2.806v.005zm9.137.183c-1.095.034-1.77.233-1.77.95c0 .465.36.97 1.305.97c1.26 0 1.935-.69 1.935-1.814v-.13c-.45 0-.99.006-1.484.022h.012zm-6.06 1.875c1.11 0 1.876-.806 1.876-2.02s-.768-2.02-1.893-2.02c-1.11 0-1.89.806-1.89 2.02s.765 2.02 1.875 2.02h.03zm-4.35-2.514c-.044-1.125-.854-1.546-1.725-1.546c-.944 0-1.694.474-1.815 1.546z"/></symbol><symbol id="lg-shopify" viewBox="0 0 24 24"><path fill="currentColor" d="m15.337 23.979l7.216-1.561s-2.604-17.613-2.625-17.73c-.018-.116-.114-.192-.211-.192s-1.929-.136-1.929-.136s-1.275-1.274-1.439-1.411a.4.4 0 0 0-.121-.074l-.914 21.104zM11.71 11.305s-.81-.424-1.774-.424c-1.447 0-1.504.906-1.504 1.141c0 1.232 3.24 1.715 3.24 4.629c0 2.295-1.44 3.76-3.406 3.76c-2.354 0-3.54-1.465-3.54-1.465l.646-2.086s1.245 1.066 2.28 1.066a.944.944 0 0 0 .975-.932c0-1.619-2.654-1.694-2.654-4.359c-.034-2.237 1.571-4.416 4.827-4.416c1.257 0 1.875.361 1.875.361l-.945 2.715zM11.17.83c.136 0 .271.038.405.135c-.984.465-2.064 1.639-2.508 3.992a63 63 0 0 1-1.889.578C7.697 3.75 8.951.84 11.17.84zm1.235 2.949v.135c-.754.232-1.583.484-2.394.736c.466-1.777 1.333-2.645 2.085-2.971c.193.501.309 1.176.309 2.1m.539-2.234c.694.074 1.141.867 1.429 1.755c-.349.114-.735.231-1.158.366v-.252c0-.752-.096-1.371-.271-1.871zm2.992 1.289c-.02 0-.06.021-.078.021s-.289.075-.714.21c-.423-1.233-1.176-2.37-2.508-2.37h-.115C12.135.209 11.669 0 11.265 0C8.159 0 6.675 3.877 6.21 5.846c-1.194.365-2.063.636-2.16.674c-.675.213-.694.232-.772.87c-.075.462-1.83 14.063-1.83 14.063L15.009 24z"/></symbol><symbol id="lg-walmart" viewBox="0 0 24 24"><path fill="currentColor" d="M21.418 9.102c-.22 0-.396.123-.396.273l.134 1.516c.015.092.127.162.262.162c.136 0 .247-.07.262-.162l.135-1.516c0-.15-.176-.273-.397-.273M0 10.318s.597 2.447.692 2.845c.112.463.312.634.89.519l.373-1.517c.094-.377.158-.646.219-1.03h.01c.043.388.104.654.181 1.03l.23 1.051c.078.362.295.59.86.466l.89-3.364h-.718l-.303 1.455c-.082.423-.156.753-.213 1.14h-.01c-.052-.383-.118-.7-.2-1.113l-.317-1.482h-.747l-.338 1.445c-.096.439-.185.793-.242 1.167h-.01a41 41 0 0 0-.22-1.222s-.201-1.033-.272-1.39zm6.838 0v3.364h.683v-3.364zm9.62 0V12.8c0 .342.064.581.201.728c.12.128.319.21.556.21c.202 0 .401-.038.495-.073l-.01-.533a1 1 0 0 1-.259.03c-.232 0-.31-.148-.31-.456v-.949h.595v-.643h-.595v-.796zm2.778 0c-.114.003-.244.09-.327.233c-.11.191-.091.405.038.48l1.38.642c.086.032.203-.03.271-.146c.068-.117.063-.25-.009-.308l-1.246-.874a.2.2 0 0 0-.107-.027m4.364 0a.2.2 0 0 0-.106.027l-1.247.874c-.071.058-.076.19-.009.307v.001c.068.117.185.178.271.146l1.38-.643c.13-.074.149-.288.04-.479c-.084-.143-.214-.23-.329-.233m-18.288.78c-.424 0-.761.12-.945.225l.134.46c.168-.105.436-.193.69-.193c.419-.001.488.237.488.39v.036c-.915-.001-1.492.315-1.492.96c0 .394.294.763.805.763c.315 0 .578-.126.736-.327h.015s.105.437.68.27a4 4 0 0 1-.04-.61v-.898c0-.572-.245-1.076-1.071-1.076m4.086 0c-.428 0-.62.217-.736.4h-.01v-.343H8v2.527h.686V12.2c0-.07.008-.143.033-.207c.056-.149.195-.324.417-.324c.277 0 .406.235.406.573v1.44h.686v-1.5c0-.066.01-.146.029-.205a.43.43 0 0 1 .412-.308c.28 0 .416.23.416.628v1.385h.686v-1.488c0-.785-.399-1.096-.848-1.096c-.2 0-.357.05-.499.137q-.18.11-.32.315h-.01a.72.72 0 0 0-.696-.452m3.77 0c-.425 0-.761.12-.945.225l.134.46c.168-.105.436-.193.69-.193c.419-.001.487.237.487.39v.036c-.914-.001-1.491.315-1.491.96c0 .394.294.763.805.763c.315 0 .578-.126.735-.327h.016s.104.437.68.27a4 4 0 0 1-.04-.61v-.898c0-.572-.245-1.076-1.071-1.076m2.851 0c-.263 0-.562.17-.688.534h-.019v-.477h-.618v2.527h.705v-1.294q0-.103.015-.186c.052-.272.26-.445.557-.445c.082 0 .14.009.203.018v-.661a.7.7 0 0 0-.155-.016m4.36 1.22a.14.14 0 0 0-.052.01l-1.38.641c-.13.075-.149.289-.038.48c.11.19.305.281.434.207l1.246-.874c.072-.06.077-.191.01-.309c-.055-.095-.143-.153-.22-.154m2.079 0c-.077.002-.165.06-.22.156c-.067.117-.062.249.01.308l1.246.874c.129.074.323-.016.434-.207s.091-.405-.039-.48l-1.38-.642a.1.1 0 0 0-.051-.008m-16.757.146v.315a.5.5 0 0 1-.017.137a.48.48 0 0 1-.461.323c-.19 0-.34-.107-.34-.334c0-.347.383-.443.818-.441m7.855 0v.315a.5.5 0 0 1-.017.137a.48.48 0 0 1-.46.323c-.19 0-.34-.107-.34-.334c0-.347.382-.443.817-.441m7.862.483c-.135 0-.247.07-.262.162l-.134 1.516c0 .15.176.273.396.273s.397-.123.397-.273l-.135-1.516c-.015-.092-.126-.162-.262-.162"/></symbol><symbol id="lg-etsy" viewBox="0 0 24 24"><path fill="currentColor" d="M8.559 2.445c0-.325.033-.52.59-.52h7.465c1.3 0 2.02 1.11 2.54 3.193l.42 1.666h1.27c.23-4.728.43-6.784.43-6.784s-3.196.36-5.09.36H6.635L1.521.196v1.37l1.725.326c1.21.24 1.5.496 1.6 1.606c0 0 .11 3.27.11 8.64c0 5.385-.09 8.61-.09 8.61c0 .973-.39 1.333-1.59 1.573l-1.722.33V24l5.13-.165h8.55c1.935 0 6.39.165 6.39.165c.105-1.17.75-6.48.855-7.064h-1.2l-1.284 2.91c-1.005 2.28-2.476 2.445-4.11 2.445h-4.906c-1.63 0-2.415-.64-2.415-2.05V12.8s3.62 0 4.79.096c.912.064 1.463.325 1.76 1.598l.39 1.695h1.41l-.09-4.278l.192-4.305h-1.391l-.45 1.89c-.283 1.244-.48 1.47-1.754 1.6c-1.666.17-4.815.14-4.815.14V2.45h-.05z"/></symbol><symbol id="lg-woocommerce" viewBox="0 0 24 24"><path fill="currentColor" d="M.754 9.58a.754.754 0 0 0-.754.758v2.525c0 .42.339.758.758.758h3.135l1.431.799l-.326-.799h2.373a.757.757 0 0 0 .758-.758v-2.525a.757.757 0 0 0-.758-.758zm2.709.445h.03a.3.3 0 0 1 .179.067a.26.26 0 0 1 .103.19a.3.3 0 0 1-.033.16q-.194.36-.322 1.199q-.124.813-.094 1.267a.4.4 0 0 1-.039.219a.21.21 0 0 1-.176.12c-.086.006-.177-.034-.263-.124q-.465-.474-.735-1.416q-.324.638-.478.957q-.294.563-.502.578q-.134.01-.233-.228q-.254-.654-.548-2.524a.3.3 0 0 1 .054-.222c.047-.064.116-.095.21-.102q.253-.02.288.238q.156 1.043.336 1.766l.727-1.387q.1-.189.25-.199q.219-.015.273.28q.125.66.315 1.136q.13-1.266.44-1.828a.26.26 0 0 1 .218-.147m1.293.36a1 1 0 0 1 .18.02q.35.074.53.386c.107.18.161.395.161.654q0 .513-.26.94q-.299.499-.781.5a1 1 0 0 1-.18-.022a.76.76 0 0 1-.531-.384a1.3 1.3 0 0 1-.158-.659q0-.514.258-.937q.303-.499.78-.498zm2.084 0a1 1 0 0 1 .18.02q.353.074.53.386c.107.18.16.395.16.654q0 .513-.259.94q-.299.499-.781.5a1 1 0 0 1-.18-.022a.76.76 0 0 1-.531-.384a1.3 1.3 0 0 1-.16-.659q0-.514.26-.937q.303-.499.78-.498zm4.437.047q-.459 0-.718.304q-.258.306-.256.856q0 .592.256.906q.255.316.744.316q.473-.001.728-.316q.256-.315.256-.883c0-.568-.087-.673-.26-.879q-.262-.303-.75-.304m-1.466.002a1.13 1.13 0 0 0-.84.326q-.333.33-.332.838q-.001.545.328.88t.861.336q.156.001.346-.052v-.54a1.1 1.1 0 0 1-.303.051a.55.55 0 0 1-.422-.177a.7.7 0 0 1-.16-.48q0-.287.156-.468a.5.5 0 0 1 .397-.181q.153-.001.332.049v-.537a1.4 1.4 0 0 0-.363-.045m12.414 0a1.14 1.14 0 0 0-.84.326q-.333.33-.332.838q-.001.545.328.88q.33.335.861.336q.156.001.346-.052v-.54a1.1 1.1 0 0 1-.303.051a.55.55 0 0 1-.422-.177a.7.7 0 0 1-.16-.48q0-.287.156-.468a.5.5 0 0 1 .397-.181q.153-.001.332.049v-.537a1.4 1.4 0 0 0-.363-.045m-9.598.06l-.29 2.264h.579l.156-1.559l.395 1.559h.412l.379-1.555l.164 1.555h.603l-.304-2.264h-.791l-.12.508q-.046.195-.087.4l-.067.352a30 30 0 0 0-.258-1.26zm2.768 0l-.29 2.264h.579l.156-1.559l.396 1.559h.412l.375-1.555l.165 1.555h.603l-.305-2.264h-.789l-.119.508q-.046.195-.086.4l-.066.352a30 30 0 0 0-.26-1.26zm3.988 0v2.264h.611v-1.031h.012l.494 1.03h.645l-.489-1.019a.61.61 0 0 0 .37-.552a.6.6 0 0 0-.25-.506q-.25-.185-.68-.186zm3.377 0v2.264H24v-.483h-.63v-.414h.54v-.468h-.54v-.416h.626v-.483zm-4.793.004v2.264h1.24v-.483h-.627v-.416h.541v-.468h-.54v-.415h.622v-.482zm2.025.432q.219.003.313.072q.093.068.091.227q0 .234-.404.24zm-15.22.011q-.156-.001-.301.211a1.08 1.08 0 0 0-.2.639c0 .096.02.2.06.303c.049.13.117.198.196.215q.125.023.27-.106q.183-.164.252-.492q.023-.116.023-.246q0-.147-.06-.303c-.05-.13-.116-.198-.196-.215l-.045-.006zm2.083 0q-.155-.001-.3.211a1.08 1.08 0 0 0-.2.639c0 .096.02.2.06.303c.049.13.117.198.196.215q.125.023.27-.106q.183-.164.252-.492q.021-.116.023-.246q0-.147-.06-.303c-.05-.13-.116-.198-.196-.215zm4.428.006c.233 0 .354.218.354.66c-.004.273-.038.46-.098.553a.29.29 0 0 1-.262.139a.27.27 0 0 1-.242-.139q-.084-.14-.084-.562c0-.436.11-.65.332-.65Z"/></symbol><symbol id="lg-tiktok" viewBox="0 0 24 24"><path fill="currentColor" d="M12.525.02c1.31-.02 2.61-.01 3.91-.02c.08 1.53.63 3.09 1.75 4.17c1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97c-.57-.26-1.1-.59-1.62-.93c-.01 2.92.01 5.84-.02 8.75c-.08 1.4-.54 2.79-1.35 3.94c-1.31 1.92-3.58 3.17-5.91 3.21c-1.43.08-2.86-.31-4.08-1.03c-2.02-1.19-3.44-3.37-3.65-5.71c-.02-.5-.03-1-.01-1.49c.18-1.9 1.12-3.72 2.58-4.96c1.66-1.44 3.98-2.13 6.15-1.72c.02 1.48-.04 2.96-.04 4.44c-.99-.32-2.15-.23-3.02.37c-.63.41-1.11 1.04-1.36 1.75c-.21.51-.15 1.07-.14 1.61c.24 1.64 1.82 3.02 3.5 2.87c1.12-.01 2.19-.66 2.77-1.61c.19-.33.4-.67.41-1.06c.1-1.79.06-3.57.07-5.36c.01-4.03-.01-8.05.02-12.07"/></symbol></defs></svg>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
-  <symbol id="i-profit" viewBox="0 0 24 24"><path d="M4 19V5M4 19h16M8 15l4-4 3 3 5-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-  <symbol id="i-perf" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9M12 12l6-6M15 3h6v6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-  <symbol id="i-inv" viewBox="0 0 24 24"><path d="M3 8l9-5 9 5v8l-9 5-9-5zM3 8l9 5 9-5M12 13v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
-  <symbol id="i-engage" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8 10h8M8 13h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
-  <symbol id="i-flow" viewBox="0 0 24 24"><rect x="3" y="9" width="6" height="6" rx="1.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M9 12h4M13 6v12M13 6h4M13 12h4M13 18h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="19" cy="6" r="1.6" fill="currentColor"/><circle cx="19" cy="12" r="1.6" fill="currentColor"/><circle cx="19" cy="18" r="1.6" fill="currentColor"/></symbol>
-  <symbol id="i-work" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M9 4v16M15 4v16" stroke="currentColor" stroke-width="2"/></symbol>
-  <symbol id="i-price" viewBox="0 0 24 24"><path d="M3 12V4h8l10 10-8 8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="7.5" cy="8.5" r="1.5" fill="currentColor"/></symbol>
-  <symbol id="i-recov" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7M3 4v5h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 8v8M9.5 10.5c0-1.2 1.1-2 2.5-2s2.5.8 2.5 2-1 1.5-2.5 1.5-2.5.6-2.5 1.8 1.1 1.7 2.5 1.7 2.5-.6 2.5-1.7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
-  <symbol id="i-mcp" viewBox="0 0 24 24"><path d="M12 3l1.8 4.6L18.5 9l-4.7 1.4L12 15l-1.8-4.6L5.5 9l4.7-1.4zM18 15l.9 2.1L21 18l-2.1.9L18 21l-.9-2.1L15 18l2.1-.9z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+  <!-- custom product marks (white glyph on gradient tile) -->
+  <symbol id="i-profit" viewBox="0 0 24 24"><path d="M4 18.5h16" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><rect x="5" y="11" width="3.2" height="5" rx="1" fill="currentColor"/><rect x="10.4" y="8" width="3.2" height="8" rx="1" fill="currentColor"/><rect x="15.8" y="4.5" width="3.2" height="11.5" rx="1" fill="currentColor"/></symbol>
+  <symbol id="i-perf" viewBox="0 0 24 24"><path d="M4.5 16a7.5 7.5 0 1 1 15 0" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M12 16l4-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><circle cx="12" cy="16" r="2" fill="currentColor"/></symbol>
+  <symbol id="i-inv" viewBox="0 0 24 24"><path d="M12 3.5l7.5 4v9L12 20.5l-7.5-4v-9z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M4.8 7.7L12 11.6l7.2-3.9M12 11.6v8.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-engage" viewBox="0 0 24 24"><path d="M4.5 6.5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v7.5a2 2 0 0 1-2 2H10l-4.5 3.5V16a2 2 0 0 1-1-1.7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14.5 8.2l.6 1.4 1.4.6-1.4.6-.6 1.4-.6-1.4-1.4-.6 1.4-.6z" fill="currentColor"/><path d="M8 9h3M8 12h2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-flow" viewBox="0 0 24 24"><rect x="3.5" y="9" width="6" height="6" rx="1.6" fill="currentColor"/><path d="M9.5 12h3M12.5 6v12M12.5 6h3M12.5 18h3M12.5 12h3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="18" cy="6" r="2" fill="currentColor"/><circle cx="18" cy="12" r="2" fill="currentColor"/><circle cx="18" cy="18" r="2" fill="currentColor"/></symbol>
+  <symbol id="i-work" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 9.5h16M8.5 3.5v3M15.5 3.5v3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M8.5 14.2l2 2 4.5-4.4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-price" viewBox="0 0 24 24"><path d="M4 15.5l4.5-4.5 3.5 3 7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M14.5 7H19v4.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 19.5h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".6"/></symbol>
+  <symbol id="i-recov" viewBox="0 0 24 24"><path d="M5 12a7 7 0 1 0 2.1-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M4.5 4.5v3.5H8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M13.6 9.2c-.3-.7-1-1.1-1.8-1.1-1.1 0-1.8.7-1.8 1.6V15M9.2 12.2h3.6M9.2 15h5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+  <symbol id="i-mcp" viewBox="0 0 24 24"><path d="M9 3.5v4M15 3.5v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M6.5 7.5h11v3a5.5 5.5 0 0 1-11 0z" fill="currentColor"/><path d="M12 16v4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3l1.8 4.6L18.5 9l-4.7 1.4L12 15l-1.8-4.6L5.5 9l4.7-1.4z" fill="currentColor"/><path d="M18 15l.9 2.1L21 18l-2.1.9L18 21l-.9-2.1L15 18l2.1-.9z" fill="currentColor"/></symbol>
   <symbol id="chev" viewBox="0 0 12 12"><path d="M2.5 4.5L6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
 </defs></svg>
 
+<div class="progress" id="progress"></div>
+<div class="cur-dot" id="curDot"></div><div class="cur-ring" id="curRing"></div>
+
 <div class="announce">New: ask your business anything. Connect Claude, ChatGPT or Grok to WhatSales.<a href="#platform" data-open="8">See how →</a></div>
 
-<!-- NAV -->
 <header class="nav dark-mode" id="nav">
   <div class="wrap nav-in">
     <a href="#" class="logo" aria-label="WhatSales home"><img class="on-dark" src="assets/logo-white.webp" alt="WhatSales"><img class="on-light" src="assets/logo-cyan.webp" alt="WhatSales"></a>
@@ -574,15 +652,15 @@ svg.wide{width:38px!important;height:38px!important;margin:-8px -4px}
           <div>
             <h6>Nine products, one platform</h6>
             <div class="mprods">
-              <a class="mitem" href="#platform" data-open="0" style="--c:var(--p1)"><span class="ico"><svg><use href="#i-profit"/></svg></span><div><b>Profitability</b><span>True profit by SKU, channel and brand</span></div></a>
-              <a class="mitem" href="#platform" data-open="1" style="--c:var(--p2)"><span class="ico"><svg><use href="#i-perf"/></svg></span><div><b>Performance</b><span>Listings, ads and ACOS in one view</span></div></a>
-              <a class="mitem" href="#platform" data-open="2" style="--c:var(--p3)"><span class="ico"><svg><use href="#i-inv"/></svg></span><div><b>Inventory</b><span>Forecasts and purchase orders</span></div></a>
-              <a class="mitem" href="#platform" data-open="3" style="--c:var(--p4)"><span class="ico"><svg><use href="#i-engage"/></svg></span><div><b>Engage</b><span>AI helpdesk for every marketplace</span></div></a>
-              <a class="mitem" href="#platform" data-open="4" style="--c:var(--p5)"><span class="ico"><svg><use href="#i-flow"/></svg></span><div><b>Flow</b><span>Create once, publish everywhere</span></div></a>
-              <a class="mitem" href="#platform" data-open="5" style="--c:var(--p6)"><span class="ico"><svg><use href="#i-work"/></svg></span><div><b>Workspace</b><span>Done-for-you team and AI tasks</span></div></a>
-              <a class="mitem" href="#platform" data-open="6" style="--c:var(--p7)"><span class="ico"><svg><use href="#i-price"/></svg></span><div><b>Repricer</b><span>Win the Buy Box, keep your margin</span></div></a>
-              <a class="mitem" href="#platform" data-open="7" style="--c:var(--p8)"><span class="ico"><svg><use href="#i-recov"/></svg></span><div><b>Recovery</b><span>Claim back what you're owed</span></div></a>
-              <a class="mitem" href="#platform" data-open="8" style="--c:var(--cyan)"><span class="ico"><svg><use href="#i-mcp"/></svg></span><div><b>MCP</b><span>Ask your data with Claude, ChatGPT or Grok</span></div></a>
+              <a class="mitem" href="#platform" data-open="0"><span class="pi" style="--c:var(--p1)"><svg><use href="#i-profit"/></svg></span><div><b>Profitability</b><span>True profit by SKU, channel and brand</span></div></a>
+              <a class="mitem" href="#platform" data-open="1"><span class="pi" style="--c:var(--p2)"><svg><use href="#i-perf"/></svg></span><div><b>Performance</b><span>Listings, ads and ACOS in one view</span></div></a>
+              <a class="mitem" href="#platform" data-open="2"><span class="pi" style="--c:var(--p3)"><svg><use href="#i-inv"/></svg></span><div><b>Inventory</b><span>Forecasts and purchase orders</span></div></a>
+              <a class="mitem" href="#platform" data-open="3"><span class="pi" style="--c:var(--p4)"><svg><use href="#i-engage"/></svg></span><div><b>Engage</b><span>AI helpdesk for every marketplace</span></div></a>
+              <a class="mitem" href="#platform" data-open="4"><span class="pi" style="--c:var(--p5)"><svg><use href="#i-flow"/></svg></span><div><b>Flow</b><span>Create once, publish everywhere</span></div></a>
+              <a class="mitem" href="#platform" data-open="5"><span class="pi" style="--c:var(--p6)"><svg><use href="#i-work"/></svg></span><div><b>Workspace</b><span>Done-for-you team and AI tasks</span></div></a>
+              <a class="mitem" href="#platform" data-open="6"><span class="pi" style="--c:var(--p7)"><svg><use href="#i-price"/></svg></span><div><b>Repricer</b><span>Win the Buy Box, keep your margin</span></div></a>
+              <a class="mitem" href="#platform" data-open="7"><span class="pi" style="--c:var(--p8)"><svg><use href="#i-recov"/></svg></span><div><b>Recovery</b><span>Claim back what Amazon owes you</span></div></a>
+              <a class="mitem" href="#platform" data-open="8"><span class="pi" style="--c:var(--p9)"><svg><use href="#i-mcp"/></svg></span><div><b>MCP</b><span>Ask your data with Claude, ChatGPT or Grok</span></div></a>
             </div>
           </div>
           <div class="mfeat"><small>Most popular</small><b>See your true profit on every order, in minutes.</b><p>Connect your first marketplace and watch fees, ads, refunds and costs come out of every sale.</p><a href="#demo">Book a demo →</a></div>
@@ -591,9 +669,9 @@ svg.wide{width:38px!important;height:38px!important;margin:-8px -4px}
       <li data-menu><button aria-expanded="false">Solutions <svg class="chev"><use href="#chev"/></svg></button>
         <div class="mega"><div class="mega-in small">
           <div class="mlist"><h6>By team</h6>
-            <a class="mitem" href="#roles" data-role="0" style="--c:var(--cyan)"><span class="ico"><svg><use href="#i-profit"/></svg></span><div><b>Brand owners</b><span>One view of the whole business</span></div></a>
-            <a class="mitem" href="#roles" data-role="1" style="--c:var(--p3)"><span class="ico"><svg><use href="#i-inv"/></svg></span><div><b>Ops &amp; finance</b><span>Numbers you can trust</span></div></a>
-            <a class="mitem" href="#roles" data-role="2" style="--c:var(--purple)"><span class="ico"><svg><use href="#i-work"/></svg></span><div><b>Agencies &amp; partners</b><span>Every client in one workspace</span></div></a>
+            <a class="mitem" href="#roles" data-role="0"><div><b>Brand owners</b><span>One view of the whole business</span></div></a>
+            <a class="mitem" href="#roles" data-role="1"><div><b>Ops &amp; finance</b><span>Numbers you can trust</span></div></a>
+            <a class="mitem" href="#roles" data-role="2"><div><b>Agencies &amp; partners</b><span>Every client in one workspace</span></div></a>
           </div>
           <div class="mlist"><h6>By marketplace</h6>
             <a class="mitem" href="#integrations"><div><b>Amazon sellers</b><span>Profit, repricing &amp; FBA claims</span></div></a>
@@ -603,7 +681,7 @@ svg.wide{width:38px!important;height:38px!important;margin:-8px -4px}
         </div></div>
       </li>
       <li><a href="#integrations">Integrations</a></li>
-      <li><a href="#proof">Customers</a></li>
+      <li><a href="#results">Customers</a></li>
       <li data-menu><button aria-expanded="false">Resources <svg class="chev"><use href="#chev"/></svg></button>
         <div class="mega"><div class="mega-in small">
           <div class="mlist"><h6>Learn</h6>
@@ -629,21 +707,21 @@ svg.wide{width:38px!important;height:38px!important;margin:-8px -4px}
 </header>
 
 <div class="drawer" id="drawer" aria-hidden="true">
-  <div class="drawer-top"><img src="assets/logo-cyan.webp" alt="WhatSales" class="brand-logo"><button id="drawerClose" aria-label="Close menu" style="font-size:22px;width:44px;height:44px">✕</button></div>
+  <div class="drawer-top"><img src="assets/logo-cyan.webp" alt="WhatSales"><button id="drawerClose" aria-label="Close menu" style="font-size:22px;width:44px;height:44px">✕</button></div>
   <details open><summary>Platform <svg width="12" height="12"><use href="#chev"/></svg></summary>
-    <a class="mitem" href="#platform" data-open="0" style="--c:var(--p1)"><span class="ico"><svg><use href="#i-profit"/></svg></span><div><b>Profitability</b></div></a>
-    <a class="mitem" href="#platform" data-open="1" style="--c:var(--p2)"><span class="ico"><svg><use href="#i-perf"/></svg></span><div><b>Performance</b></div></a>
-    <a class="mitem" href="#platform" data-open="2" style="--c:var(--p3)"><span class="ico"><svg><use href="#i-inv"/></svg></span><div><b>Inventory</b></div></a>
-    <a class="mitem" href="#platform" data-open="3" style="--c:var(--p4)"><span class="ico"><svg><use href="#i-engage"/></svg></span><div><b>Engage</b></div></a>
-    <a class="mitem" href="#platform" data-open="4" style="--c:var(--p5)"><span class="ico"><svg><use href="#i-flow"/></svg></span><div><b>Flow</b></div></a>
-    <a class="mitem" href="#platform" data-open="5" style="--c:var(--p6)"><span class="ico"><svg><use href="#i-work"/></svg></span><div><b>Workspace</b></div></a>
-    <a class="mitem" href="#platform" data-open="6" style="--c:var(--p7)"><span class="ico"><svg><use href="#i-price"/></svg></span><div><b>Repricer</b></div></a>
-    <a class="mitem" href="#platform" data-open="7" style="--c:var(--p8)"><span class="ico"><svg><use href="#i-recov"/></svg></span><div><b>Recovery</b></div></a>
-    <a class="mitem" href="#platform" data-open="8" style="--c:var(--cyan)"><span class="ico"><svg><use href="#i-mcp"/></svg></span><div><b>MCP</b></div></a>
+    <a class="mitem" href="#platform" data-open="0"><span class="pi sm" style="--c:var(--p1)"><svg><use href="#i-profit"/></svg></span><b>Profitability</b></a>
+    <a class="mitem" href="#platform" data-open="1"><span class="pi sm" style="--c:var(--p2)"><svg><use href="#i-perf"/></svg></span><b>Performance</b></a>
+    <a class="mitem" href="#platform" data-open="2"><span class="pi sm" style="--c:var(--p3)"><svg><use href="#i-inv"/></svg></span><b>Inventory</b></a>
+    <a class="mitem" href="#platform" data-open="3"><span class="pi sm" style="--c:var(--p4)"><svg><use href="#i-engage"/></svg></span><b>Engage</b></a>
+    <a class="mitem" href="#platform" data-open="4"><span class="pi sm" style="--c:var(--p5)"><svg><use href="#i-flow"/></svg></span><b>Flow</b></a>
+    <a class="mitem" href="#platform" data-open="5"><span class="pi sm" style="--c:var(--p6)"><svg><use href="#i-work"/></svg></span><b>Workspace</b></a>
+    <a class="mitem" href="#platform" data-open="6"><span class="pi sm" style="--c:var(--p7)"><svg><use href="#i-price"/></svg></span><b>Repricer</b></a>
+    <a class="mitem" href="#platform" data-open="7"><span class="pi sm" style="--c:var(--p8)"><svg><use href="#i-recov"/></svg></span><b>Recovery</b></a>
+    <a class="mitem" href="#platform" data-open="8"><span class="pi sm" style="--c:var(--p9)"><svg><use href="#i-mcp"/></svg></span><b>MCP</b></a>
   </details>
   <a class="dl" href="#roles">Solutions</a>
   <a class="dl" href="#integrations">Integrations</a>
-  <a class="dl" href="#proof">Customers</a>
+  <a class="dl" href="#results">Customers</a>
   <a class="dl" href="#faq">Pricing</a>
   <a class="btn btn-line" href="#">Log in</a>
   <a class="btn btn-cyan" href="#demo">Book a demo</a>
@@ -654,20 +732,19 @@ svg.wide{width:38px!important;height:38px!important;margin:-8px -4px}
 <section class="hero" id="hero">
   <div class="wrap">
     <div class="hero-copy">
-      <span class="trust fade-up"><span class="stack"><span><svg style="fill:#FF9900"><use href="#lg-amazon"/></svg></span><span><svg class="wide" style="fill:#E53238;width:20px!important;height:20px!important;margin:0"><use href="#lg-ebay"/></svg></span><span><svg style="fill:#7AB55C"><use href="#lg-shopify"/></svg></span></span>Trusted by <b>1,000+ ecommerce brands and agencies</b></span>
+      <span class="trust fade-up"><span class="stack"><span><img src="assets/client-trimmingshop.svg" alt="Trimmingshop"></span><span><img src="assets/client-dlm.svg" alt="DLM Direct"></span><span><img src="assets/client-hardys.svg" alt="Hardys"></span></span>Trusted by <b>1,000+ ecommerce brands and agencies</b></span>
       <h1 class="split" id="heroTitle">Sell everywhere. Run it all from <em>one platform.</em></h1>
       <p class="lede fade-up" style="transition-delay:.45s">WhatSales connects Amazon, eBay, Shopify, TikTok Shop and more through 50+ integrations, then puts AI to work on your profit, pricing, stock, listings and customer inbox.</p>
       <div class="hero-ctas fade-up" style="transition-delay:.6s">
         <a href="#demo" class="btn btn-cyan">Book a demo <span class="arrow">→</span></a>
-        <a href="#demo" class="btn btn-glass">Start free trial</a>
+        <a href="#demo" class="btn btn-glass">Start 7-day free trial</a>
       </div>
-      <div class="hero-note fade-up" style="transition-delay:.75s"><span>7-day free trial</span><span>No long-term contract</span><span>Set up in minutes</span></div>
+      <div class="ticks fade-up" style="transition-delay:.75s"><span>7-day free trial</span><span>No long-term contract</span><span>Set up in minutes</span></div>
     </div>
-
     <div class="stage" id="stage">
       <div class="ask" id="ask" aria-live="polite">
         <div class="ask-bar">
-          <span class="spark"><svg width="16" height="16" style="color:#fff"><use href="#i-mcp"/></svg></span>
+          <span class="pi sm" style="--c:var(--p9)"><svg><use href="#i-spark"/></svg></span>
           <span class="ask-q" id="askQ"><span class="caret"></span></span>
           <kbd>⌘K</kbd>
         </div>
@@ -675,15 +752,16 @@ svg.wide{width:38px!important;height:38px!important;margin:-8px -4px}
       </div>
       <div class="dash" id="dash" aria-label="WhatSales dashboard preview">
         <aside class="dnav">
-          <img class="brand-logo" src="assets/logo-white.webp" alt="">
-          <a class="on"><i style="background:var(--p1)"></i>Profitability</a>
-          <a><i style="background:var(--p2)"></i>Performance</a>
-          <a><i style="background:var(--p3)"></i>Inventory</a>
-          <a><i style="background:var(--p4)"></i>Engage</a>
-          <a><i style="background:var(--p5)"></i>Flow</a>
-          <a><i style="background:var(--p6)"></i>Workspace</a>
-          <a><i style="background:var(--p7)"></i>Repricer</a>
-          <a><i style="background:var(--p8)"></i>Recovery</a>
+          <img src="assets/logo-white.webp" alt="">
+          <a class="on"><span class="pi" style="--c:var(--p1)"><svg><use href="#i-profit"/></svg></span>Profitability</a>
+          <a><span class="pi" style="--c:var(--p2)"><svg><use href="#i-perf"/></svg></span>Performance</a>
+          <a><span class="pi" style="--c:var(--p3)"><svg><use href="#i-inv"/></svg></span>Inventory</a>
+          <a><span class="pi" style="--c:var(--p4)"><svg><use href="#i-engage"/></svg></span>Engage</a>
+          <a><span class="pi" style="--c:var(--p5)"><svg><use href="#i-flow"/></svg></span>Flow</a>
+          <a><span class="pi" style="--c:var(--p6)"><svg><use href="#i-work"/></svg></span>Workspace</a>
+          <a><span class="pi" style="--c:var(--p7)"><svg><use href="#i-price"/></svg></span>Repricer</a>
+          <a><span class="pi" style="--c:var(--p8)"><svg><use href="#i-recov"/></svg></span>Recovery</a>
+          <a><span class="pi" style="--c:var(--p9)"><svg><use href="#i-mcp"/></svg></span>MCP</a>
         </aside>
         <div class="dbody">
           <div class="dgrid">
@@ -705,9 +783,9 @@ svg.wide{width:38px!important;height:38px!important;margin:-8px -4px}
             </div>
             <div class="dside">
               <h4>Profit by channel <span>Margin</span></h4>
-              <div class="ch-row"><svg style="fill:#FF9900"><use href="#lg-amazon"/></svg><span>Amazon</span><div class="bar"><i data-w="100%"></i></div><span class="m">14.6%</span></div>
-              <div class="ch-row"><svg class="wide" style="fill:#E53238;width:26px!important;height:26px!important;margin:-4px"><use href="#lg-ebay"/></svg><span>eBay</span><div class="bar"><i data-w="40%"></i></div><span class="m">21.8%</span></div>
-              <div class="ch-row"><svg style="fill:#7AB55C"><use href="#lg-shopify"/></svg><span>Shopify</span><div class="bar"><i data-w="33%"></i></div><span class="m">24.6%</span></div>
+              <div class="ch-row"><svg class="mk" style="color:#FF9900"><use href="#lg-amazon"/></svg><span>Amazon</span><div class="bar"><i data-w="100%"></i></div><span class="m">14.6%</span></div>
+              <div class="ch-row"><svg class="mk wide" style="color:#E53238;width:28px;height:28px;margin:-4px"><use href="#lg-ebay"/></svg><span>eBay</span><div class="bar"><i data-w="40%"></i></div><span class="m">21.8%</span></div>
+              <div class="ch-row"><svg class="mk" style="color:#7AB55C"><use href="#lg-shopify"/></svg><span>Shopify</span><div class="bar"><i data-w="33%"></i></div><span class="m">24.6%</span></div>
               <div class="ch-row"><span class="wm wm-temu" style="font-size:9px">TEMU</span><span>Temu</span><div class="bar"><i data-w="18%" style="background:var(--loss)"></i></div><span class="m low">6.1%</span></div>
             </div>
           </div>
@@ -719,39 +797,45 @@ svg.wide{width:38px!important;height:38px!important;margin:-8px -4px}
   <div class="hero-fade"></div>
 </section>
 
-<!-- MARQUEE -->
-<section class="band" aria-label="Channels">
+<!-- MARQUEE + CLIENTS -->
+<section class="band" aria-label="Channels and customers">
   <p>Connects to the marketplaces you already sell on</p>
   <div class="marquee">
     <div class="marquee-track" id="mq">
-      <span class="lg"><svg style="fill:#FF9900"><use href="#lg-amazon"/></svg>Amazon</span>
-      <span class="lg"><svg class="wide" style="fill:#E53238"><use href="#lg-ebay"/></svg>eBay</span>
-      <span class="lg"><svg style="fill:#7AB55C"><use href="#lg-shopify"/></svg>Shopify</span>
-      <span class="lg"><svg class="wide" style="fill:#3B9BFF"><use href="#lg-walmart"/></svg>Walmart</span>
+      <span class="lg"><svg class="mk" style="color:#FF9900"><use href="#lg-amazon"/></svg>Amazon</span>
+      <span class="lg"><svg class="mk wide" style="color:#E53238"><use href="#lg-ebay"/></svg>eBay</span>
+      <span class="lg"><svg class="mk" style="color:#7AB55C"><use href="#lg-shopify"/></svg>Shopify</span>
+      <span class="lg"><svg class="mk wide" style="color:#3B9BFF"><use href="#lg-walmart"/></svg>Walmart</span>
       <span class="lg"><span class="wm wm-temu">TEMU</span></span>
-      <span class="lg"><svg style="fill:#fff"><use href="#lg-tiktok"/></svg>TikTok Shop</span>
+      <span class="lg"><svg class="mk" style="color:#fff"><use href="#lg-tiktok"/></svg>TikTok Shop</span>
       <span class="lg"><span class="wm wm-bq">B&amp;Q</span>Marketplace</span>
       <span class="lg"><span class="wm wm-tesco">TESCO</span>Marketplace</span>
       <span class="lg"><span class="wm wm-onbuy">On<i>Buy</i></span></span>
       <span class="lg"><span class="wm wm-deb">Debenhams</span></span>
-      <span class="lg"><svg style="fill:#F16521"><use href="#lg-etsy"/></svg>Etsy</span>
-      <span class="lg"><svg class="wide" style="fill:#B07AA6"><use href="#lg-woocommerce"/></svg>WooCommerce</span>
+      <span class="lg"><svg class="mk" style="color:#F16521"><use href="#lg-etsy"/></svg>Etsy</span>
+      <span class="lg"><svg class="mk wide" style="color:#B07AA6"><use href="#lg-woocommerce"/></svg>WooCommerce</span>
     </div>
+  </div>
+  <div class="wrap clients">
+    <small>Growing brands that run on WhatSales</small>
+    <span class="cl"><img src="assets/client-trimmingshop.svg" alt="Trimmingshop"></span>
+    <span class="cl"><img src="assets/client-dlm.svg" alt="DLM Direct"></span>
+    <span class="cl"><img src="assets/client-hardys.svg" alt="Hardys"></span>
   </div>
 </section>
 
 <!-- THE PATCHWORK -->
 <section class="patch" id="patch">
   <div class="patch-sticky">
-    <div class="patch-copy">
+    <div class="patch-copy" id="patchCopy">
       <span class="eyebrow"><i></i>Why WhatSales</span>
       <h2>Six marketplaces shouldn't mean <span class="hl">sixteen tabs.</span></h2>
       <p class="lede" id="patchP">Seller Central, eBay Seller Hub, a repricer, a helpdesk, a stock spreadsheet and a month-end P&amp;L nobody quite trusts. Keep scrolling.</p>
     </div>
     <div>
-      <div class="tool" data-x="-38" data-y="-6" data-r="-6"><span class="ic"><svg style="fill:#FF9900"><use href="#lg-amazon"/></svg></span><div>Seller Central<small>Sales &amp; fees</small></div><span class="x">✕</span></div>
-      <div class="tool" data-x="-20" data-y="16" data-r="4"><span class="ic"><svg class="wide" style="fill:#E53238;width:22px!important;height:22px!important;margin:0"><use href="#lg-ebay"/></svg></span><div>eBay Seller Hub<small>Orders</small></div><span class="x">✕</span></div>
-      <div class="tool" data-x="30" data-y="-10" data-r="5"><span class="ic"><svg style="fill:#7AB55C"><use href="#lg-shopify"/></svg></span><div>Shopify admin<small>Storefront</small></div><span class="x">✕</span></div>
+      <div class="tool" data-x="-38" data-y="-6" data-r="-6"><span class="ic"><svg class="mk" style="color:#FF9900"><use href="#lg-amazon"/></svg></span><div>Seller Central<small>Sales &amp; fees</small></div><span class="x">✕</span></div>
+      <div class="tool" data-x="-20" data-y="16" data-r="4"><span class="ic"><svg class="mk" style="color:#E53238;width:22px;height:22px"><use href="#lg-ebay"/></svg></span><div>eBay Seller Hub<small>Orders</small></div><span class="x">✕</span></div>
+      <div class="tool" data-x="30" data-y="-10" data-r="5"><span class="ic"><svg class="mk" style="color:#7AB55C"><use href="#lg-shopify"/></svg></span><div>Shopify admin<small>Storefront</small></div><span class="x">✕</span></div>
       <div class="tool" data-x="38" data-y="14" data-r="-3"><span class="ic">📊</span><div>P&amp;L_final_v7.xlsx<small>Month-end</small></div><span class="x">✕</span></div>
       <div class="tool" data-x="-36" data-y="26" data-r="3"><span class="ic">💬</span><div>Helpdesk<small>Customer tickets</small></div><span class="x">✕</span></div>
       <div class="tool" data-x="12" data-y="28" data-r="-5"><span class="ic">🏷️</span><div>Repricer<small>Amazon prices</small></div><span class="x">✕</span></div>
@@ -763,148 +847,271 @@ svg.wide{width:38px!important;height:38px!important;margin:-8px -4px}
       <div class="tool" data-x="2" data-y="40" data-r="2"><span class="ic">✉️</span><div>Supplier emails<small>Purchase orders</small></div><span class="x">✕</span></div>
     </div>
     <div class="one" id="one">
-      <div class="one-top"><img class="brand-logo" src="assets/logo-white.webp" alt="WhatSales"><span>One login · one source of truth</span></div>
+      <div class="one-top">
+        <img src="assets/logo-white.webp" alt="WhatSales">
+        <div class="one-search"><svg width="14" height="14" style="color:var(--cyan-2)"><use href="#i-spark"/></svg>Ask WhatSales anything…<kbd>⌘K</kbd></div>
+        <div class="one-chs"><span><svg class="mk" style="color:#FF9900"><use href="#lg-amazon"/></svg></span><span><svg class="mk wide" style="color:#E53238"><use href="#lg-ebay"/></svg></span><span><svg class="mk" style="color:#7AB55C"><use href="#lg-shopify"/></svg></span><span><svg class="mk" style="color:#000"><use href="#lg-tiktok"/></svg></span><em>+46 connected</em></div>
+      </div>
       <div class="one-grid">
-        <div><i style="background:var(--p1)"></i>Profitability</div><div><i style="background:var(--p2)"></i>Performance</div><div><i style="background:var(--p3)"></i>Inventory</div>
-        <div><i style="background:var(--p4)"></i>Engage</div><div><i style="background:var(--p5)"></i>Flow</div><div><i style="background:var(--p6)"></i>Workspace</div>
-        <div><i style="background:var(--p7)"></i>Repricer</div><div><i style="background:var(--p8)"></i>Recovery</div><div><i style="background:var(--cyan)"></i>MCP</div>
+        <div class="otile" style="--c:var(--p1)"><span class="pi" style="--c:var(--p1)"><svg><use href="#i-profit"/></svg></span><div><b>Profitability</b><p>True profit by SKU and channel</p></div><div class="stat">Net margin<strong class="g">17.0%</strong></div></div>
+        <div class="otile" style="--c:var(--p2)"><span class="pi" style="--c:var(--p2)"><svg><use href="#i-perf"/></svg></span><div><b>Performance</b><p>Listings, ads and ACOS</p></div><div class="stat">Avg. ACOS<strong>12.6%</strong></div></div>
+        <div class="otile" style="--c:var(--p3)"><span class="pi" style="--c:var(--p3)"><svg><use href="#i-inv"/></svg></span><div><b>Inventory</b><p>Forecasts and purchase orders</p></div><div class="stat">Reorders due<strong>3 SKUs</strong></div></div>
+        <div class="otile" style="--c:var(--p4)"><span class="pi" style="--c:var(--p4)"><svg><use href="#i-engage"/></svg></span><div><b>Engage</b><p>AI helpdesk, every marketplace</p></div><div class="stat">Auto-resolved<strong class="g">80%</strong></div></div>
+        <div class="otile" style="--c:var(--p5)"><span class="pi" style="--c:var(--p5)"><svg><use href="#i-flow"/></svg></span><div><b>Flow</b><p>Create once, publish everywhere</p></div><div class="stat">Listings live<strong>4 channels</strong></div></div>
+        <div class="otile" style="--c:var(--p6)"><span class="pi" style="--c:var(--p6)"><svg><use href="#i-work"/></svg></span><div><b>Workspace</b><p>Done-for-you team and AI tasks</p></div><div class="stat">Done this week<strong>14 tasks</strong></div></div>
+        <div class="otile" style="--c:var(--p7)"><span class="pi" style="--c:var(--p7)"><svg><use href="#i-price"/></svg></span><div><b>Repricer</b><p>Win the Buy Box profitably</p></div><div class="stat">Buy Box share<strong class="g">92%</strong></div></div>
+        <div class="otile" style="--c:var(--p8)"><span class="pi" style="--c:var(--p8)"><svg><use href="#i-recov"/></svg></span><div><b>Recovery</b><p>Claim back what you're owed</p></div><div class="stat">Recovered<strong class="g">£3,904.70</strong></div></div>
+        <div class="otile" style="--c:var(--p9)"><span class="pi" style="--c:var(--p9)"><svg><use href="#i-mcp"/></svg></span><div><b>MCP</b><p>Claude, ChatGPT or Grok</p></div><div class="stat">Status<strong class="g">Connected</strong></div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PLATFORM -->
+<!-- PLATFORM: STACKING CARDS -->
 <section class="section platform" id="platform">
   <div class="wrap">
     <div class="head center">
       <span class="eyebrow rv"><i></i>The platform</span>
       <h2 class="rv d1">Nine products. <span class="hl">One login.</span> Zero spreadsheets.</h2>
-      <p class="lede rv d2">Use one, or all nine. They share the same live data from every channel, so everything stays in step.</p>
+      <p class="lede rv d2">Use one, or all nine. They share the same live data from every channel. Scroll through them one by one.</p>
     </div>
-    <div class="explorer">
-      <div class="ptabs" role="tablist" aria-label="WhatSales products" id="ptabs">
-        <button class="ptab on" role="tab" style="--c:var(--p1)"><span class="ico"><svg><use href="#i-profit"/></svg></span><span><b>Profitability</b><small>True profit, down to SKU</small></span><span class="prog"><i></i></span></button>
-        <button class="ptab" role="tab" style="--c:var(--p2)"><span class="ico"><svg><use href="#i-perf"/></svg></span><span><b>Performance</b><small>Listings, ads &amp; ACOS</small></span><span class="prog"><i></i></span></button>
-        <button class="ptab" role="tab" style="--c:var(--p3)"><span class="ico"><svg><use href="#i-inv"/></svg></span><span><b>Inventory</b><small>Forecasts &amp; purchase orders</small></span><span class="prog"><i></i></span></button>
-        <button class="ptab" role="tab" style="--c:var(--p4)"><span class="ico"><svg><use href="#i-engage"/></svg></span><span><b>Engage</b><small>AI helpdesk</small></span><span class="prog"><i></i></span></button>
-        <button class="ptab" role="tab" style="--c:var(--p5)"><span class="ico"><svg><use href="#i-flow"/></svg></span><span><b>Flow</b><small>Create once, publish everywhere</small></span><span class="prog"><i></i></span></button>
-        <button class="ptab" role="tab" style="--c:var(--p6)"><span class="ico"><svg><use href="#i-work"/></svg></span><span><b>Workspace</b><small>Done-for-you team &amp; AI tasks</small></span><span class="prog"><i></i></span></button>
-        <button class="ptab" role="tab" style="--c:var(--p7)"><span class="ico"><svg><use href="#i-price"/></svg></span><span><b>Repricer</b><small>Win the Buy Box profitably</small></span><span class="prog"><i></i></span></button>
-        <button class="ptab" role="tab" style="--c:var(--p8)"><span class="ico"><svg><use href="#i-recov"/></svg></span><span><b>Recovery</b><small>Get back what you're owed</small></span><span class="prog"><i></i></span></button>
-        <button class="ptab" role="tab" style="--c:var(--cyan)"><span class="ico"><svg><use href="#i-mcp"/></svg></span><span><b>MCP</b><small>Ask your business anything</small></span><span class="prog"><i></i></span></button>
-      </div>
+    <nav class="stack-nav" id="stackNav" aria-label="Products">
+      <button data-i="0"><span class="pi" style="--c:var(--p1)"><svg><use href="#i-profit"/></svg></span><span>Profitability</span></button>
+      <button data-i="1"><span class="pi" style="--c:var(--p2)"><svg><use href="#i-perf"/></svg></span><span>Performance</span></button>
+      <button data-i="2"><span class="pi" style="--c:var(--p3)"><svg><use href="#i-inv"/></svg></span><span>Inventory</span></button>
+      <button data-i="3"><span class="pi" style="--c:var(--p4)"><svg><use href="#i-engage"/></svg></span><span>Engage</span></button>
+      <button data-i="4"><span class="pi" style="--c:var(--p5)"><svg><use href="#i-flow"/></svg></span><span>Flow</span></button>
+      <button data-i="5"><span class="pi" style="--c:var(--p6)"><svg><use href="#i-work"/></svg></span><span>Workspace</span></button>
+      <button data-i="6"><span class="pi" style="--c:var(--p7)"><svg><use href="#i-price"/></svg></span><span>Repricer</span></button>
+      <button data-i="7"><span class="pi" style="--c:var(--p8)"><svg><use href="#i-recov"/></svg></span><span>Recovery</span></button>
+      <button data-i="8"><span class="pi" style="--c:var(--p9)"><svg><use href="#i-mcp"/></svg></span><span>MCP</span></button>
+    </nav>
+    <div class="stack" id="stack">
 
-      <div class="ppanels" id="ppanels">
-        <article class="ppanel on" style="--c:var(--p1)" role="tabpanel" id="pp0">
-          <div class="phead"><div><span class="plabel"><span class="ico"><svg><use href="#i-profit"/></svg></span>Profitability</span><h3>Know what you really make on every order.</h3><p>Every fee, ad, refund and cost comes out of every sale, across every brand, account and channel. Open any figure to see exactly what's inside it.</p></div><a href="#" class="more">Explore Profitability →</a></div>
-          <div class="viz">
-            <div class="wf-top"><div class="wf-big num" id="wfBig">£100<small>.00</small></div><span>ORDER #206-4419<br>AMAZON UK · ILLUSTRATIVE</span></div>
-            <div class="wf-row total"><span>Sale price</span><div class="wf-track"><div class="wf-bar" style="left:0;width:100%"></div></div><span class="v">£100.00</span></div>
-            <div class="wf-row cost"><span>VAT (20%)</span><div class="wf-track"><div class="wf-bar" style="left:83.33%;width:16.67%"></div></div><span class="v">−£16.67</span></div>
-            <div class="wf-row cost"><span>Referral fee</span><div class="wf-track"><div class="wf-bar" style="left:68.33%;width:15%"></div></div><span class="v">−£15.00</span></div>
-            <div class="wf-row cost"><span>Fulfilment</span><div class="wf-track"><div class="wf-bar" style="left:64.13%;width:4.2%"></div></div><span class="v">−£4.20</span></div>
-            <div class="wf-row cost"><span>Ad spend</span><div class="wf-track"><div class="wf-bar" style="left:54.63%;width:9.5%"></div></div><span class="v">−£9.50</span></div>
-            <div class="wf-row cost"><span>Refunds</span><div class="wf-track"><div class="wf-bar" style="left:51.53%;width:3.1%"></div></div><span class="v">−£3.10</span></div>
-            <div class="wf-row cost"><span>Cost of goods</span><div class="wf-track"><div class="wf-bar" style="left:19.53%;width:32%"></div></div><span class="v">−£32.00</span></div>
-            <div class="wf-row final"><span><b>Net profit</b></span><div class="wf-track"><div class="wf-bar" style="left:0;width:19.53%"></div></div><span class="v">£19.53</span></div>
-          </div>
-        </article>
-
-        <article class="ppanel" style="--c:var(--p2)" role="tabpanel">
-          <div class="phead"><div><span class="plabel"><span class="ico"><svg><use href="#i-perf"/></svg></span>Performance</span><h3>See which listings and ads actually pay.</h3><p>Sales, traffic, ad spend and ACOS for every listing and campaign, next to the profit they make, so you know where to put the next pound.</p></div><a href="#" class="more">Explore Performance →</a></div>
-          <div class="viz vstack stg">
-            <div class="camp"><span>Kettle · Exact match<div class="meta">£1,240 spend · £9,860 sales</div></span><span class="ac">12.6% ACOS</span><div class="track"><i style="width:31.5%"></i><span class="target"></span></div></div>
-            <div class="camp over"><span>Toasters · Broad<div class="meta">£1,106 spend · £3,950 sales</div></span><span class="ac">28.0% ACOS</span><div class="track"><i style="width:70%"></i><span class="target"></span></div></div>
-            <div class="camp"><span>Brand defence<div class="meta">£320 spend · £5,820 sales</div></span><span class="ac">5.5% ACOS</span><div class="track"><i style="width:13.75%"></i><span class="target"></span></div></div>
-            <span class="illn">BLACK LINE = 20% TARGET ACOS · ILLUSTRATIVE</span>
-          </div>
-        </article>
-
-        <article class="ppanel" style="--c:var(--p3)" role="tabpanel">
-          <div class="phead"><div><span class="plabel"><span class="ico"><svg><use href="#i-inv"/></svg></span>Inventory</span><h3>Never run out. Never over-order.</h3><p>Forecast demand across every marketplace, manage SKUs in one place, and send purchase orders straight to your suppliers.</p></div><a href="#" class="more">Explore Inventory →</a></div>
-          <div class="viz vstack fc stg">
-            <svg viewBox="0 0 320 130" aria-hidden="true">
-              <line class="reorder" x1="0" y1="96" x2="320" y2="96"/><text x="0" y="90">reorder point</text>
-              <path class="stock" d="M0 18 L40 26 L80 30 L120 42 L160 50"/>
-              <path class="proj" d="M160 50 L210 72 L250 96 L300 122"/>
-              <circle cx="250" cy="96" r="5" fill="#E5484D"/><text x="232" y="118">14 Nov</text><text x="150" y="40">today</text>
-            </svg>
-            <div class="vrow">MUG-SET-4 · 17 days of stock left<span class="end"><span class="pill o">Reorder by 14 Nov</span></span></div>
-            <div class="vrow">PO-1043 · 1,200 units to supplier<span class="end"><span class="pill p">Sent</span></span></div>
-          </div>
-        </article>
-
-        <article class="ppanel" style="--c:var(--p4)" role="tabpanel">
-          <div class="phead"><div><span class="plabel"><span class="ico"><svg><use href="#i-engage"/></svg></span>Engage</span><h3>Automate up to 80% of your customer inbox.</h3><p>"Where's my order?", invoices, refunds and replacements are answered across every marketplace, day and night, so response times stay fast without adding headcount.</p></div><a href="#" class="more">Explore Engage →</a></div>
-          <div class="viz inbox">
-            <div class="ring-wrap"><svg class="ring" viewBox="0 0 120 120"><circle class="bg" cx="60" cy="60" r="52"/><circle class="fg" cx="60" cy="60" r="52"/></svg><b>80%</b><small>Up to 80% of tickets<br>handled by AI</small></div>
-            <div class="vstack stg">
-              <div class="vrow"><svg class="wide" style="fill:#E53238;width:28px!important;height:28px!important;margin:-6px -4px"><use href="#lg-ebay"/></svg>Where's my order?<span class="end"><span class="pill p">Auto-replied</span></span></div>
-              <div class="vrow"><svg style="fill:#FF9900"><use href="#lg-amazon"/></svg>Invoice request<span class="end"><span class="pill p">Sent</span></span></div>
-              <div class="vrow"><svg style="fill:#7AB55C"><use href="#lg-shopify"/></svg>Refund · damaged item<span class="end"><span class="pill c">Draft ready</span></span></div>
-              <div class="vrow"><span class="wm wm-temu" style="font-size:10px">TEMU</span>Replacement request<span class="end"><span class="pill o">Needs you</span></span></div>
+      <!-- 1 PROFITABILITY -->
+      <article class="scard" style="--c:var(--p1)" id="p0">
+        <div class="sc-copy">
+          <div class="sc-meta"><span class="pi xl" style="--c:var(--p1)"><svg><use href="#i-profit"/></svg></span><b>Profitability</b><span class="n">01 / 09</span></div>
+          <h3>Know what you really make on every order.</h3>
+          <p>Every fee, ad, refund and cost comes out of every sale, across every brand, account and channel.</p>
+          <ul class="sc-points"><li>Net and gross profit down to SKU level</li><li>One consolidated view across all accounts</li><li>Open any figure to see what's inside it</li></ul>
+          <div class="sc-cta"><a href="#demo" class="btn btn-c">See it on your data</a><a href="#" class="btn btn-line">Learn more</a></div>
+        </div>
+        <div class="app">
+          <div class="app-bar"><span class="dots"><i></i><i></i><i></i></span><b>Profitability · Order #206-4419</b><span class="st">Synced 2 min ago</span></div>
+          <div class="app-body">
+            <div class="kp4 stg"><div style="--k:var(--ink)"><small>Sale price</small><b>£100.00</b></div><div style="--k:var(--loss)"><small>Total deductions</small><b>£80.47</b></div><div style="--k:var(--profit)"><small>Net profit</small><b>£19.53</b></div><div style="--k:var(--cyan)"><small>Net margin</small><b>19.5%</b></div></div>
+            <div style="display:flex;align-items:flex-end;justify-content:space-between"><div class="wf-big num" id="wfBig">£100<small>.00</small></div><span class="mono" style="font-size:10px;color:var(--faint)">AMAZON UK · ILLUSTRATIVE</span></div>
+            <div id="wf">
+              <div class="wf-row total"><span>Sale price</span><div class="wf-track"><div class="wf-bar" style="left:0;width:100%"></div></div><span class="v">£100.00</span></div>
+              <div class="wf-row cost"><span>VAT (20%)</span><div class="wf-track"><div class="wf-bar" style="left:83.33%;width:16.67%"></div></div><span class="v">−£16.67</span></div>
+              <div class="wf-row cost"><span>Referral fee</span><div class="wf-track"><div class="wf-bar" style="left:68.33%;width:15%"></div></div><span class="v">−£15.00</span></div>
+              <div class="wf-row cost"><span>Fulfilment</span><div class="wf-track"><div class="wf-bar" style="left:64.13%;width:4.2%"></div></div><span class="v">−£4.20</span></div>
+              <div class="wf-row cost"><span>Ad spend</span><div class="wf-track"><div class="wf-bar" style="left:54.63%;width:9.5%"></div></div><span class="v">−£9.50</span></div>
+              <div class="wf-row cost"><span>Refunds</span><div class="wf-track"><div class="wf-bar" style="left:51.53%;width:3.1%"></div></div><span class="v">−£3.10</span></div>
+              <div class="wf-row cost"><span>Cost of goods</span><div class="wf-track"><div class="wf-bar" style="left:19.53%;width:32%"></div></div><span class="v">−£32.00</span></div>
+              <div class="wf-row final"><span><b>Net profit</b></span><div class="wf-track"><div class="wf-bar" style="left:0;width:19.53%"></div></div><span class="v">£19.53</span></div>
             </div>
           </div>
-        </article>
+        </div>
+      </article>
 
-        <article class="ppanel" style="--c:var(--p5)" role="tabpanel">
-          <div class="phead"><div><span class="plabel"><span class="ico"><svg><use href="#i-flow"/></svg></span>Flow</span><h3>Create a listing once. Publish it everywhere.</h3><p>Build your product once and publish it to every marketplace in the right format, without copying and pasting between seller portals.</p></div><a href="#" class="more">Explore Flow →</a></div>
-          <div class="viz flowv">
-            <div class="prodc"><div class="img">☕</div><b>Breakfast bundle</b><span class="muted">Kettle, toaster &amp; mug set · £56.00</span></div>
-            <div class="vstack stg">
-              <div class="vrow"><svg style="fill:#FF9900"><use href="#lg-amazon"/></svg>Amazon UK<span class="end"><span class="pill p">Live</span></span></div>
-              <div class="vrow"><svg class="wide" style="fill:#E53238;width:28px!important;height:28px!important;margin:-6px -4px"><use href="#lg-ebay"/></svg>eBay<span class="end"><span class="pill p">Live</span></span></div>
-              <div class="vrow"><svg style="fill:#7AB55C"><use href="#lg-shopify"/></svg>Shopify<span class="end"><span class="pill p">Live</span></span></div>
-              <div class="vrow"><svg style="fill:#000"><use href="#lg-tiktok"/></svg>TikTok Shop<span class="end"><span class="pill c">Publishing</span></span></div>
+      <!-- 2 PERFORMANCE -->
+      <article class="scard" style="--c:var(--p2)" id="p1">
+        <div class="sc-copy">
+          <div class="sc-meta"><span class="pi xl" style="--c:var(--p2)"><svg><use href="#i-perf"/></svg></span><b>Performance</b><span class="n">02 / 09</span></div>
+          <h3>You work on listings. We show you what's working.</h3>
+          <p>Sales, traffic, conversion, ad spend and ACOS for every listing and campaign, next to the profit they make.</p>
+          <ul class="sc-points"><li>Listing health and conversion at a glance</li><li>ACOS against your target, campaign by campaign</li><li>Alerts when a listing or ad starts slipping</li></ul>
+          <div class="sc-cta"><a href="#demo" class="btn btn-c">See it on your data</a><a href="#" class="btn btn-line">Learn more</a></div>
+        </div>
+        <div class="app">
+          <div class="app-bar"><span class="dots"><i></i><i></i><i></i></span><b>Performance · Last 30 days</b><span class="st">Target ACOS 20%</span></div>
+          <div class="app-body">
+            <table class="tbl"><thead><tr><th>Listing</th><th class="r hide-m">Sessions</th><th class="r hide-m">Conv.</th><th class="r">Ad spend</th><th class="r">ACOS</th></tr></thead>
+              <tbody class="stg">
+                <tr><td><b>Kettle 1.7L</b><small>Amazon UK</small></td><td class="r hide-m">8,214</td><td class="r hide-m">5.0%</td><td class="r">£1,240</td><td class="r"><span class="pill p">12.6%</span><div class="meter" style="--m:var(--profit)"><i style="width:31.5%"></i></div></td></tr>
+                <tr><td><b>Toaster 2-slice</b><small>Amazon UK</small></td><td class="r hide-m">6,102</td><td class="r hide-m">2.1%</td><td class="r">£1,106</td><td class="r"><span class="pill l">28.0%</span><div class="meter" style="--m:var(--loss)"><i style="width:70%"></i></div></td></tr>
+                <tr><td><b>Mug set (4)</b><small>eBay</small></td><td class="r hide-m">4,980</td><td class="r hide-m">6.4%</td><td class="r">£410</td><td class="r"><span class="pill p">8.9%</span><div class="meter" style="--m:var(--profit)"><i style="width:22%"></i></div></td></tr>
+                <tr><td><b>Brand defence</b><small>Sponsored Brands</small></td><td class="r hide-m">3,355</td><td class="r hide-m">7.2%</td><td class="r">£320</td><td class="r"><span class="pill p">5.5%</span><div class="meter" style="--m:var(--profit)"><i style="width:14%"></i></div></td></tr>
+              </tbody></table>
+            <div style="display:flex;gap:8px;align-items:center;background:var(--loss-soft);border-radius:10px;padding:9px 12px;font-size:12px"><b style="color:#C2272D">Alert</b>Toaster 2-slice ACOS is 8 pts over target. Conversion fell 1.4 pts this week.</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 3 INVENTORY -->
+      <article class="scard" style="--c:var(--p3)" id="p2">
+        <div class="sc-copy">
+          <div class="sc-meta"><span class="pi xl" style="--c:var(--p3)"><svg><use href="#i-inv"/></svg></span><b>Inventory</b><span class="n">03 / 09</span></div>
+          <h3>Never run out. Never over-order.</h3>
+          <p>Forecast demand across every marketplace, manage SKUs in one place, and send purchase orders straight to your supplier.</p>
+          <ul class="sc-points"><li>Days of cover per SKU, per region</li><li>Reorder dates based on real sales velocity</li><li>Purchase orders sent in one click</li></ul>
+          <div class="sc-cta"><a href="#demo" class="btn btn-c">See it on your data</a><a href="#" class="btn btn-line">Learn more</a></div>
+        </div>
+        <div class="app">
+          <div class="app-bar"><span class="dots"><i></i><i></i><i></i></span><b>Inventory · Stock cover</b><span class="st">3 reorders due</span></div>
+          <div class="app-body stg">
+            <div class="kp4"><div style="--k:var(--p3)"><small>Active SKUs</small><b>412</b></div><div style="--k:var(--loss)"><small>Under 30 days</small><b>3</b></div><div style="--k:var(--amber)"><small>Inbound units</small><b>1,800</b></div><div style="--k:var(--profit)"><small>POs this month</small><b>6</b></div></div>
+            <div class="vstack" style="display:flex;flex-direction:column;gap:8px">
+              <div class="stock"><b>MUG-SET-4 · Amazon UK <span class="pill l">17 days left</span></b><div class="meter" style="--m:var(--loss)"><i style="width:28%"></i></div><small>Nothing on the way. Reorder by 14 Nov.</small></div>
+              <div class="stock"><b>KETTLE-1.7L · Amazon UK <span class="pill a">24 days left</span></b><div class="meter" style="--m:var(--amber)"><i style="width:45%"></i></div><small>PO-1043 for 1,200 units due 12 Nov.</small></div>
+              <div class="stock"><b>TOASTER-2S · Amazon DE <span class="pill p">46 days left</span></b><div class="meter" style="--m:var(--profit)"><i style="width:76%"></i></div><small>600 units on the way, covers 60 days.</small></div>
+            </div>
+            <div class="next" style="--p9:var(--p3)"><b>Next step</b>Raise a PO for MUG-SET-4 today<span class="mini-btn" style="background:var(--p3)">Create PO →</span></div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 4 ENGAGE -->
+      <article class="scard" style="--c:var(--p4)" id="p3">
+        <div class="sc-copy">
+          <div class="sc-meta"><span class="pi xl" style="--c:var(--p4)"><svg><use href="#i-engage"/></svg></span><b>Engage</b><span class="n">04 / 09</span></div>
+          <h3>Automate up to 80% of your customer inbox.</h3>
+          <p>"Where's my order?", invoices, refunds and replacements are answered across every marketplace, day and night.</p>
+          <ul class="sc-points"><li>Every marketplace inbox in one place</li><li>AI replies using live order and tracking data</li><li>Response times protected without new hires</li></ul>
+          <div class="sc-cta"><a href="#demo" class="btn btn-c">See it on your data</a><a href="#" class="btn btn-line">Learn more</a></div>
+        </div>
+        <div class="app">
+          <div class="app-bar"><span class="dots"><i></i><i></i><i></i></span><b>Engage · Inbox</b><span class="st">120 of 150 auto-resolved today</span></div>
+          <div class="inbox2">
+            <div class="list stg">
+              <div class="tk on"><span class="mkw"><svg class="mk wide" style="color:#E53238"><use href="#lg-ebay"/></svg></span><div><b>Where's my order?</b><small>Sarah K. · #204-118</small></div><span class="pill p">Auto</span></div>
+              <div class="tk"><span class="mkw"><svg class="mk" style="color:#FF9900"><use href="#lg-amazon"/></svg></span><div><b>VAT invoice request</b><small>Lyon Trading Ltd</small></div><span class="pill p">Sent</span></div>
+              <div class="tk"><span class="mkw"><svg class="mk" style="color:#7AB55C"><use href="#lg-shopify"/></svg></span><div><b>Refund · damaged item</b><small>J. Patel</small></div><span class="pill c">Draft</span></div>
+              <div class="tk"><span class="mkw"><span class="wm wm-temu" style="font-size:8px">TEMU</span></span><div><b>Replacement request</b><small>M. Rossi</small></div><span class="pill a">You</span></div>
+            </div>
+            <div class="thread">
+              <div class="msg cust">Hi, my order #204-118 hasn't arrived yet. Can you check where it is?</div>
+              <div class="msg ai"><small>AI REPLY · SENT AUTOMATICALLY</small>Hi Sarah, your order shipped on 24 Oct with Royal Mail Tracked 48 and is due tomorrow. Here's your tracking link.</div>
+              <div class="typing"><i></i><i></i><i></i></div>
             </div>
           </div>
-        </article>
+        </div>
+      </article>
 
-        <article class="ppanel" style="--c:var(--p6)" role="tabpanel">
-          <div class="phead"><div><span class="plabel"><span class="ico"><svg><use href="#i-work"/></svg></span>Workspace</span><h3>A done-for-you team, with AI task management.</h3><p>Listings, content, design and customer service tasks in one shared board. Set follow-ups, get alerted when something stalls, and know the moment it's done.</p></div><a href="#" class="more">Explore Workspace →</a></div>
-          <div class="viz kan">
-            <div class="kcol stg"><h6>To do <span>3</span></h6><div class="kc ai">New images · TOASTER-2S<small><i></i>AI suggested</small></div><div class="kc">Approve Q4 bundle pricing<small><i></i>Sam</small></div></div>
-            <div class="kcol stg"><h6>In progress <span>2</span></h6><div class="kc">Listing copy · Kettle<small><i></i>WhatSales team</small></div><div class="kc ai">Chase supplier · PO-1043<small><i></i>Follow-up set</small></div></div>
-            <div class="kcol stg"><h6>Done <span>14</span></h6><div class="kc">Product mockups · Mug set<small><i></i>WhatSales team</small></div><div class="kc">Fix suppressed listing<small><i></i>Alex</small></div></div>
+      <!-- 5 FLOW -->
+      <article class="scard" style="--c:var(--p5)" id="p4">
+        <div class="sc-copy">
+          <div class="sc-meta"><span class="pi xl" style="--c:var(--p5)"><svg><use href="#i-flow"/></svg></span><b>Flow</b><span class="n">05 / 09</span></div>
+          <h3>Create a listing once. Publish it everywhere.</h3>
+          <p>Build the product once, and Flow formats titles, images and attributes for each marketplace's rules.</p>
+          <ul class="sc-points"><li>One product record, every channel</li><li>Titles and attributes formatted per marketplace</li><li>Track what's live, pending or rejected</li></ul>
+          <div class="sc-cta"><a href="#demo" class="btn btn-c">See it on your data</a><a href="#" class="btn btn-line">Learn more</a></div>
+        </div>
+        <div class="app">
+          <div class="app-bar"><span class="dots"><i></i><i></i><i></i></span><b>Flow · Publish product</b><span class="st">3 of 4 live</span></div>
+          <div class="flow3">
+            <div class="prodc"><div class="img">☕</div><b>Breakfast bundle</b><span class="muted">Kettle, toaster &amp; mug set · £56.00</span><div class="fields"><i style="width:90%"></i><i style="width:70%"></i><i style="width:80%"></i></div></div>
+            <div class="pubs stg">
+              <div class="pub"><span class="mkw"><svg class="mk" style="color:#FF9900"><use href="#lg-amazon"/></svg></span><div><b>Breakfast Bundle – 1.7L Kettle, 2-Slice Toaster…</b><small>Amazon UK · 200 char title</small></div><span class="pill p">Live</span></div>
+              <div class="pub"><span class="mkw"><svg class="mk wide" style="color:#E53238"><use href="#lg-ebay"/></svg></span><div><b>Kettle Toaster Mug Set Breakfast Bundle NEW</b><small>eBay · 80 char title</small></div><span class="pill p">Live</span></div>
+              <div class="pub"><span class="mkw"><svg class="mk" style="color:#7AB55C"><use href="#lg-shopify"/></svg></span><div><b>The Breakfast Bundle</b><small>Shopify · collection: Kitchen</small></div><span class="pill p">Live</span></div>
+              <div class="pub"><span class="mkw"><svg class="mk" style="color:#000"><use href="#lg-tiktok"/></svg></span><div><b>Breakfast bundle ☕ kettle + toaster + mugs</b><small>TikTok Shop · in review</small></div><span class="pill c">Publishing</span></div>
+            </div>
           </div>
-        </article>
+        </div>
+      </article>
 
-        <article class="ppanel" style="--c:var(--p7)" role="tabpanel">
-          <div class="phead"><div><span class="plabel"><span class="ico"><svg><use href="#i-price"/></svg></span>Repricer</span><h3>Win the Buy Box where it pays. Hold your price where it doesn't.</h3><p>Amazon repricing that runs around the clock and explains every change in plain English, so you never have to guess why a price moved.</p></div><a href="#" class="more">Explore Repricer →</a></div>
-          <div class="viz">
-            <div class="price">
-              <svg viewBox="0 0 400 140" preserveAspectRatio="none" aria-hidden="true">
-                <line class="floor" x1="0" y1="116" x2="400" y2="116"/><text x="4" y="110">your minimum · £36.00</text>
-                <path class="comp" d="M0 56 L80 56 L80 70 L200 70 L200 48 L400 48"/>
-                <path class="you" d="M0 60 L80 60 L80 74 L200 74 L200 52 L400 52"/>
-                <circle cx="200" cy="52" r="5" fill="#5B4BE8"/>
+      <!-- 6 WORKSPACE -->
+      <article class="scard" style="--c:var(--p6)" id="p5">
+        <div class="sc-copy">
+          <div class="sc-meta"><span class="pi xl" style="--c:var(--p6)"><svg><use href="#i-work"/></svg></span><b>Workspace</b><span class="n">06 / 09</span></div>
+          <h3>A done-for-you team, with AI task management.</h3>
+          <p>Listings, content, design and customer service tasks in one shared calendar, handled by your team and ours.</p>
+          <ul class="sc-points"><li>Follow-ups that chase themselves</li><li>Alerts when something gets stuck</li><li>Know the moment a task is done</li></ul>
+          <div class="sc-cta"><a href="#demo" class="btn btn-c">See it on your data</a><a href="#" class="btn btn-line">Learn more</a></div>
+        </div>
+        <div class="app">
+          <div class="app-bar"><span class="dots"><i></i><i></i><i></i></span><b>Workspace · Week view</b><span class="st">14 done this week</span></div>
+          <div class="cal">
+            <div class="dh">Mon<b>3</b></div><div class="dh">Tue<b>4</b></div><div class="dh today">Wed<b>5</b></div><div class="dh">Thu<b>6</b></div><div class="dh">Fri<b>7</b></div>
+            <div class="col stg"><div class="task" style="--t:var(--p1)">Listing audit · Amazon<small>WhatSales team</small><span class="pr h">High</span></div><div class="task" style="--t:var(--p5)">Optimise product titles<small>Emma C.</small></div></div>
+            <div class="col stg"><div class="task" style="--t:var(--p2)">Pricing review<small>James M.</small><span class="pr m">Medium</span></div><div class="task" style="--t:var(--p6)">Product mockups · Mug set<small>WhatSales team</small></div></div>
+            <div class="col stg"><div class="task" style="--t:var(--p4)">New images · TOASTER-2S<small>AI suggested</small><span class="pr h">Urgent</span></div><div class="task" style="--t:var(--p3)">Chase supplier · PO-1043<small>Follow-up set</small></div><div class="task" style="--t:var(--p6)">A+ content · Kettle<small>WhatSales team</small></div></div>
+            <div class="col stg"><div class="task" style="--t:var(--p5)">Launch on TikTok Shop<small>Sam R.</small><span class="pr m">Medium</span></div></div>
+            <div class="col stg"><div class="task" style="--t:var(--p2)">Weekly ads report<small>Auto-generated</small></div><div class="task" style="--t:var(--p1)">Fix suppressed listing<small>Alex T.</small></div></div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 7 REPRICER -->
+      <article class="scard" style="--c:var(--p7)" id="p6">
+        <div class="sc-copy">
+          <div class="sc-meta"><span class="pi xl" style="--c:var(--p7)"><svg><use href="#i-price"/></svg></span><b>Repricer</b><span class="n">07 / 09</span></div>
+          <h3>Win the Buy Box where it pays. Hold your margin where it doesn't.</h3>
+          <p>Smart, profitable price moves on every Amazon listing, around the clock, with a plain-English reason for each one.</p>
+          <ul class="sc-points"><li>Never priced below your margin floor</li><li>Raises prices when there's room above</li><li>Every change explained in plain English</li></ul>
+          <div class="sc-cta"><a href="#demo" class="btn btn-c">See it on your data</a><a href="#" class="btn btn-line">Learn more</a></div>
+        </div>
+        <div class="app">
+          <div class="app-bar"><span class="dots"><i></i><i></i><i></i></span><b>Repricer · Kettle 1.7L, Amazon UK</b><span class="st">Buy Box: You</span></div>
+          <div class="rp-top"><div>Your price<b>£39.40</b></div><div>Lowest rival<b>£39.80</b></div><div>Margin floor<b>£36.00</b></div><div class="bb">Buy Box share<b style="color:#0B8A50">92%</b></div></div>
+          <div class="rp">
+            <div class="rp-chart">
+              <svg viewBox="0 0 320 150" preserveAspectRatio="none" aria-hidden="true">
+                <line class="max" x1="0" y1="18" x2="320" y2="18"/><text x="250" y="13">max £44.00</text>
+                <line class="floor" x1="0" y1="128" x2="320" y2="128"/><text x="230" y="123">floor £36.00</text>
+                <path class="rival" d="M0 72 L70 72 L70 88 L150 88 L150 62 L320 62"/>
+                <path class="you" d="M0 78 L70 78 L70 92 L150 92 L150 66 L230 66 L230 58 L320 58"/>
+                <circle cx="230" cy="58" r="4.5" fill="#5B4BE8"/>
+                <text x="0" y="146">00:00</text><text x="140" y="146">06:00</text><text x="285" y="146">14:00</text>
               </svg>
+              <div class="rp-legend"><span><i style="background:var(--p7)"></i>Your price</span><span><i style="background:var(--faint)"></i>Lowest rival</span><span><i style="background:var(--loss)"></i>Margin floor</span></div>
             </div>
-            <div class="reason"><small>WHY THE PRICE CHANGED · 14:02</small>Main competitor went out of stock, so the price moved up £0.40 to £39.40. Buy Box kept.</div>
-            <div class="bbox stg"><div><small>Buy Box share</small><b>92%</b></div><div><small>Margin change</small><b style="color:var(--profit)">+1.1 pts</b></div><div><small>Price changes today</small><b>38</b></div></div>
-            <span class="illn">ILLUSTRATIVE</span>
+            <div class="rp-log stg">
+              <div class="ev on"><time>14:02</time><span class="pill p">Raise</span>Rival out of stock. Up £0.40 to £39.40.</div>
+              <div class="ev"><time>06:10</time><span class="pill u">Compete</span>Matched rival at £38.70 to win back the Buy Box.</div>
+              <div class="ev"><time>05:55</time><span class="pill a">Protect</span>Rival hit £38.50. Held price above floor.</div>
+              <div class="ev"><time>02:00</time><span class="pill p">Raise</span>Holding the Buy Box with room above.</div>
+            </div>
           </div>
-        </article>
+        </div>
+      </article>
 
-        <article class="ppanel" style="--c:var(--p8)" role="tabpanel">
-          <div class="phead"><div><span class="plabel"><span class="ico"><svg><use href="#i-recov"/></svg></span>Recovery</span><h3>Get back every penny you're owed.</h3><p>Lost, damaged and overcharged items are found and claimed for you, so the money marketplaces owe you comes back where it belongs.</p></div><a href="#" class="more">Explore Recovery →</a></div>
-          <div class="viz vstack recov stg">
-            <div><b class="num">£349.00</b> <span class="muted" style="font-size:13px">recovered · illustrative</span></div>
-            <div class="vrow">Lost inbound units · 14 items<span class="end">£214.60 <span class="pill p">Paid</span></span></div>
-            <div class="vrow">Damaged in warehouse · 6 items<span class="end">£96.00 <span class="pill p">Paid</span></span></div>
-            <div class="vrow">Fee overcharge · dimensions<span class="end">£38.40 <span class="pill c">Filed</span></span></div>
+      <!-- 8 RECOVERY -->
+      <article class="scard" style="--c:var(--p8)" id="p7">
+        <div class="sc-copy">
+          <div class="sc-meta"><span class="pi xl" style="--c:var(--p8)"><svg><use href="#i-recov"/></svg></span><b>Recovery</b><span class="n">08 / 09</span></div>
+          <h3>Get back every penny Amazon owes you.</h3>
+          <p>Recovery checks every reimbursement, fee and return against what your stock really cost. Each case shows the amount, the evidence and the days left to claim.</p>
+          <ul class="sc-points"><li>Underpaid reimbursements found automatically</li><li>Fee overcharges and lost stock flagged</li><li>Dispute in one click, or let us do it for you</li></ul>
+          <div class="sc-cta"><a href="#demo" class="btn btn-c">See it on your data</a><a href="#" class="btn btn-line">Learn more</a></div>
+        </div>
+        <div class="app">
+          <div class="app-bar"><span class="dots"><i></i><i></i><i></i></span><b>Recovery · Money Amazon owes you</b><span class="st">Checked 6 hours ago</span></div>
+          <div class="app-body stg">
+            <div class="kp4"><div style="--k:var(--p8)"><small>Can dispute now</small><b>£1,286.40</b></div><div style="--k:var(--amber)"><small>Expiring in 30 days</small><b>£412.60</b></div><div style="--k:var(--p7)"><small>Disputes in progress</small><b>£389.15</b></div><div style="--k:var(--profit)"><small>Recovered to date</small><b>£3,904.70</b></div></div>
+            <table class="tbl"><thead><tr><th>Product</th><th class="hide-m">Amazon paid → your cost</th><th class="r">Short by</th><th class="r">Window</th></tr></thead>
+              <tbody>
+                <tr><td><b>KETTLE-1.7L_FBA</b><small>Lost in warehouse</small></td><td class="hide-m"><span style="color:var(--loss)">£9.40</span> → <span style="color:#0B8A50">£14.20</span><div class="meter" style="--m:var(--amber)"><i style="width:66%"></i></div></td><td class="r"><b>£4.80</b></td><td class="r"><span class="pill l">Closes today</span><br><span class="mini-btn" style="margin-top:4px">Dispute</span></td></tr>
+                <tr><td><b>TOASTER-2S_FBA</b><small>Damaged inbound</small></td><td class="hide-m"><span style="color:var(--loss)">£7.10</span> → <span style="color:#0B8A50">£11.80</span><div class="meter" style="--m:var(--amber)"><i style="width:60%"></i></div></td><td class="r"><b>£4.70</b></td><td class="r"><span class="pill a">9 days left</span><br><span class="mini-btn" style="margin-top:4px">Dispute</span></td></tr>
+                <tr><td><b>MUG-SET-4_FBA</b><small>Customer return</small></td><td class="hide-m"><span style="color:var(--loss)">£2.95</span> → <span style="color:#0B8A50">£5.40</span><div class="meter" style="--m:var(--amber)"><i style="width:55%"></i></div></td><td class="r"><b>£2.45</b></td><td class="r"><span class="pill p">31 days left</span><br><span class="mini-btn" style="margin-top:4px">Dispute</span></td></tr>
+              </tbody></table>
           </div>
-        </article>
+        </div>
+      </article>
 
-        <article class="ppanel" style="--c:var(--cyan)" role="tabpanel">
-          <div class="phead"><div><span class="plabel"><span class="ico"><svg><use href="#i-mcp"/></svg></span>MCP</span><h3>Ask your business anything.</h3><p>Connect Claude, ChatGPT or Grok to your WhatSales account. Ask about sales, profit, ads and stock in plain English, and get the answer and what to do next in seconds.</p></div><a href="#" class="more">Explore MCP →</a></div>
-          <div class="viz chat stg">
-            <div class="chips"><span class="chip">Claude</span><span class="chip">ChatGPT</span><span class="chip">Grok</span></div>
-            <div class="bub me">Which SKU lost money on Amazon last month?</div>
-            <div class="bub ai"><b>TOASTER-2S</b> lost £302.40 (−3.5% margin) after all fees and ads. The main cause is the "Toasters · Broad" campaign at 28% ACOS. Pausing it would bring the SKU back to profit.</div>
+      <!-- 9 MCP -->
+      <article class="scard" style="--c:var(--p9)" id="p8">
+        <div class="sc-copy">
+          <div class="sc-meta"><span class="pi xl" style="--c:var(--p9)"><svg><use href="#i-mcp"/></svg></span><b>MCP</b><span class="n">09 / 09</span></div>
+          <h3>Ask your business anything.</h3>
+          <p>Connect Claude, ChatGPT or Grok to your WhatSales account. Ask about sales, profit, ads and stock in plain English, and get the answer and what to do next in seconds.</p>
+          <ul class="sc-points"><li>Works with Claude, ChatGPT and Grok</li><li>Answers from your live WhatSales data</li><li>Every answer ends with a next step</li></ul>
+          <div class="sc-cta"><a href="#demo" class="btn btn-c">See it on your data</a><a href="#" class="btn btn-line">Learn more</a></div>
+        </div>
+        <div class="app">
+          <div class="app-bar"><span class="dots"><i></i><i></i><i></i></span><b>Your AI assistant</b><span class="st">● WhatSales connected</span></div>
+          <div class="app-body stg">
+            <div class="qbub">Which ads are spending on products about to run out?</div>
+            <div class="ai-box"><b>Checking WhatSales <span style="color:var(--faint);font-weight:500">3 steps</span></b><span class="ai-step">Read ad spend, last 14 days</span><span class="ai-step">Checked stock at Amazon, per region</span><span class="ai-step">Checked shipments and purchase orders</span></div>
+            <div style="font-size:12.5px"><b>2 advertised products</b> have under 30 days of stock. One has <b>nothing on the way</b>, so slow its ads now and reorder.</div>
+            <div class="stock"><b>MUG-SET-4 · Amazon UK <span class="pill l">17 days left</span></b><div class="meter" style="--m:var(--loss)"><i style="width:28%"></i></div><small>Nothing on the way · £410 of ads in 30 days</small></div>
+            <div class="next"><b>Next step</b>Slow ads on MUG-SET-4 and reorder today<span class="mini-btn">Reorder →</span></div>
           </div>
-        </article>
-      </div>
+        </div>
+      </article>
     </div>
   </div>
 </section>
@@ -921,19 +1128,19 @@ svg.wide{width:38px!important;height:38px!important;margin:-8px -4px}
       <svg class="beams" id="beams" aria-hidden="true"><defs><linearGradient id="beamGrad" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="1000" y2="0"><stop offset="0" stop-color="#7FD6F6" stop-opacity="0"/><stop offset=".5" stop-color="#7FD6F6"/><stop offset="1" stop-color="#01A6E0"/></linearGradient></defs></svg>
       <div class="hubcol">
         <h5>Marketplaces</h5>
-        <span class="lg hn"><svg style="fill:#FF9900"><use href="#lg-amazon"/></svg>Amazon<span class="st">Live</span></span>
-        <span class="lg hn"><svg class="wide" style="fill:#E53238"><use href="#lg-ebay"/></svg>eBay<span class="st">Live</span></span>
-        <span class="lg hn"><svg class="wide" style="fill:#3B9BFF"><use href="#lg-walmart"/></svg>Walmart<span class="st">Live</span></span>
+        <span class="lg hn"><svg class="mk" style="color:#FF9900"><use href="#lg-amazon"/></svg>Amazon<span class="st">Live</span></span>
+        <span class="lg hn"><svg class="mk wide" style="color:#E53238"><use href="#lg-ebay"/></svg>eBay<span class="st">Live</span></span>
+        <span class="lg hn"><svg class="mk wide" style="color:#3B9BFF"><use href="#lg-walmart"/></svg>Walmart<span class="st">Live</span></span>
         <span class="lg hn"><span class="wm wm-temu">TEMU</span><span class="st">Live</span></span>
         <span class="lg hn"><span class="wm wm-bq">B&amp;Q</span>Marketplace<span class="st">Live</span></span>
         <span class="lg hn"><span class="wm wm-tesco">TESCO</span>Marketplace<span class="st">Live</span></span>
       </div>
-      <div class="core"><img class="brand-mark" src="assets/mark-cyan.webp" alt="WhatSales"></div>
+      <div class="core"><img src="assets/mark-cyan.webp" alt="WhatSales"></div>
       <div class="hubcol r">
         <h5>Storefronts &amp; social</h5>
-        <span class="lg hn"><svg style="fill:#7AB55C"><use href="#lg-shopify"/></svg>Shopify<span class="st">Live</span></span>
-        <span class="lg hn"><svg style="fill:#fff"><use href="#lg-tiktok"/></svg>TikTok Shop<span class="st">Live</span></span>
-        <span class="lg hn"><svg style="fill:#F16521"><use href="#lg-etsy"/></svg>Etsy<span class="st">Live</span></span>
+        <span class="lg hn"><svg class="mk" style="color:#7AB55C"><use href="#lg-shopify"/></svg>Shopify<span class="st">Live</span></span>
+        <span class="lg hn"><svg class="mk" style="color:#fff"><use href="#lg-tiktok"/></svg>TikTok Shop<span class="st">Live</span></span>
+        <span class="lg hn"><svg class="mk" style="color:#F16521"><use href="#lg-etsy"/></svg>Etsy<span class="st">Live</span></span>
         <h5>More marketplaces</h5>
         <span class="lg hn"><span class="wm wm-onbuy">On<i>Buy</i></span><span class="st">Live</span></span>
         <span class="lg hn"><span class="wm wm-deb">Debenhams</span><span class="st">Live</span></span>
@@ -951,7 +1158,7 @@ svg.wide{width:38px!important;height:38px!important;margin:-8px -4px}
 <!-- ROLES -->
 <section class="section" id="roles">
   <div class="wrap roles">
-    <div style="display:flex;flex-direction:column;gap:18px">
+    <div style="display:flex;flex-direction:column;gap:16px">
       <span class="eyebrow rv"><i></i>Solutions</span>
       <h2 class="rv d1">Built around the way your team works.</h2>
       <p class="lede rv d2">The same live data, shaped for the people who use it every day.</p>
@@ -965,78 +1172,73 @@ svg.wide{width:38px!important;height:38px!important;margin:-8px -4px}
       <div class="rpanel on" data-r="0" style="--rc:rgba(1,166,224,.5)">
         <p class="q">"I want to know what's working, and stop doing everything myself."</p>
         <ul><li><span><b>One view of profit</b> across every channel and brand you own.</span></li><li><span><b>Ask your data</b> in plain English instead of digging through reports.</span></li><li><span><b>A done-for-you team</b> for listings, content and support.</span></li></ul>
-        <div class="uses"><span>Profitability</span><span>MCP</span><span>Workspace</span></div>
+        <div class="uses"><span><span class="pi" style="--c:var(--p1)"><svg><use href="#i-profit"/></svg></span>Profitability</span><span><span class="pi" style="--c:var(--p9)"><svg><use href="#i-mcp"/></svg></span>MCP</span><span><span class="pi" style="--c:var(--p6)"><svg><use href="#i-work"/></svg></span>Workspace</span></div>
       </div>
       <div class="rpanel" data-r="1" style="--rc:rgba(14,154,167,.5)">
         <p class="q">"I need numbers I can trust, without rebuilding the P&amp;L every month."</p>
         <ul><li><span><b>Every fee, refund and cost</b> reconciled automatically.</span></li><li><span><b>Stock forecasts</b> and purchase orders next to sales.</span></li><li><span><b>Reimbursements claimed</b> without anyone chasing them.</span></li></ul>
-        <div class="uses"><span>Profitability</span><span>Inventory</span><span>Recovery</span></div>
+        <div class="uses"><span><span class="pi" style="--c:var(--p1)"><svg><use href="#i-profit"/></svg></span>Profitability</span><span><span class="pi" style="--c:var(--p3)"><svg><use href="#i-inv"/></svg></span>Inventory</span><span><span class="pi" style="--c:var(--p8)"><svg><use href="#i-recov"/></svg></span>Recovery</span></div>
       </div>
       <div class="rpanel" data-r="2" style="--rc:rgba(122,58,239,.5)">
         <p class="q">"I run ten client brands. I need one workspace, and proof of the value I add."</p>
         <ul><li><span><b>Every client brand</b> and channel in one workspace.</span></li><li><span><b>Client-only access</b>, so each brand sees just its own data.</span></li><li><span><b>Client-ready reporting</b> on profit and performance.</span></li></ul>
-        <div class="uses"><span>Profitability</span><span>Performance</span><span>Workspace</span></div>
+        <div class="uses"><span><span class="pi" style="--c:var(--p1)"><svg><use href="#i-profit"/></svg></span>Profitability</span><span><span class="pi" style="--c:var(--p2)"><svg><use href="#i-perf"/></svg></span>Performance</span><span><span class="pi" style="--c:var(--p6)"><svg><use href="#i-work"/></svg></span>Workspace</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PROOF -->
-<section class="section" id="proof" style="padding-top:0">
+<!-- RESULTS -->
+<section class="section results" id="results">
   <div class="wrap">
     <div class="head center">
       <span class="eyebrow rv"><i></i>Customers</span>
-      <h2 class="rv d1">Sellers who stopped guessing.</h2>
+      <h2 class="rv d1">Real results from <span class="hl">real sellers.</span></h2>
+      <p class="lede rv d2">What changes when the whole business runs on one platform.</p>
     </div>
-    <div class="proof-card rv">
-      <div style="min-width:0">
-        <h3>Customer success stories</h3>
-        <div class="tcar" id="tcar" aria-live="polite">
-          <figure class="tq on"><blockquote>WhatSales' integration with Linnworks is a game-changer for e-commerce sellers, offering real-time insights and streamlined operations to boost profitability.</blockquote><figcaption class="who"><img class="brand-av" src="assets/avatar-ben.webp" alt="Ben Asquith"><div>Ben Asquith<small>UK Pet Supplies</small></div></figcaption></figure>
-          <figure class="tq"><blockquote>Their software offers excellent visibility and in-depth insights, helping us make informed decisions that boost profitability. Highly recommended.</blockquote><figcaption class="who"><img class="brand-av" src="assets/avatar-huzefa.webp" alt="Huzefa"><div>Huzefa<small>Web Emporium</small></div></figcaption></figure>
-          <figure class="tq"><blockquote>We had a positive experience with WhatSales and their development team, who showed great professionalism during onboarding and delivered a quality product with strong visibility and insights.</blockquote><figcaption class="who"><span class="ini">DP</span><div>Dipesh Patel<small>Fidum Group</small></div></figcaption></figure>
-          <figure class="tq"><blockquote>It's been a pleasure working with Rashad and the team at WhatSales. Across our multiple ventures, we rely on the platform for a consistent, centralised view of performance across every market and channel.</blockquote><figcaption class="who"><img class="brand-av" src="assets/avatar-martin.webp" alt="Martin Dallaway"><div>Martin Dallaway<small>DLM Direct</small></div></figcaption></figure>
-          <figure class="tq"><blockquote>WhatSales' integration with Linnworks has been a fantastic game-changer for e-commerce sellers, offering real-time insights and streamlined operations that help maximise profitability.</blockquote><figcaption class="who"><img class="brand-av" src="assets/avatar-neil.webp" alt="Neil Boxall"><div>Neil Boxall<small>Elite Sports Gear, UK</small></div></figcaption></figure>
-        </div>
-        <div class="tnav"><div class="tdots" id="tdots"><button aria-label="Show testimonial 1" class="on"></button><button aria-label="Show testimonial 2"></button><button aria-label="Show testimonial 3"></button><button aria-label="Show testimonial 4"></button><button aria-label="Show testimonial 5"></button></div><div class="tarrows"><button id="tprev" aria-label="Previous testimonial">←</button><button id="tnext" aria-label="Next testimonial">→</button></div></div>
-      </div>
-      <div class="impact-col">
-        <div><h3>The impact</h3>
-          <div class="igrid">
-            <div><b class="num" style="color:var(--cyan)" data-count="100" data-suffix="+">100+</b><span>hours saved per month</span></div>
-            <div><b class="num" style="color:#34D399" data-count="40" data-suffix="%">40%</b><span>increase in efficiency</span></div>
-            <div><b class="num" style="color:#A78BFA" data-count="6" data-suffix="%">6%</b><span>reduction in losses</span></div>
-          </div>
-        </div>
-        <div class="isep"></div>
-        <div><h3>WhatSales at scale</h3>
-          <div class="igrid">
-            <div><b class="num">£300m+</b><span>GMV analysed</span></div>
-            <div><b class="num">2M+</b><span>orders analysed</span></div>
-            <div><b class="num" data-count="50" data-suffix="+">50+</b><span>integrations</span></div>
-          </div>
-        </div>
-        <div class="isep"></div>
-        <div class="igrid" style="grid-template-columns:1fr 1fr;margin-top:0">
-          <div><b class="num" style="font-size:30px">1,000+</b><span>ecommerce brands and agencies</span></div>
-          <div><b class="num" style="font-size:30px">Up to 80%</b><span>of the customer inbox automated</span></div>
+    <div class="rbento" id="rbento">
+      <div class="rb feat rv">
+        <span class="tagl">The impact for WhatSales customers</span>
+        <h3>Less time in spreadsheets. More time growing the business.</h3>
+        <div class="incl"><small>Including</small><span><img src="assets/client-trimmingshop.svg" alt="Trimmingshop"></span><span><img src="assets/client-dlm.svg" alt="DLM Direct"></span><span><img src="assets/client-hardys.svg" alt="Hardys"></span></div>
+        <div class="trio">
+          <div><b class="num" style="color:var(--cyan)" data-count="100" data-suffix="+">100+</b><span>hours saved per month</span></div>
+          <div><b class="num" style="color:#34D399" data-count="40" data-suffix="%">40%</b><span>increase in efficiency</span></div>
+          <div><b class="num" style="color:#A78BFA" data-count="6" data-suffix="%">6%</b><span>reduction in losses</span></div>
         </div>
       </div>
+      <div class="rb rv d1"><span class="tagl">At scale</span><b class="big num">£300m+</b><span>GMV analysed</span><div class="spark"><svg viewBox="0 0 200 44" preserveAspectRatio="none"><path d="M0 40 C30 36 50 34 70 28 S110 22 130 14 S170 8 200 2" fill="none" stroke="#01A6E0" stroke-width="2.5"/></svg></div></div>
+      <div class="rb rv d2"><span class="tagl">At scale</span><b class="big num">2M+</b><span>orders analysed</span><div class="spark"><svg viewBox="0 0 200 44" preserveAspectRatio="none"><g fill="#7A3AEF" opacity=".85"><rect x="0" y="30" width="16" height="14" rx="3"/><rect x="26" y="26" width="16" height="18" rx="3"/><rect x="52" y="22" width="16" height="22" rx="3"/><rect x="78" y="18" width="16" height="26" rx="3"/><rect x="104" y="14" width="16" height="30" rx="3"/><rect x="130" y="9" width="16" height="35" rx="3"/><rect x="156" y="5" width="16" height="39" rx="3"/><rect x="182" y="0" width="16" height="44" rx="3"/></g></svg></div></div>
+      <div class="rb rv d1"><span class="tagl">Connected</span><b class="big num" data-count="50" data-suffix="+">50+</b><span>integrations</span><div style="display:flex;gap:6px;margin-top:auto"><svg class="mk" style="color:#FF9900"><use href="#lg-amazon"/></svg><svg class="mk" style="color:#7AB55C"><use href="#lg-shopify"/></svg><svg class="mk" style="color:#000"><use href="#lg-tiktok"/></svg><svg class="mk" style="color:#F16521"><use href="#lg-etsy"/></svg></div></div>
+      <div class="rb rv d2"><span class="tagl">Engage</span><b class="big num">80%</b><span>of the customer inbox automated, up to</span><svg class="ring2" viewBox="0 0 64 64"><circle cx="32" cy="32" r="26" stroke="#EEF2F6"/><circle cx="32" cy="32" r="26" stroke="#E21D4B" stroke-linecap="round" stroke-dasharray="163" stroke-dashoffset="32.6" transform="rotate(-90 32 32)"/></svg></div>
+    </div>
+
+    <div class="wall" aria-label="Customer testimonials">
+      <div class="wall-row"><div class="wall-track" id="wall1">
+        <figure class="tcard"><q>WhatSales' integration with Linnworks is a game-changer for e-commerce sellers, offering real-time insights and streamlined operations to boost profitability.</q><figcaption class="who"><img src="assets/avatar-ben.webp" alt=""><div><b>Ben Asquith</b><small>UK Pet Supplies</small></div><span class="co">Linnworks user</span></figcaption></figure>
+        <figure class="tcard"><q>Their software offers excellent visibility and in-depth insights, helping us make informed decisions that boost profitability. Highly recommended.</q><figcaption class="who"><img src="assets/avatar-huzefa.webp" alt=""><div><b>Huzefa</b><small>Web Emporium</small></div><span class="co">Profitability</span></figcaption></figure>
+        <figure class="tcard"><q>It's been a pleasure working with Rashad and the team at WhatSales. Across our multiple ventures, we rely on the platform for a consistent, centralised view of performance across every market and channel.</q><figcaption class="who"><img src="assets/avatar-martin.webp" alt=""><div><b>Martin Dallaway</b><small>DLM Direct</small></div><span class="co">Multi-brand</span></figcaption></figure>
+      </div></div>
+      <div class="wall-row rev"><div class="wall-track" id="wall2">
+        <figure class="tcard"><q>We had a positive experience with WhatSales and their development team, who showed great professionalism during onboarding and delivered a quality product with strong visibility and insights.</q><figcaption class="who"><span class="ini">DP</span><div><b>Dipesh Patel</b><small>Fidum Group</small></div><span class="co">Onboarding</span></figcaption></figure>
+        <figure class="tcard"><q>WhatSales' integration with Linnworks has been a fantastic game-changer for e-commerce sellers, offering real-time insights and streamlined operations that help maximise profitability.</q><figcaption class="who"><img src="assets/avatar-neil.webp" alt=""><div><b>Neil Boxall</b><small>Elite Sports Gear, UK</small></div><span class="co">Linnworks user</span></figcaption></figure>
+        <figure class="tcard"><q>Their software offers excellent visibility and in-depth insights, helping us make informed decisions that boost profitability. Highly recommended.</q><figcaption class="who"><img src="assets/avatar-huzefa.webp" alt=""><div><b>Huzefa</b><small>Web Emporium</small></div><span class="co">Profitability</span></figcaption></figure>
+      </div></div>
     </div>
   </div>
 </section>
 
 <!-- FAQ -->
-<section class="section" id="faq" style="background:var(--mist)">
+<section class="section" id="faq">
   <div class="wrap faq-grid">
-    <div style="display:flex;flex-direction:column;gap:18px">
+    <div style="display:flex;flex-direction:column;gap:16px">
       <span class="eyebrow rv"><i></i>FAQ</span>
       <h2 class="rv d1">Questions we get asked most.</h2>
       <p class="muted rv d2">Something else? <a href="#demo" style="color:var(--cyan-ink);text-decoration:underline">Talk to our team</a>.</p>
     </div>
     <div class="faq rv d1">
       <details open><summary>Which marketplaces does WhatSales connect to?<span class="pm">+</span></summary><p>50+ integrations, including Amazon, eBay, Shopify, Walmart, Temu, TikTok Shop, B&amp;Q, Tesco Marketplace, OnBuy, Debenhams and Etsy. WhatSales also works with Linnworks and Mirakl.</p></details>
-      <details><summary>Do I have to use all nine products?<span class="pm">+</span></summary><p>No. Start with the product you need most, and add more as you grow. They all share the same connected data. [Confirm packaging with pricing team.]</p></details>
+      <details><summary>Do I have to use all nine products?<span class="pm">+</span></summary><p>No. Start with the product you need most and add more as you grow. They all share the same connected data.</p></details>
       <details><summary>Is there a free trial?<span class="pm">+</span></summary><p>Yes. Start a 7-day free trial, or book a demo to see WhatSales on your own data first.</p></details>
       <details><summary>Can I manage multiple brands or client accounts?<span class="pm">+</span></summary><p>Yes. See every brand and account in one view, then open any single one in a click. Agencies can give each client access to their own data only.</p></details>
       <details><summary>Which AI assistants work with WhatSales?<span class="pm">+</span></summary><p>Claude, ChatGPT and Grok connect through WhatSales MCP, so you can ask about sales, profit, ads and stock in plain English.</p></details>
@@ -1045,27 +1247,53 @@ svg.wide{width:38px!important;height:38px!important;margin:-8px -4px}
 </section>
 </main>
 
-<!-- CLOSE + FOOTER -->
+<!-- FINAL CTA + FOOTER -->
 <footer class="close" id="demo">
   <div class="wrap">
-    <div class="close-top">
-      <div class="tabs-strip rv"><span>Seller Central</span><span>eBay Seller Hub</span><span>Shopify admin</span><span>P&amp;L_final_v7.xlsx</span><span>Helpdesk</span><span>Repricer</span><span>stock-forecast.xlsx</span><span>Listings tool</span><span>Ads console</span><span>Reimbursement claims</span><span>Task board</span><span>Supplier emails</span></div>
-      <h2 class="rv d1">Close the other <em>fifteen tabs.</em></h2>
-      <p class="rv d2">See WhatSales on your own channels and numbers in a personal walkthrough, or start your free trial today.</p>
-      <div class="hero-ctas rv d3">
-        <a href="#" class="btn btn-cyan">Book a demo <span class="arrow">→</span></a>
-        <a href="#" class="btn btn-glass">Start free trial</a>
+    <div class="cta-wrap">
+      <div class="cta-copy">
+        <span class="eyebrow" style="background:rgba(1,166,224,.14);color:var(--cyan-2)"><i></i>Get started</span>
+        <h2 class="rv">Close the other fifteen tabs. <em>Run it all from WhatSales.</em></h2>
+        <p class="rv d1">See your own channels and numbers in a personal walkthrough, or start your 7-day free trial today.</p>
+        <div class="hero-ctas rv d2">
+          <a href="#" class="btn btn-cyan">Book a demo <span class="arrow">→</span></a>
+          <a href="#" class="btn btn-glass">Start 7-day free trial</a>
+        </div>
+        <div class="ticks rv d3"><span>No long-term contract</span><span>Set up in minutes</span><span>Cancel anytime</span></div>
+        <div class="cta-trust rv d3"><span class="av"><img src="assets/avatar-ben.webp" alt=""><img src="assets/avatar-martin.webp" alt=""><img src="assets/avatar-huzefa.webp" alt=""><img src="assets/avatar-neil.webp" alt=""></span>Joined by 1,000+ ecommerce brands and agencies</div>
+      </div>
+      <div class="collage" id="collage">
+        <div class="cc cc-main" data-depth="0.3">
+          <div class="h"><span class="pi" style="--c:var(--p1)"><svg><use href="#i-profit"/></svg></span>Profitability · 30 days</div>
+          <div class="kpis"><div class="kpi"><small>Revenue</small><b class="num">£184,230</b></div><div class="kpi dk"><small>Net profit</small><b class="num">£31,404</b></div></div>
+          <div class="chart"><svg viewBox="0 0 600 150" preserveAspectRatio="none"><path class="area" d="M0 128 C60 120 90 126 140 110 S230 100 280 104 S380 82 430 88 S540 66 600 58 L600 150 L0 150Z"/><path class="line" d="M0 128 C60 120 90 126 140 110 S230 100 280 104 S380 82 430 88 S540 66 600 58"/></svg></div>
+        </div>
+        <div class="cc cc-a" data-depth="0.8">
+          <div class="h"><span class="pi" style="--c:var(--p7)"><svg><use href="#i-price"/></svg></span>Repricer</div>
+          <div class="row">Kettle 1.7L<span class="pill p">Buy Box won</span></div>
+          <div class="row">£39.00 → <b>£39.40</b><span class="pill u">+1.1 pts</span></div>
+        </div>
+        <div class="cc cc-b" data-depth="0.55">
+          <div class="h"><span class="pi" style="--c:var(--p4)"><svg><use href="#i-engage"/></svg></span>Engage</div>
+          <div class="row">Where's my order?<span class="pill p">Auto-replied</span></div>
+          <div class="row">VAT invoice request<span class="pill p">Sent</span></div>
+        </div>
+        <div class="cc cc-c" data-depth="1">
+          <div class="h"><span class="pi" style="--c:var(--p8)"><svg><use href="#i-recov"/></svg></span>Recovery</div>
+          <div class="row">Lost in warehouse<span class="pill p">£4.80 back</span></div>
+          <div class="row">Damaged inbound<span class="pill a">Disputed</span></div>
+        </div>
       </div>
     </div>
     <div class="foot">
       <div>
-        <a href="#" class="logo"><img class="brand-logo" src="assets/logo-white.webp" alt="WhatSales" style="height:26px"></a>
+        <a href="#" class="logo"><img src="assets/logo-white.webp" alt="WhatSales" style="height:26px"></a>
         <p class="blurb">The ecommerce operating platform for multichannel sellers and agencies. WhatSales Ltd, London.</p>
         <form class="news" onsubmit="event.preventDefault();this.querySelector('button').textContent='Subscribed ✓'"><label for="nl" style="position:absolute;left:-9999px">Email for the weekly newsletter</label><input id="nl" type="email" placeholder="Weekly newsletter, your email" required><button>Subscribe</button></form>
         <div class="social"><a href="#" aria-label="LinkedIn">in</a><a href="#" aria-label="YouTube">▶</a><a href="#" aria-label="X">𝕏</a><a href="#" aria-label="Instagram">◎</a></div>
       </div>
-      <div><h5>Platform</h5><ul><li><a href="#platform">Profitability</a></li><li><a href="#platform">Performance</a></li><li><a href="#platform">Inventory</a></li><li><a href="#platform">Engage</a></li><li><a href="#platform">Flow</a></li></ul></div>
-      <div><h5>&nbsp;</h5><ul><li><a href="#platform">Workspace</a></li><li><a href="#platform">Repricer</a></li><li><a href="#platform">Recovery</a></li><li><a href="#platform">MCP</a></li></ul></div>
+      <div><h5>Platform</h5><ul><li><a href="#p0" data-open="0">Profitability</a></li><li><a href="#p1" data-open="1">Performance</a></li><li><a href="#p2" data-open="2">Inventory</a></li><li><a href="#p3" data-open="3">Engage</a></li><li><a href="#p4" data-open="4">Flow</a></li></ul></div>
+      <div><h5>&nbsp;</h5><ul><li><a href="#p5" data-open="5">Workspace</a></li><li><a href="#p6" data-open="6">Repricer</a></li><li><a href="#p7" data-open="7">Recovery</a></li><li><a href="#p8" data-open="8">MCP</a></li></ul></div>
       <div><h5>Solutions</h5><ul><li><a href="#roles">Brand owners</a></li><li><a href="#roles">Ops &amp; finance</a></li><li><a href="#roles">Agencies &amp; partners</a></li><li><a href="#integrations">Integrations</a></li></ul></div>
       <div><h5>Resources</h5><ul><li><a href="#faq">Pricing</a></li><li><a href="#">Knowledgebase</a></li><li><a href="#">Insights</a></li><li><a href="#">Events</a></li></ul></div>
       <div><h5>Company</h5><ul><li><a href="#">About us</a></li><li><a href="#">Careers</a></li><li><a href="#">Partner directory</a></li><li><a href="#">Contact</a></li></ul></div>
@@ -1078,16 +1306,32 @@ svg.wide{width:38px!important;height:38px!important;margin:-8px -4px}
 <script>
 (() => {
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fine = matchMedia('(pointer: fine)').matches;
   const root = document.documentElement;
   const fmt = n => n.toLocaleString('en-GB');
+  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
   let lenis = null;
-
   if (!reduce && window.Lenis) {
     lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
     const raf = t => { lenis.raf(t); requestAnimationFrame(raf); };
     requestAnimationFrame(raf);
   }
-  const scrollToEl = el => lenis ? lenis.scrollTo(el, { offset: -80 }) : el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
+  const scrollToEl = el => lenis ? lenis.scrollTo(el, { offset: -90 }) : el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
+
+  // custom cursor
+  if (fine && !reduce) {
+    const dot = document.getElementById('curDot'), ring = document.getElementById('curRing');
+    let mx = -100, my = -100, rx = -100, ry = -100;
+    root.classList.add('cur-ready');
+    addEventListener('pointermove', e => { mx = e.clientX; my = e.clientY; document.body.classList.add('cur-on'); dot.style.transform = `translate(${mx}px,${my}px)`; }, { passive: true });
+    document.addEventListener('pointerleave', () => document.body.classList.remove('cur-on'));
+    addEventListener('pointerdown', () => document.body.classList.add('cur-down'));
+    addEventListener('pointerup', () => document.body.classList.remove('cur-down'));
+    document.addEventListener('pointerover', e => { if (e.target.closest('a,button,summary,input,.otile,.tcard,.rb')) document.body.classList.add('cur-hover'); });
+    document.addEventListener('pointerout', e => { if (e.target.closest('a,button,summary,input,.otile,.tcard,.rb')) document.body.classList.remove('cur-hover'); });
+    const loop = () => { rx += (mx - rx) * 0.16; ry += (my - ry) * 0.16; ring.style.transform = `translate(${rx}px,${ry}px)`; requestAnimationFrame(loop); };
+    loop();
+  }
 
   // headline split
   const title = document.getElementById('heroTitle');
@@ -1110,66 +1354,93 @@ svg.wide{width:38px!important;height:38px!important;margin:-8px -4px}
   root.classList.add('anim');
   requestAnimationFrame(() => requestAnimationFrame(() => { title.classList.add('in'); document.body.classList.add('loaded'); }));
 
-  // nav: mega menus
+  // mega menus + drawer
   const nav = document.getElementById('nav');
   const items = [...document.querySelectorAll('[data-menu]')];
   const closeAll = except => items.forEach(li => { if (li !== except) { li.classList.remove('open'); li.querySelector('button').setAttribute('aria-expanded', 'false'); } });
   items.forEach(li => {
-    const btn = li.querySelector('button');
-    let t;
+    const btn = li.querySelector('button'); let t;
     const open = () => { clearTimeout(t); closeAll(li); li.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); };
     const close = () => { t = setTimeout(() => { li.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); }, 120); };
     li.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') open(); });
     li.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') close(); });
     btn.addEventListener('click', () => li.classList.contains('open') ? (li.classList.remove('open'), btn.setAttribute('aria-expanded', 'false')) : open());
   });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeAll(); closeDrawer(); } });
-  document.addEventListener('click', e => { if (!e.target.closest('#menu')) closeAll(); });
-
-  // mobile drawer
   const drawer = document.getElementById('drawer');
   const openDrawer = () => { drawer.classList.add('open'); drawer.setAttribute('aria-hidden', 'false'); };
   const closeDrawer = () => { drawer.classList.remove('open'); drawer.setAttribute('aria-hidden', 'true'); };
   document.getElementById('burger').addEventListener('click', openDrawer);
   document.getElementById('drawerClose').addEventListener('click', closeDrawer);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeAll(); closeDrawer(); } });
+  document.addEventListener('click', e => { if (!e.target.closest('#menu')) closeAll(); });
 
-  // in-page links (incl. "open product N" and "open role N")
+  // product cards
+  const cards = [...document.querySelectorAll('.scard')];
+  const navBtns = [...document.querySelectorAll('#stackNav button')];
+  const goCard = i => scrollToEl(cards[i]);
+  navBtns.forEach(b => b.addEventListener('click', () => goCard(+b.dataset.i)));
+
   document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
     const id = a.getAttribute('href'); if (id.length < 2) return;
-    const el = document.querySelector(id); if (!el) return;
     e.preventDefault(); closeAll(); closeDrawer();
-    if (a.dataset.open !== undefined) showProduct(+a.dataset.open, true);
+    if (a.dataset.open !== undefined) { goCard(+a.dataset.open); return; }
     if (a.dataset.role !== undefined) showRole(a.dataset.role);
-    scrollToEl(el);
+    const el = document.querySelector(id); if (el) scrollToEl(el);
   }));
 
   // scroll-linked effects
-  const stage = document.getElementById('stage'), dash = document.getElementById('dash'), hero = document.getElementById('hero');
-  const patch = document.getElementById('patch'), tools = [...document.querySelectorAll('.tool')], one = document.getElementById('one'), patchP = document.getElementById('patchP');
+  const stage = document.getElementById('stage'), dash = document.getElementById('dash'), hero = document.getElementById('hero'), band = document.querySelector('.band');
+  const patch = document.getElementById('patch'), tools = [...document.querySelectorAll('.tool')], one = document.getElementById('one'), patchP = document.getElementById('patchP'), patchCopy = document.getElementById('patchCopy');
+  const progress = document.getElementById('progress');
+  const collage = [...document.querySelectorAll('#collage .cc')];
   const ease = t => 1 - Math.pow(1 - t, 3);
+  const stacked = () => getComputedStyle(cards[0]).position === 'sticky';
   const onScroll = () => {
-    const overDark = hero.getBoundingClientRect().bottom > 80 && hero.getBoundingClientRect().top < 80;
-    const inBand = document.querySelector('.band').getBoundingClientRect();
-    const dark = overDark || (inBand.top < 72 && inBand.bottom > 72);
+    const vh = innerHeight;
+    const max = document.documentElement.scrollHeight - vh;
+    progress.style.transform = `scaleX(${clamp(scrollY / max)})`;
+    const hr = hero.getBoundingClientRect(), br = band.getBoundingClientRect();
+    const dark = (hr.top < 72 && hr.bottom > 72) || (br.top < 72 && br.bottom > 72);
     nav.classList.toggle('dark-mode', dark); nav.classList.toggle('light-mode', !dark);
     if (reduce) return;
-    const vh = innerHeight, r = stage.getBoundingClientRect();
-    const p = Math.min(1, Math.max(0, (vh - r.top) / (vh * 0.9)));
+    const r = stage.getBoundingClientRect();
+    const p = clamp((vh - r.top) / (vh * 0.9));
     dash.style.setProperty('--tilt', (22 * (1 - p)).toFixed(2) + 'deg');
     dash.style.setProperty('--sc', (0.9 + 0.1 * p).toFixed(3));
+    // patchwork
     const pr = patch.getBoundingClientRect(), total = pr.height - vh;
-    const q = Math.min(1, Math.max(0, -pr.top / total));
-    const spread = 1 - ease(Math.min(1, Math.max(0, (q - 0.18) / 0.5)));
+    const q = clamp(-pr.top / total);
+    const spread = 1 - ease(clamp((q - 0.16) / 0.46));
     tools.forEach((t, i) => {
       const x = +t.dataset.x / 100 * innerWidth * spread, y = +t.dataset.y / 100 * vh * spread, rot = +t.dataset.r * spread;
-      const appear = Math.min(1, Math.max(0, (q - i * 0.008) / 0.06));
+      const appear = clamp((q - i * 0.008) / 0.06);
       t.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) rotate(${rot}deg) scale(${0.55 + 0.45 * spread})`;
       t.style.opacity = (appear * Math.min(1, spread * 1.6)).toFixed(3);
     });
-    const oq = ease(Math.min(1, Math.max(0, (q - 0.55) / 0.3)));
+    const oq = ease(clamp((q - 0.5) / 0.3));
     one.style.setProperty('--oo', oq.toFixed(3));
     one.style.setProperty('--os', (0.6 + 0.4 * oq).toFixed(3));
     patchP.style.opacity = (1 - oq).toFixed(3);
+    patchCopy.style.transform = `translateY(${-oq * 4}vh)`;
+    // stacking cards: scale + dim cards that are covered
+    if (stacked()) {
+      let active = 0;
+      cards.forEach((c, i) => {
+        const rc = c.getBoundingClientRect();
+        let cover = 0;
+        for (let j = i + 1; j < cards.length && j <= i + 2; j++) {
+          const rj = cards[j].getBoundingClientRect();
+          cover += clamp((rc.bottom - rj.top) / rc.height);
+        }
+        c.style.transform = `scale(${(1 - 0.05 * cover).toFixed(4)})`;
+        c.style.setProperty('--dim', (Math.min(1, cover) * 0.18).toFixed(3));
+        if (rc.top < vh * 0.5) active = i;
+      });
+      navBtns.forEach((b, i) => b.classList.toggle('on', i === active));
+    }
+    // CTA collage parallax
+    const cr = collage[0] && collage[0].parentElement.getBoundingClientRect();
+    if (cr) { const k = (cr.top + cr.height / 2 - vh / 2) / vh; collage.forEach(c => c.style.transform = `translateY(${(k * 60 * +c.dataset.depth).toFixed(1)}px)`); }
   };
   addEventListener('scroll', onScroll, { passive: true }); addEventListener('resize', onScroll); onScroll();
 
@@ -1184,33 +1455,13 @@ svg.wide{width:38px!important;height:38px!important;margin:-8px -4px}
     p.style.strokeDasharray = L; p.style.strokeDashoffset = reduce ? 0 : L;
     p.style.transition = 'stroke-dashoffset 2s cubic-bezier(.16,1,.3,1) .4s';
   });
-
-  // reveal
-  const fired = new WeakSet();
-  const go = el => {
-    if (fired.has(el)) return; fired.add(el);
-    el.classList.add('in');
-    if (el.id === 'dash') {
-      el.querySelectorAll('[data-count]').forEach(n => countUp(n, +n.dataset.count, { prefix: n.dataset.prefix }));
-      el.querySelectorAll('.bar i').forEach((b, i) => setTimeout(() => b.style.width = b.dataset.w, 300 + i * 140));
-      el.querySelectorAll('.draw').forEach(p => p.style.strokeDashoffset = 0);
-    }
-  };
-  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { go(e.target); io.unobserve(e.target); } }), { threshold: 0.2, rootMargin: '0px 0px -60px 0px' });
-  document.querySelectorAll('.rv, #dash').forEach(el => io.observe(el));
-  setTimeout(() => document.querySelectorAll('.rv').forEach(el => { if (el.getBoundingClientRect().top < innerHeight) go(el); }), 2500);
-
-  // product explorer
-  const tabs = [...document.querySelectorAll('.ptab')], panels = [...document.querySelectorAll('.ppanel')];
-  const DUR = 7000; let cur = 0, t0 = performance.now(), paused = false, visible = false, elapsed = 0;
   const runWaterfall = () => {
     const big = document.getElementById('wfBig');
-    panels[0].querySelectorAll('.wf-bar').forEach((b, i) => b.style.transitionDelay = (0.15 + i * 0.14) + 's');
+    document.querySelectorAll('#wf .wf-bar').forEach((b, i) => b.style.transitionDelay = (0.15 + i * 0.14) + 's');
     if (reduce) { big.innerHTML = '£19<small>.53</small>'; big.classList.add('done'); return; }
-    big.classList.remove('done');
     const s0 = performance.now() + 300, dur = 1800;
     const step = t => {
-      const p = Math.min(1, Math.max(0, (t - s0) / dur)), e = 1 - Math.pow(1 - p, 3), v = 100 - 80.47 * e;
+      const p = clamp((t - s0) / dur), e = 1 - Math.pow(1 - p, 3), v = 100 - 80.47 * e;
       const [i, d] = v.toFixed(2).split('.');
       big.innerHTML = '£' + i + '<small>.' + d + '</small>';
       if (p >= 1) { big.classList.add('done'); return; }
@@ -1218,31 +1469,23 @@ svg.wide{width:38px!important;height:38px!important;margin:-8px -4px}
     };
     requestAnimationFrame(step);
   };
-  function showProduct(i, manual) {
-    cur = i; elapsed = 0; t0 = performance.now();
-    tabs.forEach((t, k) => { t.classList.toggle('on', k === i); t.setAttribute('aria-selected', k === i); t.querySelector('.prog i').style.width = '0'; });
-    panels.forEach((p, k) => { p.classList.toggle('on', k === i); p.classList.remove('go'); });
-    void panels[i].offsetWidth; panels[i].classList.add('go');
-    if (i === 0) runWaterfall();
-    const tb = document.getElementById('ptabs');
-    if (tb.scrollWidth > tb.clientWidth) tb.scrollTo({ left: tabs[i].offsetLeft - 16, behavior: 'smooth' });
-    if (manual) paused = false;
-  }
-  tabs.forEach((t, i) => t.addEventListener('click', () => showProduct(i, true)));
-  const ex = document.querySelector('.explorer');
-  ex.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') paused = true; });
-  ex.addEventListener('pointerleave', () => { paused = false; t0 = performance.now() - elapsed; });
-  let seen = false;
-  new IntersectionObserver(es => { visible = es[0].isIntersecting; if (visible && !seen) { seen = true; showProduct(cur); } t0 = performance.now() - elapsed; }, { threshold: .3 }).observe(ex);
-  const tick = now => {
-    if (!paused && visible && !reduce) {
-      elapsed = now - t0;
-      tabs[cur].querySelector('.prog i').style.width = Math.min(100, elapsed / DUR * 100) + '%';
-      if (elapsed >= DUR) showProduct((cur + 1) % tabs.length);
+
+  // reveal / one-shot animations
+  const fired = new WeakSet();
+  const go = el => {
+    if (fired.has(el)) return; fired.add(el);
+    el.classList.add('in', 'go');
+    if (el.id === 'dash') {
+      el.querySelectorAll('[data-count]').forEach(n => countUp(n, +n.dataset.count, { prefix: n.dataset.prefix }));
+      el.querySelectorAll('.bar i').forEach((b, i) => setTimeout(() => b.style.width = b.dataset.w, 300 + i * 140));
+      el.querySelectorAll('.draw').forEach(p => p.style.strokeDashoffset = 0);
     }
-    requestAnimationFrame(tick);
+    if (el.id === 'p0') runWaterfall();
+    if (el.id === 'rbento') el.querySelectorAll('[data-count]').forEach(n => countUp(n, +n.dataset.count, { suffix: n.dataset.suffix }));
   };
-  requestAnimationFrame(tick);
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { go(e.target); io.unobserve(e.target); } }), { threshold: 0.2, rootMargin: '0px 0px -60px 0px' });
+  document.querySelectorAll('.rv, #dash, .scard, #rbento').forEach(el => io.observe(el));
+  setTimeout(() => document.querySelectorAll('.rv').forEach(el => { if (el.getBoundingClientRect().top < innerHeight) go(el); }), 2500);
 
   // hero AI command bar
   const Q = [
@@ -1268,18 +1511,6 @@ svg.wide{width:38px!important;height:38px!important;margin:-8px -4px}
     }
   })();
 
-  // testimonials
-  const tqs = [...document.querySelectorAll('.tq')], tdots = [...document.querySelectorAll('#tdots button')];
-  let ti = 0, tTimer;
-  const showT = i => { ti = (i + tqs.length) % tqs.length; tqs.forEach((q, k) => q.classList.toggle('on', k === ti)); tdots.forEach((d, k) => d.classList.toggle('on', k === ti)); };
-  const autoT = () => { clearInterval(tTimer); if (!reduce) tTimer = setInterval(() => showT(ti + 1), 6500); };
-  tdots.forEach((d, k) => d.addEventListener('click', () => { showT(k); autoT(); }));
-  document.getElementById('tprev').addEventListener('click', () => { showT(ti - 1); autoT(); });
-  document.getElementById('tnext').addEventListener('click', () => { showT(ti + 1); autoT(); });
-  autoT();
-  const pc = document.querySelector('.proof-card');
-  new IntersectionObserver((es, o) => { if (es[0].isIntersecting) { pc.querySelectorAll('[data-count]').forEach(n => countUp(n, +n.dataset.count, { suffix: n.dataset.suffix })); o.disconnect(); } }, { threshold: .3 }).observe(pc);
-
   // roles
   const segBtns = [...document.querySelectorAll('#seg button')], rps = [...document.querySelectorAll('.rpanel')];
   function showRole(r) {
@@ -1288,9 +1519,8 @@ svg.wide{width:38px!important;height:38px!important;margin:-8px -4px}
   }
   segBtns.forEach(b => b.addEventListener('click', () => showRole(b.dataset.r)));
 
-  // marquee
-  const mq = document.getElementById('mq');
-  [...mq.children].forEach(c => { const d = c.cloneNode(true); d.setAttribute('aria-hidden', 'true'); mq.appendChild(d); });
+  // marquees: duplicate content for seamless loops
+  ['mq', 'wall1', 'wall2'].forEach(id => { const t = document.getElementById(id); [...t.children].forEach(c => { const d = c.cloneNode(true); d.setAttribute('aria-hidden', 'true'); t.appendChild(d); }); });
 
   // integration beams
   const hub = document.getElementById('hubwrap'), beams = document.getElementById('beams');
@@ -1303,8 +1533,8 @@ svg.wide{width:38px!important;height:38px!important;margin:-8px -4px}
     hub.querySelectorAll('.hn').forEach((n, i) => {
       const r = n.getBoundingClientRect(), left = r.left + r.width / 2 < core.left;
       const x = (left ? r.right : r.left) - hr.left, y = r.top - hr.top + r.height / 2;
-      const ex2 = left ? cx - core.width / 2 : cx + core.width / 2, mx = (x + ex2) / 2;
-      const d = `M${x} ${y} C${mx} ${y} ${mx} ${cy} ${ex2} ${cy}`;
+      const ex = left ? cx - core.width / 2 : cx + core.width / 2, mx = (x + ex) / 2;
+      const d = `M${x} ${y} C${mx} ${y} ${mx} ${cy} ${ex} ${cy}`;
       ['base', 'glow'].forEach(c => {
         const p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
         p.setAttribute('d', d); p.setAttribute('class', c);
