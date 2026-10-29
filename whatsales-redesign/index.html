@@ -227,14 +227,17 @@ h3{font-size:20px;font-weight:700;letter-spacing:-.02em;line-height:1.25}
 
 /* brands: flipping logo wall */
 .brands{padding-block:96px}
-.bgrid{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--line);border-left:1px solid var(--line)}
-.flip{perspective:900px;height:132px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
-.flip-in{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .9s var(--ease)}
-.flip.turn .flip-in{transform:rotateX(180deg)}
-.face{position:absolute;inset:0;display:grid;place-items:center;padding:26px 30px;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:#fff}
-.face.back{transform:rotateX(180deg)}
+.bgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+.flip{perspective:1000px;height:140px}
+.flip-in{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform 1s cubic-bezier(.65,0,.35,1)}
+.flip.turn .flip-in{transform:rotateY(180deg)}
+.flip:hover .flip-in{transform:translateY(-4px)}
+.flip.turn:hover .flip-in{transform:rotateY(180deg) translateY(-4px)}
+.face{position:absolute;inset:0;display:grid;place-items:center;padding:24px 28px;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:0 1px 0 rgba(11,26,43,.03),0 18px 36px -26px rgba(11,26,43,.3)}
+.face.back{transform:rotateY(180deg);background:linear-gradient(160deg,#fff,var(--mist))}
 .face img{max-height:56px;max-width:150px;width:auto;object-fit:contain;filter:grayscale(1);opacity:.75;transition:filter .3s,opacity .3s}
 .flip:hover .face img{filter:none;opacity:1}
+.flip:hover .face{border-color:color-mix(in srgb,var(--cyan) 40%,var(--line))}
 .ph{display:flex;align-items:center;gap:8px;font-weight:800;font-size:18px;letter-spacing:-.03em;color:#B4BEC9}
 .ph i{width:26px;height:26px;border-radius:8px;border:2px dashed #C9D2DC}
 .brands-note{text-align:center;font-size:13px;color:var(--faint);margin-top:16px;font-family:var(--mono)}
@@ -628,7 +631,8 @@ h3{font-size:20px;font-weight:700;letter-spacing:-.02em;line-height:1.25}
   .stack-nav{display:none}
 }
 @media (max-width:1024px){
-  .bgrid{grid-template-columns:repeat(3,1fr)}
+  .bgrid{grid-template-columns:repeat(4,1fr);gap:12px}
+  .flip:nth-child(n+9){display:none}
   .laurels{grid-template-columns:1fr 1fr}
   .laurel:nth-child(2){border-right:0}
   .kfeat{grid-template-columns:1fr 1fr}
@@ -688,7 +692,7 @@ h3{font-size:20px;font-weight:700;letter-spacing:-.02em;line-height:1.25}
   .rbento{grid-template-columns:1fr}
   .rb.feat{grid-column:auto;grid-row:auto;padding:24px}
   .tcard{width:300px}
-  .bgrid{grid-template-columns:repeat(2,1fr)}
+  .bgrid{grid-template-columns:repeat(2,1fr);gap:10px}
   .flip{height:100px}
   .flip:nth-child(n+7){display:none}
   .face{padding:16px}
@@ -1659,14 +1663,15 @@ h3{font-size:20px;font-weight:700;letter-spacing:-.02em;line-height:1.25}
   // brands flip wall
   const flips = [...document.querySelectorAll('#bgrid .flip')];
   const pool = ['<img src="assets/client-trimmingshop.svg" alt="Trimmingshop">','<img src="assets/client-dlm.svg" alt="DLM Direct">','<img src="assets/client-hardys.svg" alt="Hardys">'];
-  for (let k = 4; k <= 16; k++) pool.push('<span class="ph"><i></i>Brand ' + String(k).padStart(2, '0') + '</span>');
+  for (let k = 4; k <= 12; k++) { pool.push('<span class="ph"><i></i>Brand ' + String(k).padStart(2, '0') + '</span>'); if (k % 3 === 0) pool.push(pool[k % 3]); }
   let pi2 = 10, lastF = -1;
   if (!reduce) setInterval(() => {
-    let k; do { k = Math.floor(Math.random() * flips.length); } while (k === lastF); lastF = k;
-    const f = flips[k], turned = f.classList.contains('turn');
+    const vis = flips.filter(f => f.offsetParent);
+    let k; do { k = Math.floor(Math.random() * vis.length); } while (k === lastF && vis.length > 1); lastF = k;
+    const f = vis[k], turned = f.classList.contains('turn');
     f.querySelector(turned ? '.front' : '.back').innerHTML = pool[pi2++ % pool.length];
     f.classList.toggle('turn');
-  }, 1600);
+  }, 1800);
 
   // statement: highlight words as you scroll
   const st = document.getElementById('stText');
