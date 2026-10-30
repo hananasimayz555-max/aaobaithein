@@ -1,0 +1,568 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Profitability — WhatSales</title>
+<meta name="description" content="WhatSales Profitability: a monthly P&L built from every fee, ad, refund and cost, across every channel.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+/* product page */
+.pr-hero{padding-top:150px}
+.pr-hero::after{mask-image:radial-gradient(ellipse 60% 60% at 70% 30%,#000 10%,transparent 70%);-webkit-mask-image:radial-gradient(ellipse 60% 60% at 70% 30%,#000 10%,transparent 70%)}
+.pr-hero-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:56px;align-items:center;padding-bottom:40px}
+.pr-hero-copy{display:flex;flex-direction:column;gap:22px}
+.pr-hero h1{font-size:clamp(40px,5vw,66px)}
+.pr-hero .lede{color:var(--night-muted)}
+.crumb{font-size:13px;color:var(--night-muted);font-weight:600}
+.crumb span{margin:0 6px;opacity:.5}
+.crumb:hover{color:#fff}
+.pr-badge{display:inline-flex;align-items:center;gap:10px;width:fit-content;padding:6px 14px 6px 6px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);font-size:14px;font-weight:600;color:#fff}
+.pr-badge .pi{width:30px;height:30px;border-radius:9px}
+.pr-hero-app{box-shadow:0 50px 100px -40px rgba(0,0,0,.8),0 0 0 8px rgba(255,255,255,.04)}
+.pl-toggles{display:flex;gap:6px;flex-wrap:wrap}
+.pl-toggles span{font-size:11px;font-weight:700;padding:4px 10px;border-radius:99px;background:var(--soft);color:var(--muted)}
+.pl-toggles span.on{background:var(--cyan-soft);color:var(--cyan-ink)}
+.tbl.pl td,.tbl.pl th{padding:7px 8px}
+.tbl.pl tr.neg td.r{color:var(--loss)}
+.tbl.pl tr.tot td{border-top:2px solid var(--line-2);font-weight:700}
+.tbl.pl tr.tot td.r{color:#0B8A50}
+.tbl.pl tr.mg td{color:var(--muted);font-size:12px}
+.tbl th small{font-weight:500;text-transform:none;letter-spacing:0}
+.illn{font-family:var(--mono);font-size:10px;color:var(--faint);letter-spacing:.06em}
+.pains{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.pain{border-radius:22px;border:1px solid var(--line);padding:28px;display:flex;flex-direction:column;gap:12px;background:#fff;transition:transform .5s var(--ease),box-shadow .5s var(--ease)}
+.pain:hover{transform:translateY(-4px);box-shadow:0 30px 60px -36px rgba(11,26,43,.35)}
+.pain .pn{font-family:var(--mono);font-size:12px;color:var(--loss);background:var(--loss-soft);width:fit-content;padding:3px 9px;border-radius:99px}
+.pain p{color:var(--muted)}
+.frow{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:center;padding-block:44px;border-top:1px solid var(--line)}
+.frow:first-of-type{border-top:0}
+.frow.alt .fcopy{order:2}
+.fcopy{display:flex;flex-direction:column;gap:14px}
+.ftag{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--c)}
+.ftag .new{font-style:normal;font-size:10px;background:var(--c);color:#fff;padding:2px 7px;border-radius:99px;letter-spacing:.06em}
+.fcopy h3{font-size:clamp(24px,2.4vw,32px);font-weight:800;letter-spacing:-.03em;line-height:1.15}
+.fcopy p{color:var(--muted);font-size:16.5px}
+.bars3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:end;height:220px;padding:10px 6px 0}
+.bars3>div{height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:6px}
+.bars3 i{display:block;width:100%;height:0;border-radius:10px 10px 4px 4px;background:color-mix(in srgb,var(--p1) 35%,#fff);transition:height 1.2s var(--ease)}
+.bars3 i.hl3{background:linear-gradient(180deg,var(--p1),color-mix(in srgb,var(--p1) 70%,#fff))}
+.go .bars3 i{height:var(--h)}
+.bars3 b{font-size:15px;font-weight:800}
+.bars3 small{font-size:11px;color:var(--muted)}
+.daybars{display:flex;align-items:flex-end;gap:4px;height:90px;padding:4px 0}
+.daybars i{flex:1;border-radius:3px 3px 1px 1px;background:color-mix(in srgb,var(--loss) 70%,#fff);height:0;transition:height .9s var(--ease)}
+.vrow2{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid var(--line);border-radius:10px;padding:9px 12px;font-size:12.5px;flex-wrap:wrap}
+.reports{gap:8px}
+.rep{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.rep b{font-size:13px;display:block}
+.rep small{font-size:11.5px;color:var(--muted);line-height:1.4;display:block}
+.steps3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;counter-reset:s}
+.st3{position:relative;border-radius:22px;background:var(--mist);padding:30px;display:flex;flex-direction:column;gap:12px}
+.st3 .n3{width:40px;height:40px;border-radius:12px;background:var(--ink);color:#fff;display:grid;place-items:center;font-weight:800}
+.st3 p{color:var(--muted)}
+.srcs{display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+.pr-proof{display:grid;grid-template-columns:1.3fr 1fr;gap:20px;align-items:stretch}
+.pq{border-radius:26px;background:linear-gradient(150deg,#071222,#0B2440 60%,#0A3756);color:#fff;padding:40px;display:flex;flex-direction:column;gap:24px;position:relative;overflow:hidden}
+.pq::before{content:"\201C";position:absolute;right:28px;top:-10px;font-size:180px;line-height:1;font-weight:800;color:rgba(1,166,224,.18)}
+.pq blockquote{font-size:clamp(20px,2vw,25px);font-weight:600;line-height:1.45;letter-spacing:-.02em;position:relative}
+.pq .who{display:flex;gap:12px;align-items:center}
+.pq .who img{width:48px;height:48px;border-radius:50%}
+.pq .who b{display:block}
+.pq .who small{color:var(--night-muted)}
+.pstats{display:grid;grid-template-rows:repeat(3,1fr);gap:12px}
+.pstats div{border:1px solid var(--line);border-radius:18px;padding:18px 22px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.pstats b{font-size:clamp(30px,3vw,42px);font-weight:800;letter-spacing:-.04em}
+.pstats span{color:var(--muted);font-size:14px;text-align:right;max-width:170px}
+.related{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.relc{--c:var(--cyan);position:relative;border-radius:20px;border:1px solid var(--line);padding:22px;display:flex;flex-direction:column;gap:10px;transition:transform .4s var(--ease),border-color .3s,box-shadow .4s}
+.relc:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--c) 45%,var(--line));box-shadow:0 24px 50px -30px rgba(11,26,43,.35)}
+.relc b{font-size:16px}
+.relc span{font-size:13.5px;color:var(--muted)}
+.relc em{font-style:normal;position:absolute;right:20px;top:22px;color:var(--c);font-weight:800;transition:transform .3s var(--ease)}
+.relc:hover em{transform:translateX(4px)}
+@media (max-width:1024px){
+  .pr-hero-grid,.frow,.pr-proof{grid-template-columns:1fr;gap:32px}
+  .frow.alt .fcopy{order:0}
+  .pains,.steps3{grid-template-columns:1fr}
+  .related{grid-template-columns:1fr 1fr}
+}
+@media (max-width:720px){
+  .pr-hero{padding-top:130px}
+  .related{grid-template-columns:1fr}
+  .pq{padding:26px}
+  .pstats span{text-align:left}
+}
+
+.pr-hero .app,.app{color:var(--ink)}
+.fcopy .sc-points li{display:block;position:relative;padding-left:28px}
+.fcopy .sc-points li::before{position:absolute;left:0;top:0}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="lg-amazon" viewBox="0 0 24 24"><path fill="currentColor" d="M.045 18.02q.107-.174.348-.022q5.455 3.165 11.87 3.166q4.278-.001 8.447-1.595l.315-.14c.138-.06.234-.1.293-.13c.226-.088.39-.046.525.13c.12.174.09.336-.12.48c-.256.19-.6.41-1.006.654q-1.867 1.113-4.185 1.726a17.6 17.6 0 0 1-10.951-.577a17.9 17.9 0 0 1-5.43-3.35q-.15-.113-.151-.22c0-.047.021-.09.051-.13zm6.565-6.218q0-1.507.743-2.577c.495-.71 1.17-1.25 2.04-1.615c.796-.335 1.756-.575 2.912-.72c.39-.046 1.033-.103 1.92-.174v-.37c0-.93-.105-1.558-.3-1.875c-.302-.43-.78-.65-1.44-.65h-.182c-.48.046-.896.196-1.246.46c-.35.27-.575.63-.675 1.096c-.06.3-.206.465-.435.51l-2.52-.315c-.248-.06-.372-.18-.372-.39c0-.046.007-.09.022-.15q.372-1.935 1.82-2.88c.976-.616 2.1-.975 3.39-1.05h.54c1.65 0 2.957.434 3.888 1.29c.135.15.27.3.405.48c.12.165.224.314.283.45c.075.134.15.33.195.57c.06.254.105.42.135.51c.03.104.062.3.076.615c.01.313.02.493.02.553v5.28c0 .376.06.72.165 1.036q.157.471.315.674l.51.674q.136.204.136.36q0 .181-.18.314c-1.2 1.05-1.86 1.62-1.963 1.71q-.247.203-.63.045a6 6 0 0 1-.526-.496l-.31-.347a9 9 0 0 1-.317-.42l-.3-.435c-.81.886-1.603 1.44-2.4 1.665c-.494.15-1.093.227-1.83.227c-1.11 0-2.04-.343-2.76-1.034c-.72-.69-1.08-1.665-1.08-2.94l-.05-.076zm3.753-.438q-.001.848.425 1.364c.285.34.675.512 1.155.512c.045 0 .106-.007.195-.02c.09-.016.134-.023.166-.023c.614-.16 1.08-.553 1.424-1.178c.165-.28.285-.58.36-.91c.09-.32.12-.59.135-.8c.015-.195.015-.54.015-1.005v-.54c-.84 0-1.484.06-1.92.18c-1.275.36-1.92 1.17-1.92 2.43l-.035-.02zm9.162 7.027c.03-.06.075-.11.132-.17q.544-.365 1.05-.5a8 8 0 0 1 1.612-.24c.14-.012.28 0 .41.03c.65.06 1.05.168 1.172.33c.063.09.099.228.099.39v.15c0 .51-.149 1.11-.424 1.8q-.418 1.034-1.156 1.68q-.11.09-.197.09c-.03 0-.06 0-.09-.012c-.09-.044-.107-.12-.064-.24c.54-1.26.806-2.143.806-2.64c0-.15-.03-.27-.087-.344c-.145-.166-.55-.257-1.224-.257q-.364 0-.87.046c-.363.045-.7.09-1 .135q-.134 0-.18-.044c-.03-.03-.036-.047-.02-.077c0-.017.006-.03.02-.063v-.06z"/></symbol><symbol id="lg-ebay" viewBox="0 0 24 24"><path fill="currentColor" d="M6.056 12.132v-4.92h1.2v3.026c.59-.703 1.402-.906 2.202-.906c1.34 0 2.828.904 2.828 2.855c0 .233-.015.457-.06.668c.24-.953 1.274-1.305 2.896-1.344c.51-.018 1.095-.018 1.56-.018v-.135c0-.885-.556-1.244-1.53-1.244c-.72 0-1.245.3-1.305.81h-1.275c.136-1.29 1.5-1.62 2.686-1.62c1.064 0 1.995.27 2.415 1.02l-.436-.84h1.41l2.055 4.125l2.055-4.126H24l-3.72 7.305h-1.346l1.07-2.04l-2.33-4.38c.13.255.2.555.2.93v2.46c0 .346.01.69.04 1.005H16.8a7 7 0 0 1-.046-.765c-.603.734-1.32.96-2.32.96c-1.48 0-2.272-.78-2.272-1.695q.002-.224.037-.405c-.3 1.246-1.36 2.086-2.767 2.086c-.87 0-1.694-.315-2.2-.93c0 .24-.015.494-.04.734h-1.18c.02-.39.04-.855.04-1.245v-1.05h-4.83c.065 1.095.818 1.74 1.853 1.74c.718 0 1.355-.3 1.568-.93h1.24c-.24 1.29-1.61 1.725-2.79 1.725C.95 15.009 0 13.822 0 12.232c0-1.754.982-2.91 3.116-2.91c1.688 0 2.93.886 2.94 2.806v.005zm9.137.183c-1.095.034-1.77.233-1.77.95c0 .465.36.97 1.305.97c1.26 0 1.935-.69 1.935-1.814v-.13c-.45 0-.99.006-1.484.022h.012zm-6.06 1.875c1.11 0 1.876-.806 1.876-2.02s-.768-2.02-1.893-2.02c-1.11 0-1.89.806-1.89 2.02s.765 2.02 1.875 2.02h.03zm-4.35-2.514c-.044-1.125-.854-1.546-1.725-1.546c-.944 0-1.694.474-1.815 1.546z"/></symbol><symbol id="lg-shopify" viewBox="0 0 24 24"><path fill="currentColor" d="m15.337 23.979l7.216-1.561s-2.604-17.613-2.625-17.73c-.018-.116-.114-.192-.211-.192s-1.929-.136-1.929-.136s-1.275-1.274-1.439-1.411a.4.4 0 0 0-.121-.074l-.914 21.104zM11.71 11.305s-.81-.424-1.774-.424c-1.447 0-1.504.906-1.504 1.141c0 1.232 3.24 1.715 3.24 4.629c0 2.295-1.44 3.76-3.406 3.76c-2.354 0-3.54-1.465-3.54-1.465l.646-2.086s1.245 1.066 2.28 1.066a.944.944 0 0 0 .975-.932c0-1.619-2.654-1.694-2.654-4.359c-.034-2.237 1.571-4.416 4.827-4.416c1.257 0 1.875.361 1.875.361l-.945 2.715zM11.17.83c.136 0 .271.038.405.135c-.984.465-2.064 1.639-2.508 3.992a63 63 0 0 1-1.889.578C7.697 3.75 8.951.84 11.17.84zm1.235 2.949v.135c-.754.232-1.583.484-2.394.736c.466-1.777 1.333-2.645 2.085-2.971c.193.501.309 1.176.309 2.1m.539-2.234c.694.074 1.141.867 1.429 1.755c-.349.114-.735.231-1.158.366v-.252c0-.752-.096-1.371-.271-1.871zm2.992 1.289c-.02 0-.06.021-.078.021s-.289.075-.714.21c-.423-1.233-1.176-2.37-2.508-2.37h-.115C12.135.209 11.669 0 11.265 0C8.159 0 6.675 3.877 6.21 5.846c-1.194.365-2.063.636-2.16.674c-.675.213-.694.232-.772.87c-.075.462-1.83 14.063-1.83 14.063L15.009 24z"/></symbol><symbol id="lg-walmart" viewBox="0 0 24 24"><path fill="currentColor" d="M21.418 9.102c-.22 0-.396.123-.396.273l.134 1.516c.015.092.127.162.262.162c.136 0 .247-.07.262-.162l.135-1.516c0-.15-.176-.273-.397-.273M0 10.318s.597 2.447.692 2.845c.112.463.312.634.89.519l.373-1.517c.094-.377.158-.646.219-1.03h.01c.043.388.104.654.181 1.03l.23 1.051c.078.362.295.59.86.466l.89-3.364h-.718l-.303 1.455c-.082.423-.156.753-.213 1.14h-.01c-.052-.383-.118-.7-.2-1.113l-.317-1.482h-.747l-.338 1.445c-.096.439-.185.793-.242 1.167h-.01a41 41 0 0 0-.22-1.222s-.201-1.033-.272-1.39zm6.838 0v3.364h.683v-3.364zm9.62 0V12.8c0 .342.064.581.201.728c.12.128.319.21.556.21c.202 0 .401-.038.495-.073l-.01-.533a1 1 0 0 1-.259.03c-.232 0-.31-.148-.31-.456v-.949h.595v-.643h-.595v-.796zm2.778 0c-.114.003-.244.09-.327.233c-.11.191-.091.405.038.48l1.38.642c.086.032.203-.03.271-.146c.068-.117.063-.25-.009-.308l-1.246-.874a.2.2 0 0 0-.107-.027m4.364 0a.2.2 0 0 0-.106.027l-1.247.874c-.071.058-.076.19-.009.307v.001c.068.117.185.178.271.146l1.38-.643c.13-.074.149-.288.04-.479c-.084-.143-.214-.23-.329-.233m-18.288.78c-.424 0-.761.12-.945.225l.134.46c.168-.105.436-.193.69-.193c.419-.001.488.237.488.39v.036c-.915-.001-1.492.315-1.492.96c0 .394.294.763.805.763c.315 0 .578-.126.736-.327h.015s.105.437.68.27a4 4 0 0 1-.04-.61v-.898c0-.572-.245-1.076-1.071-1.076m4.086 0c-.428 0-.62.217-.736.4h-.01v-.343H8v2.527h.686V12.2c0-.07.008-.143.033-.207c.056-.149.195-.324.417-.324c.277 0 .406.235.406.573v1.44h.686v-1.5c0-.066.01-.146.029-.205a.43.43 0 0 1 .412-.308c.28 0 .416.23.416.628v1.385h.686v-1.488c0-.785-.399-1.096-.848-1.096c-.2 0-.357.05-.499.137q-.18.11-.32.315h-.01a.72.72 0 0 0-.696-.452m3.77 0c-.425 0-.761.12-.945.225l.134.46c.168-.105.436-.193.69-.193c.419-.001.487.237.487.39v.036c-.914-.001-1.491.315-1.491.96c0 .394.294.763.805.763c.315 0 .578-.126.735-.327h.016s.104.437.68.27a4 4 0 0 1-.04-.61v-.898c0-.572-.245-1.076-1.071-1.076m2.851 0c-.263 0-.562.17-.688.534h-.019v-.477h-.618v2.527h.705v-1.294q0-.103.015-.186c.052-.272.26-.445.557-.445c.082 0 .14.009.203.018v-.661a.7.7 0 0 0-.155-.016m4.36 1.22a.14.14 0 0 0-.052.01l-1.38.641c-.13.075-.149.289-.038.48c.11.19.305.281.434.207l1.246-.874c.072-.06.077-.191.01-.309c-.055-.095-.143-.153-.22-.154m2.079 0c-.077.002-.165.06-.22.156c-.067.117-.062.249.01.308l1.246.874c.129.074.323-.016.434-.207s.091-.405-.039-.48l-1.38-.642a.1.1 0 0 0-.051-.008m-16.757.146v.315a.5.5 0 0 1-.017.137a.48.48 0 0 1-.461.323c-.19 0-.34-.107-.34-.334c0-.347.383-.443.818-.441m7.855 0v.315a.5.5 0 0 1-.017.137a.48.48 0 0 1-.46.323c-.19 0-.34-.107-.34-.334c0-.347.382-.443.817-.441m7.862.483c-.135 0-.247.07-.262.162l-.134 1.516c0 .15.176.273.396.273s.397-.123.397-.273l-.135-1.516c-.015-.092-.126-.162-.262-.162"/></symbol><symbol id="lg-etsy" viewBox="0 0 24 24"><path fill="currentColor" d="M8.559 2.445c0-.325.033-.52.59-.52h7.465c1.3 0 2.02 1.11 2.54 3.193l.42 1.666h1.27c.23-4.728.43-6.784.43-6.784s-3.196.36-5.09.36H6.635L1.521.196v1.37l1.725.326c1.21.24 1.5.496 1.6 1.606c0 0 .11 3.27.11 8.64c0 5.385-.09 8.61-.09 8.61c0 .973-.39 1.333-1.59 1.573l-1.722.33V24l5.13-.165h8.55c1.935 0 6.39.165 6.39.165c.105-1.17.75-6.48.855-7.064h-1.2l-1.284 2.91c-1.005 2.28-2.476 2.445-4.11 2.445h-4.906c-1.63 0-2.415-.64-2.415-2.05V12.8s3.62 0 4.79.096c.912.064 1.463.325 1.76 1.598l.39 1.695h1.41l-.09-4.278l.192-4.305h-1.391l-.45 1.89c-.283 1.244-.48 1.47-1.754 1.6c-1.666.17-4.815.14-4.815.14V2.45h-.05z"/></symbol><symbol id="lg-woocommerce" viewBox="0 0 24 24"><path fill="currentColor" d="M.754 9.58a.754.754 0 0 0-.754.758v2.525c0 .42.339.758.758.758h3.135l1.431.799l-.326-.799h2.373a.757.757 0 0 0 .758-.758v-2.525a.757.757 0 0 0-.758-.758zm2.709.445h.03a.3.3 0 0 1 .179.067a.26.26 0 0 1 .103.19a.3.3 0 0 1-.033.16q-.194.36-.322 1.199q-.124.813-.094 1.267a.4.4 0 0 1-.039.219a.21.21 0 0 1-.176.12c-.086.006-.177-.034-.263-.124q-.465-.474-.735-1.416q-.324.638-.478.957q-.294.563-.502.578q-.134.01-.233-.228q-.254-.654-.548-2.524a.3.3 0 0 1 .054-.222c.047-.064.116-.095.21-.102q.253-.02.288.238q.156 1.043.336 1.766l.727-1.387q.1-.189.25-.199q.219-.015.273.28q.125.66.315 1.136q.13-1.266.44-1.828a.26.26 0 0 1 .218-.147m1.293.36a1 1 0 0 1 .18.02q.35.074.53.386c.107.18.161.395.161.654q0 .513-.26.94q-.299.499-.781.5a1 1 0 0 1-.18-.022a.76.76 0 0 1-.531-.384a1.3 1.3 0 0 1-.158-.659q0-.514.258-.937q.303-.499.78-.498zm2.084 0a1 1 0 0 1 .18.02q.353.074.53.386c.107.18.16.395.16.654q0 .513-.259.94q-.299.499-.781.5a1 1 0 0 1-.18-.022a.76.76 0 0 1-.531-.384a1.3 1.3 0 0 1-.16-.659q0-.514.26-.937q.303-.499.78-.498zm4.437.047q-.459 0-.718.304q-.258.306-.256.856q0 .592.256.906q.255.316.744.316q.473-.001.728-.316q.256-.315.256-.883c0-.568-.087-.673-.26-.879q-.262-.303-.75-.304m-1.466.002a1.13 1.13 0 0 0-.84.326q-.333.33-.332.838q-.001.545.328.88t.861.336q.156.001.346-.052v-.54a1.1 1.1 0 0 1-.303.051a.55.55 0 0 1-.422-.177a.7.7 0 0 1-.16-.48q0-.287.156-.468a.5.5 0 0 1 .397-.181q.153-.001.332.049v-.537a1.4 1.4 0 0 0-.363-.045m12.414 0a1.14 1.14 0 0 0-.84.326q-.333.33-.332.838q-.001.545.328.88q.33.335.861.336q.156.001.346-.052v-.54a1.1 1.1 0 0 1-.303.051a.55.55 0 0 1-.422-.177a.7.7 0 0 1-.16-.48q0-.287.156-.468a.5.5 0 0 1 .397-.181q.153-.001.332.049v-.537a1.4 1.4 0 0 0-.363-.045m-9.598.06l-.29 2.264h.579l.156-1.559l.395 1.559h.412l.379-1.555l.164 1.555h.603l-.304-2.264h-.791l-.12.508q-.046.195-.087.4l-.067.352a30 30 0 0 0-.258-1.26zm2.768 0l-.29 2.264h.579l.156-1.559l.396 1.559h.412l.375-1.555l.165 1.555h.603l-.305-2.264h-.789l-.119.508q-.046.195-.086.4l-.066.352a30 30 0 0 0-.26-1.26zm3.988 0v2.264h.611v-1.031h.012l.494 1.03h.645l-.489-1.019a.61.61 0 0 0 .37-.552a.6.6 0 0 0-.25-.506q-.25-.185-.68-.186zm3.377 0v2.264H24v-.483h-.63v-.414h.54v-.468h-.54v-.416h.626v-.483zm-4.793.004v2.264h1.24v-.483h-.627v-.416h.541v-.468h-.54v-.415h.622v-.482zm2.025.432q.219.003.313.072q.093.068.091.227q0 .234-.404.24zm-15.22.011q-.156-.001-.301.211a1.08 1.08 0 0 0-.2.639c0 .096.02.2.06.303c.049.13.117.198.196.215q.125.023.27-.106q.183-.164.252-.492q.023-.116.023-.246q0-.147-.06-.303c-.05-.13-.116-.198-.196-.215l-.045-.006zm2.083 0q-.155-.001-.3.211a1.08 1.08 0 0 0-.2.639c0 .096.02.2.06.303c.049.13.117.198.196.215q.125.023.27-.106q.183-.164.252-.492q.021-.116.023-.246q0-.147-.06-.303c-.05-.13-.116-.198-.196-.215zm4.428.006c.233 0 .354.218.354.66c-.004.273-.038.46-.098.553a.29.29 0 0 1-.262.139a.27.27 0 0 1-.242-.139q-.084-.14-.084-.562c0-.436.11-.65.332-.65Z"/></symbol><symbol id="lg-tiktok" viewBox="0 0 24 24"><path fill="currentColor" d="M12.525.02c1.31-.02 2.61-.01 3.91-.02c.08 1.53.63 3.09 1.75 4.17c1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97c-.57-.26-1.1-.59-1.62-.93c-.01 2.92.01 5.84-.02 8.75c-.08 1.4-.54 2.79-1.35 3.94c-1.31 1.92-3.58 3.17-5.91 3.21c-1.43.08-2.86-.31-4.08-1.03c-2.02-1.19-3.44-3.37-3.65-5.71c-.02-.5-.03-1-.01-1.49c.18-1.9 1.12-3.72 2.58-4.96c1.66-1.44 3.98-2.13 6.15-1.72c.02 1.48-.04 2.96-.04 4.44c-.99-.32-2.15-.23-3.02.37c-.63.41-1.11 1.04-1.36 1.75c-.21.51-.15 1.07-.14 1.61c.24 1.64 1.82 3.02 3.5 2.87c1.12-.01 2.19-.66 2.77-1.61c.19-.33.4-.67.41-1.06c.1-1.79.06-3.57.07-5.36c.01-4.03-.01-8.05.02-12.07"/></symbol></defs></svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <!-- custom product marks (white glyph on gradient tile) -->
+  <symbol id="i-profit" viewBox="0 0 256 256" fill="currentColor"><path d="M196,208a12,12,0,0,1-12,12H56a12,12,0,0,1,0-24h4a24,24,0,0,0,24-24V140H56a12,12,0,0,1,0-24H84V84a56,56,0,0,1,91.63-43.21A12,12,0,0,1,160.35,59.3,31.66,31.66,0,0,0,140,52a32,32,0,0,0-32,32v32h28a12,12,0,0,1,0,24H108v32a47.74,47.74,0,0,1-6.44,24H184A12,12,0,0,1,196,208Z"/></symbol>
+  <symbol id="i-perf" viewBox="0 0 256 256" fill="currentColor"><path d="M209.88,69.83A115.19,115.19,0,0,0,128,36h-.41C63.85,36.22,12,88.76,12,153.13V176a20,20,0,0,0,20,20H224a20,20,0,0,0,20-20V152A115.25,115.25,0,0,0,209.88,69.83ZM220,172H127.32l46.44-65A12,12,0,1,0,154.24,93L97.82,172H36V153.13c0-1.72,0-3.43.14-5.13H56a12,12,0,0,0,0-24H40.62c10.91-33.39,40-58.52,75.38-63.21V80a12,12,0,0,0,24,0V60.8A92,92,0,0,1,215.66,124H200a12,12,0,0,0,0,24h19.9c.06,1.33.1,2.66.1,4Z"/></symbol>
+  <symbol id="i-inv" viewBox="0 0 256 256" fill="currentColor"><path d="M225.6,62.64l-88-48.17a19.91,19.91,0,0,0-19.2,0l-88,48.17A20,20,0,0,0,20,80.19v95.62a20,20,0,0,0,10.4,17.55l88,48.17a19.89,19.89,0,0,0,19.2,0l88-48.17A20,20,0,0,0,236,175.81V80.19A20,20,0,0,0,225.6,62.64ZM128,36.57,200,76,178.57,87.73l-72-39.42Zm0,78.83L56,76,81.56,62l72,39.41ZM44,96.79l72,39.4v76.67L44,173.44Zm96,116.07V136.19l24-13.13V152a12,12,0,0,0,24,0V109.92l24-13.13v76.65Z"/></symbol>
+  <symbol id="i-engage" viewBox="0 0 256 256" fill="currentColor"><path d="M236.34,187.09A84,84,0,0,0,172.29,68.9,84,84,0,0,0,19.66,139.09l-6.84,23.26a20,20,0,0,0,24.83,24.83l23.26-6.84a83.94,83.94,0,0,0,22.76,6.74,84.06,84.06,0,0,0,111.42,41.26l23.26,6.84a20,20,0,0,0,24.83-24.83ZM62,155.5a11.88,11.88,0,0,0-3.39.49l-20.72,6.09L44,141.35a12,12,0,0,0-.93-9A60,60,0,1,1,67.7,156.92,12,12,0,0,0,62,155.5Zm150.89,24.8a12,12,0,0,0-.93,9l6.09,20.73L197.36,204a12,12,0,0,0-9.06.93A60,60,0,0,1,111,186.63a83.93,83.93,0,0,0,68.55-91.37,60,60,0,0,1,33.38,85Z"/></symbol>
+  <symbol id="i-flow" viewBox="0 0 256 256" fill="currentColor"><path d="M176,156a43.78,43.78,0,0,0-29.09,11L106.1,140.8a44.07,44.07,0,0,0,0-25.6L146.91,89a43.83,43.83,0,1,0-13-20.17L93.09,95a44,44,0,1,0,0,65.94L133.9,187.2A44,44,0,1,0,176,156Zm0-120a20,20,0,1,1-20,20A20,20,0,0,1,176,36ZM64,148a20,20,0,1,1,20-20A20,20,0,0,1,64,148Zm112,72a20,20,0,1,1,20-20A20,20,0,0,1,176,220Z"/></symbol>
+  <symbol id="i-work" viewBox="0 0 256 256" fill="currentColor"><path d="M100,100a12,12,0,0,1,12-12h32a12,12,0,0,1,0,24H112A12,12,0,0,1,100,100ZM236,68V196a20,20,0,0,1-20,20H40a20,20,0,0,1-20-20V68A20,20,0,0,1,40,48H76V40a28,28,0,0,1,28-28h48a28,28,0,0,1,28,28v8h36A20,20,0,0,1,236,68ZM100,48h56V40a4,4,0,0,0-4-4H104a4,4,0,0,0-4,4ZM44,72v35.23A180.06,180.06,0,0,0,128,128a180,180,0,0,0,84-20.78V72ZM212,192V133.94A204.27,204.27,0,0,1,128,152a204.21,204.21,0,0,1-84-18.06V192Z"/></symbol>
+  <symbol id="i-price" viewBox="0 0 256 256" fill="currentColor"><path d="M246.15,133.18,146.83,33.86A19.85,19.85,0,0,0,132.69,28H40A12,12,0,0,0,28,40v92.69a19.85,19.85,0,0,0,5.86,14.14l99.32,99.32a20,20,0,0,0,28.28,0l84.69-84.69A20,20,0,0,0,246.15,133.18Zm-98.83,93.17L52,131V52h79l95.32,95.32ZM104,88A16,16,0,1,1,88,72,16,16,0,0,1,104,88Z"/></symbol>
+  <symbol id="i-recov" viewBox="0 0 256 256" fill="currentColor"><path d="M232.76,137.88A28.39,28.39,0,0,0,208.13,133L172,141.26c0-.42,0-.84,0-1.26a32,32,0,0,0-32-32H89.94a35.76,35.76,0,0,0-25.45,10.54L43,140H20A20,20,0,0,0,0,160v40a20,20,0,0,0,20,20H120a11.89,11.89,0,0,0,2.91-.36l64-16a11.4,11.4,0,0,0,1.79-.6l38.82-16.54c.23-.09.45-.19.67-.3a28.61,28.61,0,0,0,4.57-48.32ZM36,196H24V164H36Zm181.68-31.39-37.51,16L118.52,196H60V157l21.46-21.46A11.93,11.93,0,0,1,89.94,132H140a8,8,0,0,1,0,16H112a12,12,0,0,0,0,24h32a12.19,12.19,0,0,0,2.69-.3l67-15.41.47-.12a4.61,4.61,0,0,1,5.82,4.44A4.58,4.58,0,0,1,217.68,164.61ZM164,100a40.36,40.36,0,0,0,5.18-.34,40,40,0,1,0,29.67-59.32A40,40,0,1,0,164,100Zm40-36a16,16,0,1,1-16,16A16,16,0,0,1,204,64ZM164,44a16,16,0,0,1,12.94,6.58A39.9,39.9,0,0,0,164.2,76H164a16,16,0,0,1,0-32Z"/></symbol>
+  <symbol id="i-mcp" viewBox="0 0 256 256" fill="currentColor"><path d="M199,125.31l-49.88-18.39L130.69,57a19.92,19.92,0,0,0-37.38,0L74.92,106.92,25,125.31a19.92,19.92,0,0,0,0,37.38l49.88,18.39L93.31,231a19.92,19.92,0,0,0,37.38,0l18.39-49.88L199,162.69a19.92,19.92,0,0,0,0-37.38Zm-63.38,35.16a12,12,0,0,0-7.11,7.11L112,212.28l-16.47-44.7a12,12,0,0,0-7.11-7.11L43.72,144l44.7-16.47a12,12,0,0,0,7.11-7.11L112,75.72l16.47,44.7a12,12,0,0,0,7.11,7.11L180.28,144ZM140,40a12,12,0,0,1,12-12h12V16a12,12,0,0,1,24,0V28h12a12,12,0,0,1,0,24H188V64a12,12,0,0,1-24,0V52H152A12,12,0,0,1,140,40ZM252,88a12,12,0,0,1-12,12h-4v4a12,12,0,0,1-24,0v-4h-4a12,12,0,0,1,0-24h4V72a12,12,0,0,1,24,0v4h4A12,12,0,0,1,252,88Z"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3l1.8 4.6L18.5 9l-4.7 1.4L12 15l-1.8-4.6L5.5 9l4.7-1.4z" fill="currentColor"/><path d="M18 15l.9 2.1L21 18l-2.1.9L18 21l-.9-2.1L15 18l2.1-.9z" fill="currentColor"/></symbol>
+  <symbol id="chev" viewBox="0 0 12 12"><path d="M2.5 4.5L6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</defs></svg>
+
+<div class="progress" id="progress"></div>
+<div class="cur-dot" id="curDot"></div><div class="cur-ring" id="curRing"></div>
+
+<div class="announce">New: ask your business anything. Connect Claude, ChatGPT or Grok to WhatSales.<a href="index.html#platform" data-open="8">See how →</a></div>
+
+<header class="nav dark-mode" id="nav">
+  <div class="wrap nav-in">
+    <a href="index.html" class="logo" aria-label="WhatSales home"><img class="on-dark" src="assets/logo-white.webp" alt="WhatSales"><img class="on-light" src="assets/logo-cyan.webp" alt="WhatSales"></a>
+    <ul class="menu" id="menu">
+      <li data-menu><button aria-expanded="false">Platform <svg class="chev"><use href="#chev"/></svg></button>
+        <div class="mega"><div class="mega-in">
+          <div>
+            <h6>Nine products, one platform</h6>
+            <div class="mprods">
+              <a class="mitem" href="profitability.html"><span class="pi" style="--c:var(--p1)"><svg><use href="#i-profit"/></svg></span><div><b>Profitability</b><span>True profit by SKU, channel and brand</span></div></a>
+              <a class="mitem" href="index.html#platform" data-open="1"><span class="pi" style="--c:var(--p2)"><svg><use href="#i-perf"/></svg></span><div><b>Performance</b><span>Listings, ads and ACOS in one view</span></div></a>
+              <a class="mitem" href="index.html#platform" data-open="2"><span class="pi" style="--c:var(--p3)"><svg><use href="#i-inv"/></svg></span><div><b>Inventory</b><span>Forecasts and purchase orders</span></div></a>
+              <a class="mitem" href="index.html#platform" data-open="3"><span class="pi" style="--c:var(--p4)"><svg><use href="#i-engage"/></svg></span><div><b>Engage</b><span>AI helpdesk for every marketplace</span></div></a>
+              <a class="mitem" href="index.html#platform" data-open="4"><span class="pi" style="--c:var(--p5)"><svg><use href="#i-flow"/></svg></span><div><b>Flow</b><span>Create once, publish everywhere</span></div></a>
+              <a class="mitem" href="index.html#platform" data-open="5"><span class="pi" style="--c:var(--p6)"><svg><use href="#i-work"/></svg></span><div><b>Workspace</b><span>Done-for-you team and AI tasks</span></div></a>
+              <a class="mitem" href="index.html#platform" data-open="6"><span class="pi" style="--c:var(--p7)"><svg><use href="#i-price"/></svg></span><div><b>Repricer</b><span>Win the Buy Box, keep your margin</span></div></a>
+              <a class="mitem" href="index.html#platform" data-open="7"><span class="pi" style="--c:var(--p8)"><svg><use href="#i-recov"/></svg></span><div><b>Recovery</b><span>Claim back what Amazon owes you</span></div></a>
+              <a class="mitem" href="index.html#platform" data-open="8"><span class="pi" style="--c:var(--p9)"><svg><use href="#i-mcp"/></svg></span><div><b>MCP</b><span>Ask your data with Claude, ChatGPT or Grok</span></div></a>
+            </div>
+          </div>
+          <div class="mfeat"><small>Most popular</small><b>See your true profit on every order, in minutes.</b><p>Connect your first marketplace and watch fees, ads, refunds and costs come out of every sale.</p><a href="index.html#demo">Book a demo →</a></div>
+        </div></div>
+      </li>
+      <li data-menu><button aria-expanded="false">Solutions <svg class="chev"><use href="#chev"/></svg></button>
+        <div class="mega"><div class="mega-in small">
+          <div class="mlist"><h6>By team</h6>
+            <a class="mitem" href="index.html#roles" ><div><b>Brand owners</b><span>One view of the whole business</span></div></a>
+            <a class="mitem" href="index.html#roles" ><div><b>Ops &amp; finance</b><span>Numbers you can trust</span></div></a>
+            <a class="mitem" href="index.html#roles" ><div><b>Agencies &amp; partners</b><span>Every client in one workspace</span></div></a>
+          </div>
+          <div class="mlist"><h6>By marketplace</h6>
+            <a class="mitem" href="index.html#integrations"><div><b>Amazon sellers</b><span>Profit, repricing &amp; FBA claims</span></div></a>
+            <a class="mitem" href="index.html#integrations"><div><b>eBay sellers</b><span>Fees, messages &amp; listings</span></div></a>
+            <a class="mitem" href="index.html#integrations"><div><b>Shopify &amp; TikTok Shop</b><span>DTC and social commerce</span></div></a>
+          </div>
+        </div></div>
+      </li>
+      <li><a href="index.html#integrations">Integrations</a></li>
+      <li><a href="index.html#results">Customers</a></li>
+      <li data-menu><button aria-expanded="false">Resources <svg class="chev"><use href="#chev"/></svg></button>
+        <div class="mega"><div class="mega-in small">
+          <div class="mlist"><h6>Learn</h6>
+            <a class="mitem" href="#"><div><b>Knowledgebase</b><span>Guides and setup help</span></div></a>
+            <a class="mitem" href="#"><div><b>Insights</b><span>Ecommerce articles</span></div></a>
+            <a class="mitem" href="#"><div><b>Weekly newsletter</b><span>Every Monday</span></div></a>
+          </div>
+          <div class="mlist"><h6>Company</h6>
+            <a class="mitem" href="#"><div><b>About WhatSales</b><span>Our story</span></div></a>
+            <a class="mitem" href="#"><div><b>Events</b><span>Meet us in person</span></div></a>
+            <a class="mitem" href="#"><div><b>Partner programme</b><span>Grow with us</span></div></a>
+          </div>
+        </div></div>
+      </li>
+      <li><a href="index.html#faq">Pricing</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="#" class="login">Log in</a>
+      <a href="index.html#demo" class="btn btn-cyan">Book a demo</a>
+      <button class="burger" id="burger" aria-label="Open menu"><svg width="18" height="18" viewBox="0 0 18 18"><path d="M3 6h12M3 12h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<div class="drawer" id="drawer" aria-hidden="true">
+  <div class="drawer-top"><img src="assets/logo-cyan.webp" alt="WhatSales"><button id="drawerClose" aria-label="Close menu" style="font-size:22px;width:44px;height:44px">✕</button></div>
+  <details open><summary>Platform <svg width="12" height="12"><use href="#chev"/></svg></summary>
+    <a class="mitem" href="profitability.html"><span class="pi sm" style="--c:var(--p1)"><svg><use href="#i-profit"/></svg></span><b>Profitability</b></a>
+    <a class="mitem" href="index.html#platform" data-open="1"><span class="pi sm" style="--c:var(--p2)"><svg><use href="#i-perf"/></svg></span><b>Performance</b></a>
+    <a class="mitem" href="index.html#platform" data-open="2"><span class="pi sm" style="--c:var(--p3)"><svg><use href="#i-inv"/></svg></span><b>Inventory</b></a>
+    <a class="mitem" href="index.html#platform" data-open="3"><span class="pi sm" style="--c:var(--p4)"><svg><use href="#i-engage"/></svg></span><b>Engage</b></a>
+    <a class="mitem" href="index.html#platform" data-open="4"><span class="pi sm" style="--c:var(--p5)"><svg><use href="#i-flow"/></svg></span><b>Flow</b></a>
+    <a class="mitem" href="index.html#platform" data-open="5"><span class="pi sm" style="--c:var(--p6)"><svg><use href="#i-work"/></svg></span><b>Workspace</b></a>
+    <a class="mitem" href="index.html#platform" data-open="6"><span class="pi sm" style="--c:var(--p7)"><svg><use href="#i-price"/></svg></span><b>Repricer</b></a>
+    <a class="mitem" href="index.html#platform" data-open="7"><span class="pi sm" style="--c:var(--p8)"><svg><use href="#i-recov"/></svg></span><b>Recovery</b></a>
+    <a class="mitem" href="index.html#platform" data-open="8"><span class="pi sm" style="--c:var(--p9)"><svg><use href="#i-mcp"/></svg></span><b>MCP</b></a>
+  </details>
+  <a class="dl" href="index.html#roles">Solutions</a>
+  <a class="dl" href="index.html#integrations">Integrations</a>
+  <a class="dl" href="index.html#results">Customers</a>
+  <a class="dl" href="index.html#faq">Pricing</a>
+  <a class="btn btn-line" href="#">Log in</a>
+  <a class="btn btn-cyan" href="index.html#demo">Book a demo</a>
+</div>
+
+<main>
+<!-- PRODUCT HERO -->
+<section class="hero pr-hero" id="hero" style="--c:var(--p1)">
+  <div class="wrap pr-hero-grid">
+    <div class="pr-hero-copy">
+      <a href="index.html#platform" class="crumb fade-up">Platform <span>/</span> Profitability</a>
+      <span class="pr-badge fade-up"><span class="pi" style="--c:var(--p1)"><svg><use href="#i-profit"/></svg></span>Profitability · Profit, orders &amp; costs</span>
+      <h1 class="split" id="heroTitle">Know what you really make, on <em>every order.</em></h1>
+      <p class="lede fade-up" style="transition-delay:.4s">A monthly P&amp;L built from sales, marketplace fees, ad spend, refunds, product cost and shipping, across every channel. Plus the money Amazon owes you, and the costs you didn't know about.</p>
+      <div class="hero-ctas fade-up" style="justify-content:flex-start;transition-delay:.55s">
+        <a href="#demo" class="btn btn-cyan">Book a demo <span class="arrow">→</span></a>
+        <a href="#demo" class="btn btn-glass">Start 7-day free trial</a>
+      </div>
+      <div class="ticks fade-up" style="justify-content:flex-start;transition-delay:.7s"><span>Every fee, ad and refund</span><span>Profit by SKU and order</span><span>Excel &amp; scheduled reports</span></div>
+    </div>
+    <div class="app pr-hero-app fade-up" style="transition-delay:.35s" id="plApp">
+      <div class="app-bar"><span class="dots"><i></i><i></i><i></i></span><b>P&amp;L Statement · Monthly</b><span class="st">Profit +6.8% MoM</span></div>
+      <div class="app-body">
+        <div class="pl-toggles"><span class="on">Show Detailed MoM</span><span>Show Per Unit Details</span><span>Monthly Target</span></div>
+        <table class="tbl pl">
+          <thead><tr><th></th><th class="r">Aug</th><th class="r">Sep</th><th class="r">Oct <small>MTD</small></th></tr></thead>
+          <tbody>
+            <tr><td>Gross revenue</td><td class="r">£58,420</td><td class="r">£61,980</td><td class="r"><b>£64,105</b></td></tr>
+            <tr class="neg"><td>Order related fees</td><td class="r">−£8,763</td><td class="r">−£9,297</td><td class="r">−£9,616</td></tr>
+            <tr class="neg"><td>Ad spend</td><td class="r">−£5,433</td><td class="r">−£5,206</td><td class="r">−£5,128</td></tr>
+            <tr class="neg"><td>Refunds</td><td class="r">−£2,220</td><td class="r">−£2,107</td><td class="r">−£1,923</td></tr>
+            <tr class="neg"><td>Product buying cost</td><td class="r">−£20,447</td><td class="r">−£21,693</td><td class="r">−£22,437</td></tr>
+            <tr class="neg"><td>Shipping</td><td class="r">−£3,505</td><td class="r">−£3,719</td><td class="r">−£3,846</td></tr>
+            <tr class="neg"><td>OPEX</td><td class="r">−£2,400</td><td class="r">−£2,400</td><td class="r">−£2,400</td></tr>
+            <tr class="tot"><td>Profit before TAX/VAT</td><td class="r">£15,652</td><td class="r">£17,558</td><td class="r"><b>£18,755</b></td></tr>
+            <tr class="mg"><td>Margin before TAX/VAT</td><td class="r">26.8%</td><td class="r">28.3%</td><td class="r"><b>29.3%</b></td></tr>
+          </tbody>
+        </table>
+        <span class="illn">ILLUSTRATIVE DATA</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-fade" style="height:90px"></div>
+</section>
+
+<!-- PROBLEM -->
+<section class="section pains-sec">
+  <div class="wrap">
+    <div class="head center">
+      <span class="eyebrow rv"><i></i>The problem</span>
+      <h2 class="rv d1 sh">Revenue is easy to see. <span class="hl">Profit isn't.</span></h2>
+    </div>
+    <div class="pains">
+      <div class="pain rv"><span class="pn">01</span><h3>Fees hide in a dozen reports</h3><p>Referral fees, fulfilment, storage, ad spend and refunds all land in different places, so nobody sees the full cost of a sale.</p></div>
+      <div class="pain rv d1"><span class="pn">02</span><h3>Month-end takes days</h3><p>Someone rebuilds the P&amp;L in a spreadsheet every month, and by the time it's done, the stock has already been reordered.</p></div>
+      <div class="pain rv d2"><span class="pn">03</span><h3>Money quietly leaks out</h3><p>Underpaid reimbursements, pricier shipping than usual and products selling at a loss rarely show up until someone goes looking.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- INSIDE THE PRODUCT -->
+<section class="section inside" id="inside" style="padding-top:20px">
+  <div class="wrap">
+    <div class="head center">
+      <span class="eyebrow rv"><i></i>Inside Profitability</span>
+      <h2 class="rv d1 sh">Everything that turns revenue into profit, on one page.</h2>
+    </div>
+
+    <div class="frow rv" style="--c:var(--p1)">
+      <div class="fcopy"><span class="ftag">P&amp;L Statement</span><h3>Did we make money this month, compared with last?</h3><p>Month to date and five prior months side by side, with every cost line from fees to OPEX. Switch to per-unit figures, set a monthly sales target, and see profit and margin before and after tax/VAT.</p>
+        <ul class="sc-points"><li>Month-on-month columns</li><li>Per-unit view and monthly targets</li><li>Filter by brand, platform, country and fulfilment</li></ul></div>
+      <div class="app">
+        <div class="app-bar"><span class="dots"><i></i><i></i><i></i></span><b>Profit before TAX/VAT · last 3 months</b><span class="st">+19.8% since Aug</span></div>
+        <div class="app-body">
+          <div class="bars3" id="bars3"><div><i style="--h:83%"></i><b>£15,652</b><small>Aug</small></div><div><i style="--h:94%"></i><b>£17,558</b><small>Sep</small></div><div><i style="--h:100%" class="hl3"></i><b>£18,755</b><small>Oct MTD</small></div></div>
+          <span class="illn">ILLUSTRATIVE DATA</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="frow alt rv" style="--c:var(--p1)">
+      <div class="fcopy"><span class="ftag">Orders</span><h3>Profit and margin on every single order.</h3><p>See what each order made after charges and expenses, and catch the ones where data is missing before it skews your numbers.</p>
+        <ul class="sc-points"><li>Order total, charges, profit and margin</li><li>Flags for <b>Missing COGS</b> and <b>Missing Shipping Charges</b></li><li>Pending, shipped and cancelled at a glance</li></ul></div>
+      <div class="app">
+        <div class="app-bar"><span class="dots"><i></i><i></i><i></i></span><b>Orders Summary</b><span class="st" style="background:var(--amber-soft);color:#A16207">1 missing COGS</span></div>
+        <div class="app-body">
+          <table class="tbl"><thead><tr><th>Order</th><th class="r">Total</th><th class="r hide-m">Charges</th><th class="r">Profit</th><th class="r">Margin</th></tr></thead>
+            <tbody>
+              <tr><td><b>ORD-1041</b><small>Kettle 1.7L · Amazon</small></td><td class="r">£39.40</td><td class="r hide-m">£31.71</td><td class="r">£7.69</td><td class="r"><span class="pill p">19.5%</span></td></tr>
+              <tr><td><b>ORD-1042</b><small>Mug set (4) · eBay</small></td><td class="r">£15.00</td><td class="r hide-m">£12.60</td><td class="r">£2.40</td><td class="r"><span class="pill p">16.0%</span></td></tr>
+              <tr><td><b>ORD-1043</b><small>Toaster 2-slice · Amazon</small></td><td class="r">£30.00</td><td class="r hide-m">£31.05</td><td class="r" style="color:var(--loss)">−£1.05</td><td class="r"><span class="pill l">−3.5%</span></td></tr>
+              <tr><td><b>ORD-1044</b><small>Breakfast bundle · Shopify</small></td><td class="r">£56.00</td><td class="r hide-m">—</td><td class="r">—</td><td class="r"><span class="pill a">Missing COGS</span></td></tr>
+            </tbody></table>
+          <span class="illn">ILLUSTRATIVE DATA</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="frow rv" style="--c:var(--p8)">
+      <div class="fcopy"><span class="ftag">Recovery</span><h3>Money Amazon owes you, with the evidence to claim it back.</h3><p>Recovery checks every reimbursement, fee and return against what your stock really cost. Each case shows the amount, the evidence and the days left to claim.</p>
+        <ul class="sc-points"><li>Underpaid reimbursements, fee overcharges, lost &amp; damaged, customer returns</li><li><b>Fix your pricing:</b> selling at a loss, margin squeezed, room to move</li><li>Amazon today, more marketplaces coming soon</li></ul></div>
+      <div class="app">
+        <div class="app-bar"><span class="dots"><i></i><i></i><i></i></span><b>Recovery</b><span class="st">Checked 6 hours ago</span></div>
+        <div class="app-body">
+          <div class="kp4"><div style="--k:var(--p8)"><small>Can dispute now</small><b>£1,286.40</b></div><div style="--k:var(--amber)"><small>Expiring in 30 days</small><b>£412.60</b></div><div style="--k:var(--p7)"><small>Disputes in progress</small><b>£389.15</b></div><div style="--k:var(--profit)"><small>Recovered to date</small><b>£3,904.70</b></div></div>
+          <table class="tbl"><thead><tr><th>Product</th><th class="hide-m">Paid per unit</th><th class="r">Short by</th><th class="r">Window</th></tr></thead>
+            <tbody>
+              <tr><td><b>KETTLE-1.7L</b><small>Lost in warehouse</small></td><td class="hide-m"><span style="color:var(--loss)">£9.40</span> → <span style="color:#0B8A50">£14.20</span></td><td class="r"><b>£4.80</b></td><td class="r"><span class="pill l">Closes today</span></td></tr>
+              <tr><td><b>TOASTER-2S</b><small>Damaged inbound</small></td><td class="hide-m"><span style="color:var(--loss)">£7.10</span> → <span style="color:#0B8A50">£11.80</span></td><td class="r"><b>£4.70</b></td><td class="r"><span class="pill a">9 days left</span></td></tr>
+            </tbody></table>
+          <span class="illn">ILLUSTRATIVE DATA</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="frow alt rv" style="--c:var(--p1)">
+      <div class="fcopy"><span class="ftag">Shipping Choice <em class="new">NEW</em></span><h3>Stop paying for pricier shipping you didn't need.</h3><p>When the same product goes out on a more expensive service than it usually does, you pay the difference for nothing. Shipping Choice adds up what that cost, and shows which products are doing it.</p>
+        <ul class="sc-points"><li>Extra paid, orders sent a pricier way, products doing it</li><li>Spots flat items sent as parcels and wrong sizes on record</li><li>Money lost each day, in one chart</li></ul></div>
+      <div class="app">
+        <div class="app-bar"><span class="dots"><i></i><i></i><i></i></span><b>Shipping Choice · last 30 days</b><span class="st" style="background:var(--loss-soft);color:#C2272D">£412.30 extra paid</span></div>
+        <div class="app-body">
+          <div class="kp4" style="grid-template-columns:repeat(3,1fr)"><div style="--k:var(--loss)"><small>Extra paid</small><b>£412.30</b></div><div style="--k:var(--amber)"><small>Sent a pricier way</small><b>186</b></div><div style="--k:var(--p1)"><small>Products doing it</small><b>14</b></div></div>
+          <div class="daybars" id="daybars"></div>
+          <div class="vrow2"><span><b>MUG-SET-4</b> · usually Large letter</span><span>sent as Small parcel</span><span class="pill l">+£1.85 each</span></div>
+          <span class="illn">ILLUSTRATIVE DATA</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="frow rv" style="--c:var(--p1)">
+      <div class="fcopy"><span class="ftag">Refunds &amp; Expenses</span><h3>The costs most dashboards leave out.</h3><p>See what refunds really cost and why customers ask for them, and add the costs no marketplace reports, like rent, software or packaging, so profit reflects the whole business.</p>
+        <ul class="sc-points"><li>Total refunded value and most refunded reason</li><li>Refund trends over time</li><li>Expenses by category, product or frequency</li></ul></div>
+      <div class="app">
+        <div class="app-bar"><span class="dots"><i></i><i></i><i></i></span><b>Expenses</b><span class="st">Grouped by month</span></div>
+        <div class="app-body">
+          <table class="tbl"><thead><tr><th>Expense</th><th class="hide-m">Category</th><th>Frequency</th><th class="r">Amount</th></tr></thead>
+            <tbody>
+              <tr><td><b>Warehouse rent</b></td><td class="hide-m">Premises</td><td><span class="pill c">Monthly</span></td><td class="r">£1,600</td></tr>
+              <tr><td><b>Listing software</b></td><td class="hide-m">Software</td><td><span class="pill c">Monthly</span></td><td class="r">£450</td></tr>
+              <tr><td><b>Packaging top-up</b></td><td class="hide-m">Packaging</td><td><span class="pill u">One-off</span></td><td class="r">£350</td></tr>
+            </tbody></table>
+          <div class="vrow2"><span>Total OPEX this month</span><span></span><b>£2,400</b></div>
+          <span class="illn">ILLUSTRATIVE DATA</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="frow alt rv" style="--c:var(--p1)">
+      <div class="fcopy"><span class="ftag">Reports</span><h3>27 ready-made reports, in your inbox on a timer.</h3><p>Export any report to Excel, or open it and press Schedule to have it emailed automatically. Each one explains what it shows and why it matters.</p>
+        <ul class="sc-points"><li>Finance, orders, inventory, performance and advertising</li><li>Profit &amp; Loss Statement and Tax Liability</li><li>Scheduled email delivery</li></ul></div>
+      <div class="app">
+        <div class="app-bar"><span class="dots"><i></i><i></i><i></i></span><b>Export reports</b><span class="st">XLSX</span></div>
+        <div class="app-body reports">
+          <div class="rep"><span class="pi sm" style="--c:var(--p1)"><svg><use href="#i-profit"/></svg></span><div><b>Profit &amp; Loss Statement</b><small>Finance</small></div><span class="mini-btn" style="background:var(--p1)">Schedule</span></div>
+          <div class="rep"><span class="pi sm" style="--c:var(--amber)"><svg><use href="#i-inv"/></svg></span><div><b>Missing COGS</b><small>"Products held or selling with no unit cost, so stock cannot be valued and profit is overstated."</small></div><span class="mini-btn" style="background:var(--p1)">Export</span></div>
+          <div class="rep"><span class="pi sm" style="--c:var(--p3)"><svg><use href="#i-inv"/></svg></span><div><b>Not Selling</b><small>"Stock that has not sold: units and value tied up, to clear, discount or remove."</small></div><span class="mini-btn" style="background:var(--p1)">Export</span></div>
+          <div class="rep"><span class="pi sm" style="--c:var(--p2)"><svg><use href="#i-perf"/></svg></span><div><b>Product Fix List</b><small>"Products ranked by the money at stake, with each listing's problem, cause, action…"</small></div><span class="mini-btn" style="background:var(--p1)">Export</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section steps-sec">
+  <div class="wrap">
+    <div class="head center">
+      <span class="eyebrow rv"><i></i>How it works</span>
+      <h2 class="rv d1 sh">From connected to profitable in three steps.</h2>
+    </div>
+    <div class="steps3">
+      <div class="st3 rv"><span class="n3">1</span><h3>Connect your channels</h3><p>Link Amazon, eBay, Shopify, TikTok Shop, Linnworks and more. Orders, fees and ad spend start syncing straight away.</p></div>
+      <div class="st3 rv d1"><span class="n3">2</span><h3>Add your costs</h3><p>Bring in product costs and the expenses no marketplace reports. WhatSales flags anything missing, like products without a cost.</p></div>
+      <div class="st3 rv d2"><span class="n3">3</span><h3>See real profit, act on it</h3><p>Read your P&amp;L, find loss-making orders, claim back what Amazon owes you, and get reports emailed to the team.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- DATA SOURCES -->
+<section class="section dark" style="padding-block:90px">
+  <div class="wrap">
+    <div class="head center" style="margin-bottom:36px">
+      <span class="eyebrow rv"><i></i>Built on your data</span>
+      <h2 class="rv d1 sh">Profit from every channel you sell on.</h2>
+    </div>
+    <div class="srcs rv">
+      <span class="lg"><svg class="mk" style="color:#FF9900"><use href="#lg-amazon"/></svg>Amazon</span>
+      <span class="lg"><svg class="mk" style="color:#FF9900"><use href="#lg-amazon"/></svg>Amazon Ads</span>
+      <span class="lg"><svg class="mk wide" style="color:#E53238"><use href="#lg-ebay"/></svg>eBay</span>
+      <span class="lg"><svg class="mk" style="color:#F16521"><use href="#lg-etsy"/></svg>Etsy</span>
+      <span class="lg"><svg class="mk" style="color:#7AB55C"><use href="#lg-shopify"/></svg>Shopify</span>
+      <span class="lg"><span class="wm wm-temu">TEMU</span></span>
+      <span class="lg"><svg class="mk" style="color:#fff"><use href="#lg-tiktok"/></svg>TikTok Shop</span>
+      <span class="lg"><span class="wm wm-linn" style="color:#fff">linn<i>works</i></span></span>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF -->
+<section class="section" style="padding-block:96px">
+  <div class="wrap pr-proof rv">
+    <figure class="pq">
+      <blockquote>"Their software offers excellent visibility and in-depth insights, helping us make informed decisions that boost profitability. Highly recommended."</blockquote>
+      <figcaption class="who"><img src="assets/avatar-huzefa.webp" alt=""><div><b>Huzefa</b><small>Web Emporium</small></div></figcaption>
+    </figure>
+    <div class="pstats">
+      <div><b class="num">£300m+</b><span>GMV analysed</span></div>
+      <div><b class="num">2M+</b><span>orders analysed</span></div>
+      <div><b class="num">6%</b><span>reduction in losses for customers</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq" style="background:var(--mist)">
+  <div class="wrap faq-grid">
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <span class="eyebrow rv"><i></i>FAQ</span>
+      <h2 class="rv d1 sh">Profitability questions.</h2>
+      <p class="muted rv d2">Something else? <a href="#demo" style="color:var(--cyan-ink);text-decoration:underline">Talk to our team</a>.</p>
+    </div>
+    <div class="faq rv d1">
+      <details open><summary>What costs does the P&amp;L include?<span class="pm">+</span></summary><p>Order-related and other marketplace fees, external and internal shipping, ad spend, refunds, product buying cost, operational costs, other expenses and OPEX, with profit and margin before and after tax/VAT.</p></details>
+      <details><summary>What if I don't have product costs set up?<span class="pm">+</span></summary><p>WhatSales flags orders and products with missing cost of goods (COGS) and missing shipping charges, so you know exactly what to fill in before trusting a number.</p></details>
+      <details><summary>Which marketplaces does Recovery cover?<span class="pm">+</span></summary><p>Amazon today. eBay, Etsy, Shopify, Temu and TikTok are coming soon.</p></details>
+      <details><summary>Can reports be emailed automatically?<span class="pm">+</span></summary><p>Yes. Open any of the 27 reports and press Schedule to have it emailed on a timer, or export it to Excel any time.</p></details>
+      <details><summary>Does it handle VAT?<span class="pm">+</span></summary><p>The P&amp;L shows profit and margin before and after tax/VAT, and the Tax Liability report breaks down what you owe. Tax and VAT settings are configured per account.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- RELATED -->
+<section class="section" style="padding-block:96px">
+  <div class="wrap">
+    <div class="head" style="margin-bottom:32px">
+      <span class="eyebrow rv"><i></i>Works with</span>
+      <h2 class="rv d1 sh">Better together with the rest of WhatSales.</h2>
+    </div>
+    <div class="related">
+      <a class="relc rv" href="index.html#platform" style="--c:var(--p2)"><span class="pi" style="--c:var(--p2)"><svg><use href="#i-perf"/></svg></span><b>Performance</b><span>Find what's costing you money, and why.</span><em>→</em></a>
+      <a class="relc rv d1" href="index.html#platform" style="--c:var(--p3)"><span class="pi" style="--c:var(--p3)"><svg><use href="#i-inv"/></svg></span><b>Inventory</b><span>Know what to order, and when.</span><em>→</em></a>
+      <a class="relc rv d2" href="index.html#platform" style="--c:var(--p4)"><span class="pi" style="--c:var(--p4)"><svg><use href="#i-engage"/></svg></span><b>Engage</b><span>Every customer message in one inbox.</span><em>→</em></a>
+      <a class="relc rv" href="index.html#platform" style="--c:var(--p5)"><span class="pi" style="--c:var(--p5)"><svg><use href="#i-flow"/></svg></span><b>Flow</b><span>Publish listings, and prove they worked.</span><em>→</em></a>
+      <a class="relc rv d1" href="index.html#platform" style="--c:var(--p6)"><span class="pi" style="--c:var(--p6)"><svg><use href="#i-work"/></svg></span><b>Workspace</b><span>Turn findings into owned work.</span><em>→</em></a>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- FINAL CTA + FOOTER -->
+<footer class="close" id="demo">
+  <div class="wrap">
+    <div class="cta-wrap">
+      <div class="cta-copy">
+        <span class="eyebrow" style="background:rgba(1,166,224,.14);color:var(--cyan-2)"><i></i>Get started</span>
+        <h2 class="rv">See your real profit. <em>On your own data.</em></h2>
+        <p class="rv d1">See your own channels and numbers in a personal walkthrough, or start your 7-day free trial today.</p>
+        <div class="hero-ctas rv d2">
+          <a href="#" class="btn btn-cyan">Book a demo <span class="arrow">→</span></a>
+          <a href="#" class="btn btn-glass">Start 7-day free trial</a>
+        </div>
+        <div class="ticks rv d3"><span>No long-term contract</span><span>Set up in minutes</span><span>Cancel anytime</span></div>
+        <div class="cta-trust rv d3"><span class="av"><img src="assets/avatar-ben.webp" alt=""><img src="assets/avatar-martin.webp" alt=""><img src="assets/avatar-huzefa.webp" alt=""><img src="assets/avatar-neil.webp" alt=""></span>Joined by 1,000+ ecommerce brands and agencies</div>
+      </div>
+      <div class="collage" id="collage">
+        <div class="cc cc-main" data-depth="0.3">
+          <div class="h"><span class="pi" style="--c:var(--p1)"><svg><use href="#i-profit"/></svg></span>Profitability · 30 days</div>
+          <div class="kpis"><div class="kpi"><small>Revenue</small><b class="num">£184,230</b></div><div class="kpi dk"><small>Net profit</small><b class="num">£31,404</b></div></div>
+          <div class="chart"><svg viewBox="0 0 600 150" preserveAspectRatio="none"><path class="area" d="M0 128 C60 120 90 126 140 110 S230 100 280 104 S380 82 430 88 S540 66 600 58 L600 150 L0 150Z"/><path class="line" d="M0 128 C60 120 90 126 140 110 S230 100 280 104 S380 82 430 88 S540 66 600 58"/></svg></div>
+        </div>
+        <div class="cc cc-a" data-depth="0.8">
+          <div class="h"><span class="pi" style="--c:var(--p7)"><svg><use href="#i-price"/></svg></span>Repricer</div>
+          <div class="row">Kettle 1.7L<span class="pill p">Buy Box won</span></div>
+          <div class="row">£39.00 → <b>£39.40</b><span class="pill u">+1.1 pts</span></div>
+        </div>
+        <div class="cc cc-b" data-depth="0.55">
+          <div class="h"><span class="pi" style="--c:var(--p4)"><svg><use href="#i-engage"/></svg></span>Engage</div>
+          <div class="row">Where's my order?<span class="pill p">Auto-replied</span></div>
+          <div class="row">VAT invoice request<span class="pill p">Sent</span></div>
+        </div>
+        <div class="cc cc-c" data-depth="1">
+          <div class="h"><span class="pi" style="--c:var(--p8)"><svg><use href="#i-recov"/></svg></span>Recovery</div>
+          <div class="row">Lost in warehouse<span class="pill p">£4.80 back</span></div>
+          <div class="row">Damaged inbound<span class="pill a">Disputed</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="foot">
+      <div>
+        <a href="#" class="logo"><img src="assets/logo-white.webp" alt="WhatSales" style="height:26px"></a>
+        <p class="blurb">The ecommerce operating platform for multichannel sellers and agencies. WhatSales Ltd, London.</p>
+        <form class="news" onsubmit="event.preventDefault();this.querySelector('button').textContent='Subscribed ✓'"><label for="nl" style="position:absolute;left:-9999px">Email for the weekly newsletter</label><input id="nl" type="email" placeholder="Weekly newsletter, your email" required><button>Subscribe</button></form>
+        <div class="social"><a href="#" aria-label="LinkedIn">in</a><a href="#" aria-label="YouTube">▶</a><a href="#" aria-label="X">𝕏</a><a href="#" aria-label="Instagram">◎</a></div>
+      </div>
+      <div><h5>Platform</h5><ul><li><a href="profitability.html">Profitability</a></li><li><a href="index.html#platform">Performance</a></li><li><a href="index.html#platform">Inventory</a></li><li><a href="index.html#platform">Engage</a></li><li><a href="index.html#platform">Flow</a></li></ul></div>
+      <div><h5>&nbsp;</h5><ul><li><a href="index.html#platform">Workspace</a></li><li><a href="index.html#platform">Repricer</a></li><li><a href="index.html#platform">Recovery</a></li><li><a href="index.html#platform">MCP</a></li></ul></div>
+      <div><h5>Solutions</h5><ul><li><a href="index.html#roles">Brand owners</a></li><li><a href="index.html#roles">Ops &amp; finance</a></li><li><a href="index.html#roles">Agencies &amp; partners</a></li><li><a href="index.html#integrations">Integrations</a></li></ul></div>
+      <div><h5>Resources</h5><ul><li><a href="index.html#faq">Pricing</a></li><li><a href="#">Knowledgebase</a></li><li><a href="#">Insights</a></li><li><a href="#">Events</a></li></ul></div>
+      <div><h5>Company</h5><ul><li><a href="#">About us</a></li><li><a href="#">Careers</a></li><li><a href="#">Partner directory</a></li><li><a href="#">Contact</a></li></ul></div>
+    </div>
+    <div class="foot-bottom"><span>© 2026 WhatSales Ltd. All rights reserved.</span><span>Privacy policy · Terms of service · Cancellation policy</span></div>
+  </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fine = matchMedia('(pointer: fine)').matches;
+  const root = document.documentElement;
+  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  let lenis = null;
+  if (!reduce && window.Lenis) { lenis = new Lenis({ lerp: 0.1, smoothWheel: true }); const raf = t => { lenis.raf(t); requestAnimationFrame(raf); }; requestAnimationFrame(raf); }
+  // cursor
+  if (fine && !reduce) {
+    const dot = document.getElementById('curDot'), ring = document.getElementById('curRing');
+    let mx = -100, my = -100, rx = -100, ry = -100;
+    root.classList.add('cur-ready');
+    addEventListener('pointermove', e => { mx = e.clientX; my = e.clientY; document.body.classList.add('cur-on'); dot.style.transform = `translate(${mx}px,${my}px)`; }, { passive: true });
+    addEventListener('pointerdown', () => document.body.classList.add('cur-down'));
+    addEventListener('pointerup', () => document.body.classList.remove('cur-down'));
+    document.addEventListener('pointerover', e => { if (e.target.closest('a,button,summary,input,.relc')) document.body.classList.add('cur-hover'); });
+    document.addEventListener('pointerout', e => { if (e.target.closest('a,button,summary,input,.relc')) document.body.classList.remove('cur-hover'); });
+    const loop = () => { rx += (mx - rx) * 0.16; ry += (my - ry) * 0.16; ring.style.transform = `translate(${rx}px,${ry}px)`; requestAnimationFrame(loop); }; loop();
+  }
+  // word split
+  const wrapWords = node => { [...node.childNodes].forEach(ch => { if (ch.nodeType === 3) { const f = document.createDocumentFragment(); ch.textContent.split(/(\s+)/).forEach(t => { if (!t) return; if (/^\s+$/.test(t)) { f.appendChild(document.createTextNode(' ')); return; } const w = document.createElement('span'); w.className = 'w'; const s = document.createElement('span'); s.textContent = t; w.appendChild(s); f.appendChild(w); }); ch.replaceWith(f); } else if (ch.nodeType === 1) wrapWords(ch); }); };
+  const title = document.getElementById('heroTitle'); wrapWords(title);
+  title.querySelectorAll('.w>span').forEach((s, i) => s.style.transitionDelay = (0.06 + i * 0.06) + 's');
+  root.classList.add('anim');
+  requestAnimationFrame(() => requestAnimationFrame(() => { title.classList.add('in'); document.body.classList.add('loaded'); }));
+  document.querySelectorAll('h2.sh').forEach(h => { h.classList.add('split'); wrapWords(h); h.querySelectorAll('.w>span').forEach((x, k) => x.style.transitionDelay = (0.05 * k) + 's'); });
+  // menus + drawer
+  const items = [...document.querySelectorAll('[data-menu]')];
+  const closeAll = ex => items.forEach(li => { if (li !== ex) { li.classList.remove('open'); li.querySelector('button').setAttribute('aria-expanded', 'false'); } });
+  items.forEach(li => { const b = li.querySelector('button'); let t; const open = () => { clearTimeout(t); closeAll(li); li.classList.add('open'); b.setAttribute('aria-expanded', 'true'); }; li.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') open(); }); li.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') t = setTimeout(() => { li.classList.remove('open'); b.setAttribute('aria-expanded', 'false'); }, 120); }); b.addEventListener('click', () => li.classList.contains('open') ? li.classList.remove('open') : open()); });
+  const drawer = document.getElementById('drawer');
+  document.getElementById('burger').addEventListener('click', () => drawer.classList.add('open'));
+  document.getElementById('drawerClose').addEventListener('click', () => drawer.classList.remove('open'));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeAll(); drawer.classList.remove('open'); } });
+  document.addEventListener('click', e => { if (!e.target.closest('#menu')) closeAll(); });
+  document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => { const id = a.getAttribute('href'); if (id.length < 2) return; const el = document.querySelector(id); if (!el) return; e.preventDefault(); closeAll(); drawer.classList.remove('open'); lenis ? lenis.scrollTo(el, { offset: -90 }) : el.scrollIntoView({ behavior: 'smooth' }); }));
+  // nav theme + progress
+  const nav = document.getElementById('nav'), hero = document.getElementById('hero'), progress = document.getElementById('progress');
+  const darkSecs = [hero, ...document.querySelectorAll('section.dark')];
+  const onScroll = () => {
+    progress.style.transform = `scaleX(${clamp(scrollY / (document.documentElement.scrollHeight - innerHeight))})`;
+    const dark = darkSecs.some(s => { const r = s.getBoundingClientRect(); return r.top < 72 && r.bottom > 72; });
+    nav.classList.toggle('dark-mode', dark); nav.classList.toggle('light-mode', !dark);
+  };
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
+  // day bars (illustrative)
+  const db = document.getElementById('daybars');
+  if (db) { const h = [22,35,18,40,55,30,26,61,44,38,20,48,70,52,33,29,45,58,36,24,63,41,30,50,72,46,34,27,53,39]; h.forEach(v => { const i = document.createElement('i'); i.dataset.h = v; db.appendChild(i); }); }
+  // reveal
+  const io = new IntersectionObserver(es => es.forEach(e => { if (!e.isIntersecting) return; const el = e.target; el.classList.add('in', 'go'); el.querySelectorAll('#daybars i').forEach((b, k) => setTimeout(() => b.style.height = b.dataset.h + '%', k * 25)); io.unobserve(el); }), { threshold: 0.2, rootMargin: '0px 0px -60px 0px' });
+  document.querySelectorAll('.rv').forEach(el => io.observe(el));
+  const hio = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); hio.unobserve(e.target); } }), { threshold: .4 });
+  document.querySelectorAll('h2.sh').forEach(h => hio.observe(h));
+  setTimeout(() => document.querySelectorAll('.rv').forEach(el => { if (el.getBoundingClientRect().top < innerHeight) el.classList.add('in', 'go'); }), 2500);
+})();
+</script>
+</body>
+</html>
